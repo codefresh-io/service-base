@@ -26,6 +26,11 @@ class ProcessEvents extends EventEmitter {
                     this.emit('SIGTERM');
                 });
 
+                process.on('SIGINT', () => {
+                    logger.info('SIGINT received');
+                    this.emit('SIGINT');
+                });
+
                 process.on('unhandledRejection', (err) => {
                     logger.error(`Unhandled rejection ${err.stack}`);
                 });

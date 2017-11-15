@@ -22,6 +22,7 @@ class Microservice {
                 return processEvents.init(config)
                     .then(() => {
                         processEvents.on('SIGTERM', this.stop.bind(this));
+                        processEvents.on('SIGINT', () => this.stop(2000).then(() => process.exit()));
                     });
             })
             .then(() => {
@@ -49,9 +50,9 @@ class Microservice {
     // - first phase need to make sure to not accept any new requests/events
     // - then a decent amount of time will be given to clear all on-going contexts
     // - second phase will close all dependencies connections like mongo, postgres etc
-    stop() {
+    stop(timeout) {
         logger.info('Starting shutdown...');
-        return Promise.all([
+        let shutdownPromise = Promise.all([
             eventbus.stop(),
             mongo.stop(),
             express.stop()
@@ -59,6 +60,12 @@ class Microservice {
             .then(() => {
                 logger.info('Shutdown completed, exiting');
             });
+
+        shutdownPromise =  timeout ? shutdownPromise.timeout(timeout) : shutdownPromise
+
+        return shutdownPromise.catch(error => {
+          console.log(`error during shutdown: ${error}`);
+        });
     }
 
 }
