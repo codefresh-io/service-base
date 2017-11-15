@@ -1,15 +1,17 @@
 'use strict';
 
-const Promise    = require('bluebird');
-const logger     = require('cf-logs').Logger('codefresh:infra:mongo');
-const mongoose   = require('mongoose');
-mongoose.Promise = require('bluebird');
+const Promise = require('bluebird');
+const logger = require('cf-logs').Logger('codefresh:infra:mongo');
+const {MongoClient} = require('mongodb');
 
+const clientSettings = {
+  promiseLibrary: Promise
+}
 
 class Mongo {
 
     constructor() {
-
+      this.db = undefined;
     }
 
     /**
@@ -17,9 +19,10 @@ class Mongo {
      * @returns {*}
      */
     init(config) {
-        return mongoose.connect(config.mongo.uri)
-            .then(() => {
-                console.log(`Mongoose connected to: ${config.mongo.uri}`);
+        return MongoClient.connect(config.mongo.uri, clientSettings)
+            .then(db => {
+                this.db = db;
+                console.log(`Mongo driver connected to: ${config.mongo.uri}`);
             });
     }
 
@@ -29,9 +32,15 @@ class Mongo {
      * @returns {*}
      */
     stop() {
-        return Promise.resolve();
+        if (!this.db) {
+          return Promise.resolve();
+        }
+        return this.db.close();
+    }
+
+    collection(collectionName) {
+      return this.db.collection(collectionName);
     }
 }
-
 
 module.exports = new Mongo();

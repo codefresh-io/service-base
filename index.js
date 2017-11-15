@@ -8,7 +8,11 @@ try {
 }
 
 const service = require('./infra');
+const mongoClient = require('./infra/mongo');
+const express = require('./infra/express');
 
 module.exports = {
-	initService: (initFn) => service.init(config, initFn)
+	initService: (initFn) => service.init(config, initFn),
+  mongoClient,
+  makeEndpoint: express.makeEndpoint
 };

@@ -39,7 +39,7 @@ base.postgres = {
 };
 
 base.mongo = {
-    uri: process.env.MONGO_URI || `codefresh.dev/${name}`
+    uri: process.env.MONGO_URI || `mongodb://codefresh.dev/${name}`
 };
 
 base.logger = {

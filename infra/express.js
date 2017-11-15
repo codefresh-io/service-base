@@ -151,7 +151,18 @@ class Express {
         });
     }
 
-
+    makeEndpoint(fn) {
+      return function(req, res, next) {
+        Promise.resolve()
+          .then(() => fn(req, res))
+          .then(ret => {
+            logger.info(ret)
+            res.send(ret);
+            next();
+          })
+          .catch(err => next(err));
+      }
+    }
 }
 
 
