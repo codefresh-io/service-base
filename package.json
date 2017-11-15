@@ -1,0 +1,40 @@
+{
+  "name": "@codefresh-io/service-base",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "",
+  "scripts": {
+    "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codefresh-io/service-base.git"
+  },
+  "author": "Arik Maor <arik@codefresh.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codefresh-io/service-base/issues"
+  },
+  "homepage": "https://github.com/codefresh-io/service-base#readme",
+  "dependencies": {
+    "@codefresh-io/eventbus": "0.0.20",
+    "@codefresh-io/http-infra": "^1.1.1",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "cf-errors": "^0.1.11",
+    "cf-logs": "^0.0.6",
+    "cf-monitor": "git+https://github.com/codefresh-io/cf-monitor.git#0eec3ea68c85ac39e3d5c3819a5c6d1bd1554621",
+    "compression": "^1.6.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "lodash": "^4.17.4",
+    "method-override": "^2.3.9",
+    "mongoose": "^4.10.6",
+    "morgan": "^1.8.2",
+    "queue": "^4.2.1",
+    "redis": "^2.7.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  }
+}
