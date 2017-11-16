@@ -156,7 +156,6 @@ class Express {
         Promise.resolve()
           .then(() => fn(req, res))
           .then(ret => {
-            logger.info(ret)
             res.send(ret);
             next();
           })
