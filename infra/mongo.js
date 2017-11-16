@@ -2,7 +2,7 @@
 
 const Promise = require('bluebird');
 const logger = require('cf-logs').Logger('codefresh:infra:mongo');
-const {MongoClient} = require('mongodb');
+const {MongoClient, ObjectId} = require('mongodb');
 
 const clientSettings = {
   promiseLibrary: Promise
@@ -12,6 +12,7 @@ class Mongo {
 
     constructor() {
       this.db = undefined;
+      this.ObjectId = ObjectId;
     }
 
     /**
