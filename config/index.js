@@ -75,6 +75,10 @@ base.newrelic = {
     license_key: process.env.NEWRELIC_LICENSE_KEY || '75c75f4acf5850116ee96f7b15bcf5299d1b2daa'
 };
 
+base.safe = {
+  secret: process.env.API_SAFE_SECRET || '0!88655S2zGV4%4hf928'
+};
+
 require(path.join(appRoot, 'config', base.env))(base);
 
 
