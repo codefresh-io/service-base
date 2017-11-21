@@ -14,5 +14,6 @@ module.exports = {
   mongoClient: require('./infra/mongo'),
   validation: require('./infra/validation'),
   makeEndpoint: require('./infra/express').makeEndpoint,
-  encryption: require('./infra/encryption')
+  encryption: require('./infra/encryption'),
+  getAuthenticatedEntity: require('@codefresh-io/http-infra').getAuthenticatedEntity
 };

@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@codefresh-io/authenticated-entity@^1.0.13":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-1.1.0.tgz#46a196b63c6ff181d86d13483c27d7fae4136a47"
+"@codefresh-io/authenticated-entity@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-1.2.0.tgz#32da9235c2fed612c60dd82f835da9df917440e6"
   dependencies:
     lodash "^4.17.4"
 
@@ -22,10 +22,10 @@
     uuid "^3.0.1"
 
 "@codefresh-io/http-infra@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.1.1.tgz#eb6ba0f3fbe6d3980f663fb8c3238d434a3b7051"
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.1.2.tgz#6e3bdf24fbb364c6f74bec38e6e901ebd6c9052d"
   dependencies:
-    "@codefresh-io/authenticated-entity" "^1.0.13"
+    "@codefresh-io/authenticated-entity" "^1.2.0"
     randomatic "^2.0.0"
     request "^2.82.0"
     request-promise "^4.2.2"
@@ -65,8 +65,8 @@ agent-base@~1.0.1:
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-1.0.2.tgz#6890d3fb217004b62b70f8928e0fae5f8952a706"
 
 ajv@^5.1.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.3.0.tgz#4414ff74a50879c208ee5fdc826e32c303549eda"
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.4.0.tgz#32d1cf08dbc80c432f426f12e10b2511f6b46474"
   dependencies:
     co "^4.6.0"
     fast-deep-equal "^1.0.0"
@@ -813,8 +813,8 @@ jsprim@^1.2.2:
     verror "1.10.0"
 
 kind-of@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.0.tgz#3606e9e2fa960e7ddaa8898c03804e47e5d66644"
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.1.tgz#4948e6263553ac3712fc44d305b77851d9e40ea4"
 
 lcov-parse@0.0.10:
   version "0.0.10"
