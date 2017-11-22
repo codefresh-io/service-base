@@ -10,7 +10,9 @@ function findAppRoot(dir = path.dirname(require.main.filename)) {
         ? dir
         : findAppRoot(path.resolve(dir, '..'));
 }
-const appRoot = findAppRoot();
+const appRoot = process.env.NODE_ENV === 'test' ? path.resolve(__dirname).split('/node_modules')[0] : findAppRoot();
+
+
 const packageJson = require(path.join(appRoot, 'package.json'));
 
 const name = packageJson.name.replace(/^@codefresh-io\//, '');

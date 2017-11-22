@@ -1,8 +1,9 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "description": "",
+  "private": true,
   "engines": {
     "node": "^8.9.1"
   },
