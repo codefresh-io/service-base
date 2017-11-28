@@ -77,6 +77,12 @@ base.newrelic = {
     license_key: process.env.NEWRELIC_LICENSE_KEY
 };
 
+base.redis= {
+    url: process.env.REDIS_URL || 'codefresh.dev',
+    password: process.env.REDIS_PASSWORD || 'redisPassword',
+    db: process.env.REDIS_DB || 1
+};
+
 require(path.join(appRoot, 'config', base.env))(base);
 
 
