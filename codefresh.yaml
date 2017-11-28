@@ -1,12 +1,6 @@
 version: '1.0'
 steps:
 
-  install_dependencies:
-    title: Installing testing dependencies
-    image: codefresh/node-tester-image:8.8.0
-    commands:
-        - yarn install
-
   deploy_to_npm:
     title: Publishing To Npm
     image: codefresh/npm-publish:master
