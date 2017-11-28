@@ -12,7 +12,7 @@ const service = require('./infra');
 module.exports = {
   initService: (initFn) => service.init(config, initFn),
   mongoClient: require('./infra/mongo'),
-  redisClient: require('./infra/redis').redisClient,
+  redisClient: require('./infra/redis'),
   validation: require('./infra/validation'),
   makeEndpoint: require('./infra/express').makeEndpoint,
   encryption: require('./infra/encryption'),
