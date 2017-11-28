@@ -4,7 +4,7 @@ const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const internalServices = requie('@codefresh-io/internal-service-config')
+const internalServices = require('@codefresh-io/internal-service-config')
 
 function findAppRoot(dir = path.dirname(require.main.filename)) {
     return fs.existsSync(path.join(dir, 'package.json'))
