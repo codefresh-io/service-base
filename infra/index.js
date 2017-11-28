@@ -57,7 +57,8 @@ class Microservice {
         let shutdownPromise = Promise.all([
             eventbus.stop(),
             mongo.stop(),
-            express.stop()
+            express.stop(),
+            redis.stop(),
         ])
             .then(() => {
                 logger.info('Shutdown completed, exiting');

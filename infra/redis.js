@@ -60,7 +60,7 @@ class Redis {
 
 
     /**
-     * stops the connection to mongo
+     * stops the connection to redis
      * @returns {*}
      */
     stop() {
