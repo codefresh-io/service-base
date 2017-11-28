@@ -3,7 +3,6 @@
   "version": "0.0.2",
   "main": "index.js",
   "description": "",
-  "private": true,
   "engines": {
     "node": "^8.9.1"
   },
