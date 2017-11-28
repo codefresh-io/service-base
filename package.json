@@ -24,6 +24,7 @@
   "dependencies": {
     "@codefresh-io/eventbus": "0.0.20",
     "@codefresh-io/http-infra": "^1.1.2",
+    "@codefresh-io/internal-service-config": "^0.0.12",
     "@ronomon/crypto-async": "^2.2.1",
     "@wegolook/joi-objectid": "^2.1.0",
     "bluebird": "^3.5.0",
