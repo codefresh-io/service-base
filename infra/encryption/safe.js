@@ -19,7 +19,7 @@ function getOrCreateSafe(safeId) {
     const collection = mongoClient.collection('safe');
     return collection.findOne({ _id: safeId })
       .catch(err => {
-        throw new Error(`Error occurred while querying for safe : ${_id}`);
+        throw new Error(`Error occurred while querying for safe : ${safeId}. Caused by: ${err.toString()}`);
       })
       .then(safe => {
         if (safe) {
@@ -32,8 +32,8 @@ function getOrCreateSafe(safeId) {
         };
         return collection.save(newSafe)
           .then(() => new Safe(newSafe))
-          .catch(() => {
-            throw new Error(`Error occurred while creating safe: ${_id}`);
+          .catch((err) => {
+            throw new Error(`Error occurred while creating safe: ${safeId}. Caused by: ${err.toString()}`);
         });
       });
 }
