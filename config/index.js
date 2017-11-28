@@ -4,6 +4,7 @@ const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
+const internalServices = requie('@codefresh-io/internal-service-config')
 
 function findAppRoot(dir = path.dirname(require.main.filename)) {
     return fs.existsSync(path.join(dir, 'package.json'))
@@ -86,6 +87,8 @@ base.redis= {
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1
 };
+
+_.merge(base,internalServices);
 
 require(path.join(appRoot, 'config', base.env))(base);
 
