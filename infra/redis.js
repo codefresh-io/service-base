@@ -11,10 +11,6 @@ class Redis {
         this.redisInitialized = false;
     }
 
-    getClient(){
-        return this.redisClient;
-    }
-
     /**
      * starts the connection to redis
      * @returns {*}
