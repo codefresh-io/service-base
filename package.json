@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
     "start": "node index.js",
-    "ci-publish": "ci-publish"  
+    "ci-publish": "ci-publish"
   },
   "repository": {
     "type": "git",
