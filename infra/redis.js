@@ -7,7 +7,7 @@ const redis = require('redis');
 class Redis {
 
     constructor() {
-        this.redisClient;
+        this.client;
         this.redisInitialized = false;
     }
 
@@ -24,28 +24,28 @@ class Redis {
             deferred.resolve();
         }, 30000);
 
-        this.redisClient =
+        this.client =
             redis.createClient({
                 host: config.redis.url,
                 password: config.redis.password,
                 db: config.redis.db
             });
 
-        this.redisClient.on('ready', () => {
+        this.client.on('ready', () => {
             logger.info('Redis client ready');
             this.redisInitialized = true;
             deferred.resolve();
         });
 
-        this.redisClient.on('connect', () => {
+        this.client.on('connect', () => {
             logger.info('Redis client connected');
         });
 
-        this.redisClient.on('reconnecting', () => {
+        this.client.on('reconnecting', () => {
             logger.info('Redis client reconnecting');
         });
 
-        this.redisClient.on('error', (err) => {
+        this.client.on('error', (err) => {
             const error = new CFError({
                 cause: err,
                 message: 'Redis client error'
@@ -70,12 +70,12 @@ class Redis {
 
         var deferred = Promise.defer();
 
-        this.redisClient.on('end', () => {
+        this.client.on('end', () => {
             logger.info('Redis client ended');
             deferred.resolve();
         });
 
-        this.redisClient.quit();
+        this.client.quit();
 
         return deferred.promise;
     }
