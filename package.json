@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
-    "start": "node index.js"
+    "start": "node index.js",
+    "ci-publish": "ci-publish"  
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
     "@codefresh-io/eventbus": "0.0.20",
+    "ci-publish": "^1.3.0",
     "@codefresh-io/http-infra": "^1.1.2",
     "@ronomon/crypto-async": "^2.2.1",
     "@wegolook/joi-objectid": "^2.1.0",
