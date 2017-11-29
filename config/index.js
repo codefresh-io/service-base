@@ -81,6 +81,12 @@ base.safe = {
   secret: process.env.SAFE_SECRET || 'secret'
 };
 
+base.redis= {
+    url: process.env.REDIS_URL || 'codefresh.dev',
+    password: process.env.REDIS_PASSWORD || 'redisPassword',
+    db: process.env.REDIS_DB || 1
+};
+
 require(path.join(appRoot, 'config', base.env))(base);
 
 

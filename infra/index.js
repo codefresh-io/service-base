@@ -8,6 +8,7 @@ const mongo         = require('./mongo');
 const processEvents = require('./process-events');
 const express       = require('./express');
 const logging       = require('./logging');
+const redis         = require('./redis');
 const logger        = require('cf-logs').Logger('codefresh:infra:index');
 
 class Microservice {
@@ -36,6 +37,7 @@ class Microservice {
             .then((eventBus) => {
                 return express.init(config, (app) => initFn(app, eventbus));
             })
+            .then(() => redis.init(config))
             .then(() => {
                 console.log(`Initialization completed`);
             })
