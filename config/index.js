@@ -4,6 +4,7 @@ const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
+const internalServices = require('@codefresh-io/internal-service-config')
 
 function findAppRoot(dir = path.dirname(require.main.filename)) {
     return fs.existsSync(path.join(dir, 'package.json'))
@@ -80,6 +81,14 @@ base.newrelic = {
 base.safe = {
   secret: process.env.SAFE_SECRET || 'secret'
 };
+
+base.redis= {
+    url: process.env.REDIS_URL || 'codefresh.dev',
+    password: process.env.REDIS_PASSWORD || 'redisPassword',
+    db: process.env.REDIS_DB || 1
+};
+
+_.merge(base,internalServices);
 
 require(path.join(appRoot, 'config', base.env))(base);
 
