@@ -45,11 +45,7 @@ class Redis {
             logger.info('Redis client reconnecting');
         });
 
-        this.client.on('error', (err) => {
-            const error = new CFError({
-                cause: err,
-                message: 'Redis client error'
-            });
+        this.client.on('error', (error) => {
             logger.error(error.message);
             monitor.noticeError(error);
         });

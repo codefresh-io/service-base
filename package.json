@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "0.0.35",
+  "version": "0.0.351",
   "main": "index.js",
   "description": "",
   "engines": {
