@@ -22,8 +22,6 @@ class Microservice {
 
         const disabled = _.flatten([_.get(options, 'disabled', [])])
 
-        console.log(disabled)
-
         return logging.init(config)
             .then(() => {
                 return processEvents.init(config)
