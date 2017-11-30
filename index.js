@@ -10,7 +10,7 @@ try {
 const service = require('./infra');
 
 module.exports = {
-  initService: (initFn) => service.init(config, initFn),
+  initService: (initFn, options) => service.init(config, initFn, options),
   mongoClient: require('./infra/mongo'),
   redis: require('./infra/redis'),
   validation: require('./infra/validation'),

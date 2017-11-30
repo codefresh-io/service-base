@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require('lodash')
 const monitor = require('cf-monitor');
 monitor.init();
 const Promise       = require('bluebird'); // jshint ignore:line
@@ -17,7 +18,12 @@ class Microservice {
 
     }
 
-    init(config, initFn) {
+    init(config, initFn, options) {
+
+        const disabled = _.flatten([_.get(options, 'disabled', [])])
+
+        console.log(disabled)
+
         return logging.init(config)
             .then(() => {
                 return processEvents.init(config)
@@ -26,18 +32,12 @@ class Microservice {
                         processEvents.on('SIGINT', () => this.stop(2000).then(() => process.exit()));
                     });
             })
-            .then(() => {
-                return Promise.all([
-                    mongo.init(config)
-                ]);
-            })
-            .then(() => {
-                return eventbus.init(config)
-            })
+            .then(() => (!disabled.includes('mongo')) && mongo.init(config))
+            .then(() => (!disabled.includes('eventbus')) && eventbus.init(config))
             .then((eventBus) => {
                 return express.init(config, (app) => initFn(app, eventbus));
             })
-            .then(() => redis.init(config))
+            .then(() => (!disabled.includes('redis')) && redis.init(config))
             .then(() => {
                 console.log(`Initialization completed`);
             })
