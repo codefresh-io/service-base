@@ -2,6 +2,7 @@
 
 const Promise = require('bluebird');
 const logger = require('cf-logs').Logger('codefresh:infra:redis');
+const monitor = require('cf-monitor');
 const redis = require('redis');
 
 class Redis {
