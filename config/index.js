@@ -29,12 +29,14 @@ base.api  = {
 };
 
 base.eventbus = {
+    requiredByService: process.env['REQUIRE_EVENTBUS'] || true,
     uri: process.env.EVENTBUS_URI || 'amqp://codefresh.dev',
     reconnectInterval: process.env.EVENTBUS_INTERVAL || 5,
     serviceName: name
 };
 
 base.postgres = {
+    requiredByService: process.env['REQUIRE_POSTGRES'] || true,
     host: process.env.POSTGRES_HOST || 'codefresh.dev',
     database: process.env.POSTGRES_DATABASE || 'postgres',
     user: process.env.POSTGRES_USER || 'postgres',
@@ -42,7 +44,15 @@ base.postgres = {
 };
 
 base.mongo = {
+    requiredByService: process.env['REQUIRE_MONGO'] || true,
     uri: process.env.MONGO_URI || `mongodb://codefresh.dev/${name}`
+};
+
+base.redis= {
+    requiredByService: process.env['REQUIRE_REDIS'] || true,
+    url: process.env.REDIS_URL || 'codefresh.dev',
+    password: process.env.REDIS_PASSWORD || 'redisPassword',
+    db: process.env.REDIS_DB || 1
 };
 
 base.logger = {
@@ -80,12 +90,6 @@ base.newrelic = {
 
 base.safe = {
   secret: process.env.SAFE_SECRET || 'secret'
-};
-
-base.redis= {
-    url: process.env.REDIS_URL || 'codefresh.dev',
-    password: process.env.REDIS_PASSWORD || 'redisPassword',
-    db: process.env.REDIS_DB || 1
 };
 
 _.merge(base,internalServices);

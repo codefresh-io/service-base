@@ -27,17 +27,16 @@ class Microservice {
                     });
             })
             .then(() => {
+                const resolve = Promise.resolve;
                 return Promise.all([
-                    mongo.init(config)
+                    config.mongo.requiredByService ? mongo.init(config) : resolve(),
+                    config.redis.requiredByService ? redis.init(config) : resolve(),
+                    config.eventbus.requiredByService ? eventbus.init(config): resolve()
                 ]);
-            })
-            .then(() => {
-                return eventbus.init(config)
             })
             .then((eventBus) => {
                 return express.init(config, (app) => initFn(app, eventbus));
             })
-            .then(() => redis.init(config))
             .then(() => {
                 console.log(`Initialization completed`);
             })
