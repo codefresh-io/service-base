@@ -32,10 +32,10 @@ class Microservice {
             })
             .then(() => (!disabled.includes('mongo')) && mongo.init(config))
             .then(() => (!disabled.includes('eventbus')) && eventbus.init(config))
+            .then(() => (!disabled.includes('redis')) && redis.init(config))
             .then((eventBus) => {
                 return express.init(config, (app) => initFn(app, eventbus));
             })
-            .then(() => (!disabled.includes('redis')) && redis.init(config))
             .then(() => {
                 console.log(`Initialization completed`);
             })
