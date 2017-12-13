@@ -4,7 +4,9 @@ const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const internalServices = require('@codefresh-io/internal-service-config')
+const internalServices = require('@codefresh-io/internal-service-config');
+
+const APPLICATION_DOMAIN = process.env.APP_DOMAIN || 'local.codefresh.io';
 
 function findAppRoot(dir = path.dirname(require.main.filename)) {
     return fs.existsSync(path.join(dir, 'package.json'))
@@ -24,25 +26,25 @@ base.env  = process.env.NODE_ENV || 'kubernetes';
 base.port = process.env.PORT || 9001;
 base.name = name;
 base.api  = {
-    url: process.env.API_URL || 'codefresh.dev',
+    url: process.env.API_URL || APPLICATION_DOMAIN,
     protocol: process.env.API_PROTOCOL || 'http'
 };
 
 base.eventbus = {
-    uri: process.env.EVENTBUS_URI || 'amqp://codefresh.dev',
+    uri: process.env.EVENTBUS_URI || ('amqp://' + APPLICATION_DOMAIN),
     reconnectInterval: process.env.EVENTBUS_INTERVAL || 5,
     serviceName: name
 };
 
 base.postgres = {
-    host: process.env.POSTGRES_HOST || 'codefresh.dev',
+    host: process.env.POSTGRES_HOST || APPLICATION_DOMAIN,
     database: process.env.POSTGRES_DATABASE || 'postgres',
     user: process.env.POSTGRES_USER || 'postgres',
     password: process.env.POSTGRES_PASSWORD || 'postgres'
 };
 
 base.mongo = {
-    uri: process.env.MONGO_URI || `mongodb://codefresh.dev/${name}`
+    uri: process.env.MONGO_URI || `mongodb://${APPLICATION_DOMAIN}/${name}`
 };
 
 base.logger = {
@@ -83,7 +85,7 @@ base.safe = {
 };
 
 base.redis= {
-    url: process.env.REDIS_URL || 'codefresh.dev',
+    url: process.env.REDIS_URL || APPLICATION_DOMAIN,
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1
 };
