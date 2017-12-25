@@ -1,6 +1,6 @@
 'use strict';
 
-let config = undefined
+let config = undefined;
 try {
     config = require('./config');
 } catch (err) {
@@ -8,6 +8,7 @@ try {
 }
 
 const service = require('./infra');
+const httpInfra = require('@codefresh-io/http-infra');
 
 module.exports = {
   initService: (initFn, options) => service.init(config, initFn, options),
@@ -16,6 +17,7 @@ module.exports = {
   validation: require('./infra/validation'),
   makeEndpoint: require('./infra/express').makeEndpoint,
   encryption: require('./infra/encryption'),
-  getAuthenticatedEntity: require('@codefresh-io/http-infra').getAuthenticatedEntity,
+  getAuthenticatedEntity: httpInfra.getAuthenticatedEntity,
+  request: httpInfra.request,
   config
 };
