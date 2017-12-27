@@ -5,9 +5,9 @@ const service = require('./infra');
 const {getAuthenticatedEntity, request} = require('@codefresh-io/http-infra');
 
 const OPTIONAL_COMPONENTS = {
-  mongo: { name: 'mongoClient', module: './infra/mongo' },
-  redis: { name: 'redis', module: './infra/redis' },
-  encryption: { name: 'encryption', module: './infra/encryption', dependencies: ['mongo'] },
+  mongo: { name: 'mongoClient' },
+  redis: { },
+  encryption: { dependencies: ['mongo'] },
 };
 
 const exportedComponents = {
@@ -30,7 +30,7 @@ enabledComponents.forEach(key => {
       throw new Error(`Component '${key}'' is dependent on component '${dependency}' which is missing.`);
     }
   });
-  exportedComponents[component.name] = require(component.module);
+  exportedComponents[component.name || key] = require(`./infra/${key}`);
 })
 
 module.exports = exportedComponents;
