@@ -21,7 +21,7 @@ class Microservice {
 
     init(initFn) {
 
-        const enabledComponents = _.flatten([_.get(config, 'enabledComponents', [])]);
+        const enabledComponents = config.getConfigArray('enabledComponents');
 
         return logging.init(config)
             .then(() => {

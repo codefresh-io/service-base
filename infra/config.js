@@ -94,4 +94,12 @@ const serviceConfig = require(path.join(appRoot, 'service.config'));
 
 _.merge(base, internalServices, serviceConfig);
 
+base.getConfigVal = function(key) {
+  return _.get(this, key);
+}.bind(base);
+
+base.getConfigArray = function(key) {
+  return _.flatten([_.get(this, key, [])]);
+}.bind(base);
+
 module.exports = base;

@@ -1,16 +1,36 @@
 'use strict';
 
+const config = require('./infra/config')
 const service = require('./infra');
 const {getAuthenticatedEntity, request} = require('@codefresh-io/http-infra');
 
-module.exports = {
+const OPTIONAL_COMPONENTS = {
+  mongo: { name: 'mongoClient', module: './infra/mongo' },
+  redis: { name: 'redis', module: './infra/redis' },
+  encryption: { name: 'encryption', module: './infra/encryption', dependencies: ['mongo'] },
+};
+
+const exportedComponents = {
   initService: service.init.bind(service),
-  mongoClient: require('./infra/mongo'),
-  redis: require('./infra/redis'),
   validation: require('./infra/validation'),
   makeEndpoint: require('./infra/express').makeEndpoint,
-  encryption: require('./infra/encryption'),
   getAuthenticatedEntity,
   request,
-  config: require('./infra/config')
+  config
 };
+
+const enabledComponents = config.getConfigArray('enabledComponents')
+enabledComponents.forEach(key => {
+  const component = OPTIONAL_COMPONENTS[key];
+  if (!component) {
+    throw new Error(`Could not find component '${key}'.`);
+  }
+  (component.dependencies || []).forEach(dependency => {
+    if (!enabledComponents.includes(dependency)) {
+      throw new Error(`Component '${key}'' is dependent on component '${dependency}' which is missing.`);
+    }
+  });
+  exportedComponents[component.name] = require(component.module);
+})
+
+module.exports = exportedComponents;
