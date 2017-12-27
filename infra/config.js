@@ -90,9 +90,16 @@ base.redis= {
     db: process.env.REDIS_DB || 1
 };
 
-_.merge(base,internalServices);
+const serviceConfig = require(path.join(appRoot, 'service.config'));
 
-require(path.join(appRoot, 'config', base.env))(base);
+_.merge(base, internalServices, serviceConfig);
 
+base.getConfigVal = function(key) {
+  return _.get(this, key);
+}.bind(base);
+
+base.getConfigArray = function(key) {
+  return _.flatten([_.get(this, key, [])]);
+}.bind(base);
 
 module.exports = base;
