@@ -5,7 +5,7 @@ const Promise = require('bluebird');
 const uuid = require('node-uuid');
 const cryptoAsync = require('@ronomon/crypto-async');
 
-const config = require('../../config');
+const config = require('../config');
 const mongoClient = require('../mongo');
 
 const ALGORITHM     = 'AES-256-CTR';

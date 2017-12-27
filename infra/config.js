@@ -92,6 +92,6 @@ base.redis= {
 
 const serviceConfig = require(path.join(appRoot, 'service.config'));
 
-_.merge(base, [internalServices, serviceConfig]);
+_.merge(base, internalServices, serviceConfig);
 
 module.exports = base;

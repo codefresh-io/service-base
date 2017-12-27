@@ -4,6 +4,7 @@ const _ = require('lodash')
 const monitor = require('cf-monitor');
 monitor.init();
 const Promise       = require('bluebird'); // jshint ignore:line
+const config        = require('./config');
 const eventbus      = require('./eventbus');
 const mongo         = require('./mongo');
 const processEvents = require('./process-events');
@@ -18,9 +19,9 @@ class Microservice {
 
     }
 
-    init(config, initFn, options) {
+    init(initFn) {
 
-        const disabled = _.flatten([_.get(options, 'disabled', [])])
+        const enabledComponents = _.flatten([_.get(config, 'enabledComponents', [])]);
 
         return logging.init(config)
             .then(() => {
@@ -30,9 +31,9 @@ class Microservice {
                         processEvents.on('SIGINT', () => this.stop(2000).then(() => process.exit()));
                     });
             })
-            .then(() => (!disabled.includes('mongo')) && mongo.init(config))
-            .then(() => (!disabled.includes('eventbus')) && eventbus.init(config))
-            .then(() => (!disabled.includes('redis')) && redis.init(config))
+            .then(() => (enabledComponents.includes('mongo')) && mongo.init(config))
+            .then(() => (enabledComponents.includes('eventbus')) && eventbus.init(config))
+            .then(() => (enabledComponents.includes('redis')) && redis.init(config))
             .then((eventBus) => {
                 return express.init(config, (app) => initFn(app, eventbus));
             })
