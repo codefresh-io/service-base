@@ -47,7 +47,7 @@ Safe.prototype.read_crypto = function (ciphertext) {
     const iv = Buffer.alloc(16, this.safeModel.key);
 
     const encrypt = 0; // 0 = Decrypt
-    cryptoAsync.cipher(ALGORITHM, encrypt, key, iv, Buffer.from(ciphertext, 'hex'),
+    cryptoAsync.cipher(ALGORITHM, encrypt, key, iv, Buffer.from(ciphertext.slice(CRYPTO_PREFIX.length), 'hex'),
       (error, plaintext) => {
           if (error) {
               deferred.reject(error);
@@ -80,11 +80,7 @@ Safe.prototype.write_crypto = function (plaintext) {
 };
 
 
-Safe.prototype.read = function (ciphertext) {
-  return this.read_crypto(ciphertext.slice(CRYPTO_PREFIX.length));
-};
-
-// aliases write to write_crypto
+Safe.prototype.read = Safe.prototype.read_crypto;
 Safe.prototype.write = Safe.prototype.write_crypto;
 
 // export
