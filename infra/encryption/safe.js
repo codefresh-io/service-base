@@ -10,6 +10,7 @@ const mongoClient = require('../mongo');
 
 const ALGORITHM     = 'AES-256-CTR';
 const CRYPTO_PREFIX = '$$$crypto$$$';
+const STRINGIFY_CRYPTO_PREFIX = '$$$crypto-obj$$$';
 
 const Safe = function (safeModel) {
     this.safeModel = safeModel;
@@ -46,14 +47,18 @@ Safe.prototype.read_crypto = function (ciphertext) {
     const key = Buffer.alloc(32, _.get(config, 'safe.secret'));
     const iv = Buffer.alloc(16, this.safeModel.key);
 
+    const shouldParse = ciphertext.startsWith(STRINGIFY_CRYPTO_PREFIX);
+    const prefixLength = (shouldParse ? STRINGIFY_CRYPTO_PREFIX : CRYPTO_PREFIX).length;
+
     const encrypt = 0; // 0 = Decrypt
-    cryptoAsync.cipher(ALGORITHM, encrypt, key, iv, Buffer.from(ciphertext.slice(CRYPTO_PREFIX.length), 'hex'),
+    cryptoAsync.cipher(ALGORITHM, encrypt, key, iv, Buffer.from(ciphertext.slice(prefixLength), 'hex'),
       (error, plaintext) => {
           if (error) {
               deferred.reject(error);
               return;
           }
-          deferred.resolve(plaintext.toString());
+          const ret = plaintext.toString();
+          deferred.resolve(shouldParse ? JSON.parse(ret) : ret);
       }
     );
     return deferred.promise;
@@ -66,6 +71,8 @@ Safe.prototype.write_crypto = function (plaintext) {
     const key = Buffer.alloc(32, _.get(config, 'safe.secret'));
     const iv = Buffer.alloc(16, this.safeModel.key);
 
+    const shouldStringify = !_.isString(plaintext);
+
     const encrypt = 1; // 1 = Encrypt
     cryptoAsync.cipher(ALGORITHM, encrypt, key, iv, Buffer.from(plaintext),
       (error, ciphertext) => {
@@ -73,7 +80,7 @@ Safe.prototype.write_crypto = function (plaintext) {
               deferred.reject(error);
               return;
           }
-          deferred.resolve(`${CRYPTO_PREFIX}${ciphertext.toString('hex')}`);
+          deferred.resolve(`${shouldStringify ? STRINGIFY_CRYPTO_PREFIX : CRYPTO_PREFIX}${ciphertext.toString('hex')}`);
       }
     );
     return deferred.promise;
