@@ -72,9 +72,10 @@ Safe.prototype.write_crypto = function (plaintext) {
     const iv = Buffer.alloc(16, this.safeModel.key);
 
     const shouldStringify = !_.isString(plaintext);
+    const textToEncrypt = shouldStringify ? JSON.stringify(plaintext) : plaintext;
 
     const encrypt = 1; // 1 = Encrypt
-    cryptoAsync.cipher(ALGORITHM, encrypt, key, iv, Buffer.from(plaintext),
+    cryptoAsync.cipher(ALGORITHM, encrypt, key, iv, Buffer.from(textToEncrypt),
       (error, ciphertext) => {
           if (error) {
               deferred.reject(error);
