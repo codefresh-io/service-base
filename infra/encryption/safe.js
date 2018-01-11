@@ -17,6 +17,9 @@ const Safe = function (safeModel) {
 };
 
 function getOrCreateSafe(safeId) {
+    if (!safeId) {
+      throw new Error(`Error creating safe: SafeId was not specified.`);
+    }
     const collection = mongoClient.collection('safe');
     return collection.findOne({ _id: safeId })
       .catch(err => {
