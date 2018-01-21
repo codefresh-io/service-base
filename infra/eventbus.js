@@ -81,7 +81,7 @@ class Eventbus {
     }
 
     subscribe(eventName, handler) {
-        const listener = eventbus.subscribe(eventName, handler);
+        const listener = eventBus.subscribe(eventName, handler);
         listener.on('error', (err) => {
             logger.error(`${eventName} handler failed: ${err.stack}`);
             monitor.noticeError(err);
