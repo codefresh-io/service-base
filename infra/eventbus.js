@@ -45,6 +45,8 @@ class Eventbus {
                 eventBus.on('ready', () => {
                     console.log('Eventbus ready');
                     this.eventbusInitialized = true;
+                    const eventsToSubscribe = config.getConfigArray('subscribeToEvents');
+                    eventsToSubscribe.map((ev) => this.subscribe(ev.name, ev.handler));
                     deferred.resolve(this);
                 });
 
@@ -82,6 +84,7 @@ class Eventbus {
 
     subscribe(eventName, handler) {
         const listener = eventBus.subscribe(eventName, handler);
+        logger.info(`Subscribing to event ${eventName}`);
         listener.on('error', (err) => {
             logger.error(`${eventName} handler failed: ${err.stack}`);
             monitor.noticeError(err);
