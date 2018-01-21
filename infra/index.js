@@ -32,7 +32,7 @@ class Microservice {
                     });
             })
             .then(() => (enabledComponents.includes('mongo')) && mongo.init(config))
-            .then(() => (enabledComponents.includes('eventbus')) && eventbus.init(config))
+            .then(() => eventbus.init(config)
             .then(() => (enabledComponents.includes('redis')) && redis.init(config))
             .then((eventBus) => {
                 return express.init(config, (app) => initFn(app, eventbus));
