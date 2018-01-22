@@ -89,10 +89,11 @@ base.redis= {
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1
 };
+_.merge(base, internalServices);
 
 const serviceConfig = require(path.join(appRoot, 'service.config'));
 
-_.merge(base, internalServices, serviceConfig);
+_.merge(base, serviceConfig);
 
 base.getConfigVal = function(key) {
   return _.get(this, key);
