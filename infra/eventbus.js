@@ -83,13 +83,15 @@ class Eventbus {
     }
 
     subscribe(eventName, handler) {
-        logger.info(`Subscribing to event ${eventName}`);
-        const listener = eventBus.subscribe(eventName, handler);
-        listener.on('error', (err) => {
+      return eventBus.subscribe(eventName, handler)
+        .then((listener) => {
+          logger.info(`Listening on event ${eventName}`);
+          listener.on('error', (err) => {
             logger.error(`${eventName} handler failed: ${err.stack}`);
             monitor.noticeError(err);
+            this.listeners.push(listener);
+          });
         });
-        return listener
     }
 
 }

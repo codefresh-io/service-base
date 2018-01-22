@@ -7,6 +7,7 @@ const {getAuthenticatedEntity, request} = require('@codefresh-io/http-infra');
 const OPTIONAL_COMPONENTS = {
   mongo: { name: 'mongoClient' },
   redis: { },
+  eventBus: { },
   encryption: { dependencies: ['mongo'] },
 };
 
