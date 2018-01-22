@@ -93,7 +93,7 @@ _.merge(base, internalServices);
 
 const serviceConfig = require(path.join(appRoot, 'service.config'));
 
-_.merge(base, serviceConfig);
+_.merge(base, internalServices);
 
 base.getConfigVal = function(key) {
   return _.get(this, key);
