@@ -11,7 +11,7 @@ function _encryptDecryptObjectValues(safeId, obj, keysToEncrypt, encrypt = true)
     const fieldsToEncrypt = _.pick(obj, keysToEncrypt);
     const keys = _.keys(fieldsToEncrypt);
     if (keys.length === 0) {
-      return obj;
+      return Promise.resolve(obj);
     }
     const values = _.values(fieldsToEncrypt);
     return safe.getOrCreateSafe(safeId)
