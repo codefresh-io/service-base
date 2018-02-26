@@ -11,7 +11,8 @@ const processEvents = require('./process-events');
 const express       = require('./express');
 const logging       = require('./logging');
 const redis         = require('./redis');
-const logger        = require('cf-logs').Logger('codefresh:infra:index');
+const cflogs        = require('cf-logs');
+const logger = cflogs.Logger('codefresh:infra:index');
 
 class Microservice {
 
@@ -20,7 +21,7 @@ class Microservice {
     }
 
     init(initFn) {
-        logger.init(config.logger);
+        cflogs.init(config.logger);
 
         const enabledComponents = config.getConfigArray('enabledComponents');
 
