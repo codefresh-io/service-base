@@ -75,7 +75,7 @@ base.logger = {
     basePath: null,
     baseNamespace: "codefresh",
     fields: {
-        service: 'cf-api',
+        service: process.env['SERVICE_NAME'] || 'service-base',
         time: () => { return new Date().toISOString(); },
         correlationId: () => {
             try {
