@@ -330,9 +330,9 @@ cf-errors@^0.1.11:
   dependencies:
     lodash "4.15.0"
 
-cf-logs@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/cf-logs/-/cf-logs-0.0.6.tgz#a1b5a71b1bfc058e0f68f7e3dcbdc2d7405a5053"
+cf-logs@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cf-logs/-/cf-logs-1.0.0.tgz#03c3cfe48350fdaba24f7f0c80b6eee1777416ec"
   dependencies:
     gulp-coveralls "^0.1.4"
     lodash "^3.10.1"
