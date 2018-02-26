@@ -12,7 +12,7 @@ const express       = require('./express');
 const logging       = require('./logging');
 const redis         = require('./redis');
 const cflogs        = require('cf-logs');
-const logger = cflogs.Logger('codefresh:infra:index');
+let logger;
 
 class Microservice {
 
@@ -22,7 +22,7 @@ class Microservice {
 
     init(initFn) {
         cflogs.init(config.logger);
-
+        logger = cflogs.Logger('codefresh:infra:index');
         const enabledComponents = config.getConfigArray('enabledComponents');
 
         return logging.init(config)
