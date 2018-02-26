@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const internalServices = require('@codefresh-io/internal-service-config');
+const { getRequestId, getAuthenticatedEntity } = require('@codefresh-io/http-infra');
 
 const APPLICATION_DOMAIN = process.env.APP_DOMAIN || 'local.codefresh.io';
 
@@ -52,8 +53,6 @@ base.logger = {
     console: true,
     handleExceptions: false,
     showNamespace: true,
-    env_module: `${name}_${os.hostname()}`,
-    showRequestId: true,
     level: "debug",
     consoleOptions: {
         timestamp: function () {
@@ -61,14 +60,39 @@ base.logger = {
         },
         formatter: function (options) {
             // Return string will be passed to logger.
-            return options.timestamp() + ' ' + options.level.toUpperCase() + ' >> ' +
-                   (undefined !== options.message ? options.message : '') +
-                   (options.meta && Object.keys(options.meta).length ?
-                   ' << ' + JSON.stringify(options.meta) : '' );
+            const shouldFormatOutput = !!process.env['LOGGER_FORMATTER'];
+            if (shouldFormatOutput) {
+                return `${options.timestamp()} ${options.level.toUpperCase()} >> ` +
+                `${options.message || ''}` +
+                `${options.meta && Object.keys(options.meta).length ? ` << ${JSON.stringify(options.meta)}` : ''}`;
+            }
+            return JSON.stringify({
+                metadata: options.meta || {},
+                data: Object.assign(options.data || {}, { message: options.message }),
+            });
         }
     },
     basePath: null,
-    baseNamespace: "codefresh"
+    baseNamespace: "codefresh",
+    fields: {
+        service: 'cf-api',
+        time: () => { return new Date().toISOString(); },
+        correlationId: () => {
+            try {
+                return getRequestId();
+            } catch (err) {
+                return {};
+            }
+        },
+        user: () => {
+            try {
+                const { _user: { name, _id } } = getAuthenticatedEntity();
+                return { name, _id };
+            } catch (err) {
+                return {};
+            }
+        }
+    }
 };
 
 base.httpLogger = {
