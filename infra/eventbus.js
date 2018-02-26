@@ -43,7 +43,7 @@ class Eventbus {
                 });
 
                 eventBus.on('ready', () => {
-                    console.log('Eventbus ready');
+                    logger.log('Eventbus ready');
                     this.eventbusInitialized = true;
                     deferred.resolve(this);
                 });

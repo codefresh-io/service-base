@@ -20,6 +20,7 @@ class Microservice {
     }
 
     init(initFn) {
+        logger.init(config.logger);
 
         const enabledComponents = config.getConfigArray('enabledComponents');
 
@@ -38,10 +39,10 @@ class Microservice {
                 return express.init(config, (app) => initFn(app, eventbus));
             })
             .then(() => {
-                console.log(`Initialization completed`);
+                logger.log(`Initialization completed`);
             })
             .catch((err) => {
-                console.error(`Initialization error: ${err.stack}`);
+                logger.error(`Initialization error: ${err.stack}`);
                 process.exit(1);
             })
             .done();

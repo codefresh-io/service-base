@@ -140,10 +140,10 @@ class Express {
 
             const server = app.listen(this.config.port, (err) => {
                 if (err) {
-                    console.log(`Failed to load service with message ${err.message}`);
+                    logger.log(`Failed to load service with message ${err.message}`);
                     reject(err);
                 } else {
-                    console.log(`Express server listening on port ${this.config.port}, in mode ${this.config.env}`);
+                    logger.log(`Express server listening on port ${this.config.port}, in mode ${this.config.env}`);
                     resolve(server);
                 }
             });

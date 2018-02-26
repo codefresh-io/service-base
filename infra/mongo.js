@@ -23,7 +23,7 @@ class Mongo {
         return MongoClient.connect(config.mongo.uri, clientSettings)
             .then(db => {
                 this.db = db;
-                console.log(`Mongo driver connected to: ${config.mongo.uri}`);
+                logger.log(`Mongo driver connected to: ${config.mongo.uri}`);
             });
     }
 
