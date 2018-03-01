@@ -157,7 +157,6 @@ class Express {
           .then(() => fn(req, res))
           .then(ret => {
             res.send(ret);
-            next();
           })
           .catch(err => next(err));
       }
