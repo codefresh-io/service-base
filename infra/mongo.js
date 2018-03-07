@@ -1,7 +1,6 @@
 'use strict';
 
 const Promise = require('bluebird');
-const logger = require('cf-logs').Logger('codefresh:infra:mongo');
 const {MongoClient, ObjectId} = require('mongodb');
 
 const clientSettings = {
@@ -20,10 +19,12 @@ class Mongo {
      * @returns {*}
      */
     init(config) {
+        const logger = require('cf-logs').Logger('codefresh:infra:mongo');
+        this.logger = logger;
         return MongoClient.connect(config.mongo.uri, clientSettings)
             .then(db => {
                 this.db = db;
-                logger.log(`Mongo driver connected to: ${config.mongo.uri}`);
+                logger.info(`Mongo driver connected to: ${config.mongo.uri}`);
             });
     }
 

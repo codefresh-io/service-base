@@ -3,7 +3,6 @@
 const EventEmitter = require('events');
 const Promise      = require('bluebird');
 const redis        = require('redis');
-const logger       = require('cf-logs').Logger('codefresh:infra:process-events');
 
 class ProcessEvents extends EventEmitter {
 
@@ -16,6 +15,7 @@ class ProcessEvents extends EventEmitter {
      * @param config
      */
     init(config) {
+        const logger = require('cf-logs').Logger('codefresh:infra:process-events');
         return Promise.resolve()
             .then(() => {
                 this.config = config;

@@ -21,12 +21,11 @@ class Microservice {
     }
 
     init(initFn) {
-        cflogs.init(config.logger);
-        logger = cflogs.Logger('codefresh:infra:index');
         const enabledComponents = config.getConfigArray('enabledComponents');
 
         return logging.init(config)
             .then(() => {
+                logger = cflogs.Logger('codefresh:infra:index');
                 return processEvents.init(config)
                     .then(() => {
                         processEvents.on('SIGTERM', this.stop.bind(this));
@@ -40,10 +39,10 @@ class Microservice {
                 return express.init(config, (app) => initFn(app, eventbus));
             })
             .then(() => {
-                logger.log(`Initialization completed`);
+                logger.info(`Initialization completed`);
             })
             .catch((err) => {
-                logger.error(`Initialization error: ${err.stack}`);
+                console.error(`Initialization error: ${err.stack}`);
                 process.exit(1);
             })
             .done();

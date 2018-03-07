@@ -1,9 +1,8 @@
 'use strict';
 
 const Promise = require('bluebird');
-const logger  = require('cf-logs').Logger("codefresh");
 const cflogs  = require('cf-logs');
-
+let logger;
 
 class Logging {
 
@@ -14,9 +13,8 @@ class Logging {
     init(config) {
         return Promise.resolve()
             .then(() => {
-                this.config = config;
-                cflogs.init(this.config.logger);
-
+                cflogs.init(config.logger);
+                logger = cflogs.Logger("codefresh");
                 // override the default console.log
                 console.log   = function (message) {
                     logger.log('info', message);

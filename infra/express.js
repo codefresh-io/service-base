@@ -8,7 +8,6 @@ const methodOverride          = require('method-override');
 const cookieParser            = require('cookie-parser');
 const morgan                  = require('morgan');
 const monitor                 = require('cf-monitor');
-const logger                  = require('cf-logs').Logger("codefresh:infra:express");
 const { newDomainMiddleware } = require('@codefresh-io/http-infra');
 
 class Express {
@@ -24,6 +23,8 @@ class Express {
      * @returns {*}
      */
     init(config, createRoutes) {
+        const logger = require('cf-logs').Logger("codefresh:infra:express");
+        this.logger = logger;
         return Promise.resolve()
             .then(() => {
                 this.config = config;
@@ -53,6 +54,7 @@ class Express {
     }
 
     _create() {
+        const logger = this.logger;
         return Promise.resolve()
             .then(() => {
                 const app = express();
@@ -136,14 +138,15 @@ class Express {
     }
 
     _start(app) {
+        const logger = this.logger;
         return new Promise((resolve, reject) => {
 
             const server = app.listen(this.config.port, (err) => {
                 if (err) {
-                    logger.log(`Failed to load service with message ${err.message}`);
+                    logger.info(`Failed to load service with message ${err.message}`);
                     reject(err);
                 } else {
-                    logger.log(`Express server listening on port ${this.config.port}, in mode ${this.config.env}`);
+                    logger.info(`Express server listening on port ${this.config.port}, in mode ${this.config.env}`);
                     resolve(server);
                 }
             });

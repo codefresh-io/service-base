@@ -3,9 +3,6 @@
 const Promise   = require('bluebird');
 const eventBus  = require('@codefresh-io/eventbus');
 const monitor   = require('cf-monitor');
-const logger    = require('cf-logs').Logger("codefresh:infra:eventbus");
-
-
 class Eventbus {
 
     constructor() {
@@ -17,6 +14,8 @@ class Eventbus {
      * @returns {*}
      */
     init(config) {
+        const logger = require('cf-logs').Logger("codefresh:infra:eventbus");
+        this.logger = logger;
         return Promise.resolve()
             .then(() => {
                 this.config = config;
@@ -43,7 +42,7 @@ class Eventbus {
                 });
 
                 eventBus.on('ready', () => {
-                    logger.log('Eventbus ready');
+                    logger.info('Eventbus ready');
                     this.eventbusInitialized = true;
                     deferred.resolve(this);
                 });
@@ -64,6 +63,7 @@ class Eventbus {
      * @returns {*}
      */
     stop() {
+        const logger = this.logger;
         if (!this.eventbusInitialized) {
             return Promise.resolve();
         }
@@ -81,6 +81,7 @@ class Eventbus {
     }
 
     subscribe(eventName, handler) {
+      const logger = this.logger;
       return eventBus.subscribe(eventName, handler)
         .then((listener) => {
           logger.info(`Listening on event ${eventName}`);

@@ -1,7 +1,6 @@
 'use strict';
 
 const Promise = require('bluebird');
-const logger = require('cf-logs').Logger('codefresh:infra:redis');
 const monitor = require('cf-monitor');
 const redis = require('redis');
 
@@ -17,7 +16,8 @@ class Redis {
      * @returns {*}
      */
     init(config) {
-
+        const logger = require('cf-logs').Logger('codefresh:infra:redis');
+        this.logger = logger;
         var deferred = Promise.defer();
 
         //TODO a fallback for case where redis is not up. should be removed once redis is fully used
@@ -61,6 +61,7 @@ class Redis {
      * @returns {*}
      */
     stop() {
+        const logger = this.logger;
         if (!this.redisInitialized) {
             return Promise.resolve();
         }
