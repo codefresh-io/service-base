@@ -60,16 +60,17 @@ base.logger = {
         },
         formatter: function (options) {
             // Return string will be passed to logger.
-            const shouldFormatOutput = !!process.env['LOGGER_FORMATTER'];
+            const shouldFormatOutput = !!process.env['FORMAT_LOGS_TO_ELK'];
             if (shouldFormatOutput) {
-                return `${options.timestamp()} ${options.level.toUpperCase()} >> ` +
-                `${options.message || ''}` +
-                `${options.meta && Object.keys(options.meta).length ? ` << ${JSON.stringify(options.meta)}` : ''}`;
+                return JSON.stringify({
+                    metadata: options.meta || {},
+                    data: Object.assign(options.data || {}, { message: options.message }),
+                });
             }
-            return JSON.stringify({
-                metadata: options.meta || {},
-                data: Object.assign(options.data || {}, { message: options.message }),
-            });
+            // human readable format
+            return `${options.timestamp()} ${options.level.toUpperCase()} >> ` +
+            `${options.message || ''}` +
+            `${options.meta && Object.keys(options.meta).length ? ` << ${JSON.stringify(options.meta)}` : ''}`;
         }
     },
     basePath: null,
