@@ -1,10 +1,10 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "main": "index.js",
   "description": "",
   "engines": {
-    "node" : ">=8.0.0 < 9.9.9"
+    "node" : ">=8.0.0"
   },
   "scripts": {
     "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
