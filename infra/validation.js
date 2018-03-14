@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
-const Joi = require('joi').extend(require('@wegolook/joi-objectid'));
+const Joi = require('joi').extend(require('@codefresh-io/joi-objectid'));
 
 function validateField(field, val, options = {optional: false}) {
   if (val === undefined && _.get(options, 'optional')) {

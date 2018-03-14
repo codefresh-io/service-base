@@ -1,10 +1,10 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "0.2.19",
+  "version": "0.2.21",
   "main": "index.js",
   "description": "",
   "engines": {
-    "node" : ">=8.0.0"
+    "node" : ">=8.9.4"
   },
   "scripts": {
     "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
@@ -27,7 +27,7 @@
     "@codefresh-io/http-infra": "^1.1.21",
     "@codefresh-io/internal-service-config": "^0.0.16",
     "@ronomon/crypto-async": "^2.2.1",
-    "@wegolook/joi-objectid": "^2.1.0",
+    "@codefresh-io/joi-objectid": "git+https://github.com/codefresh-io/joi-objectid.git#d66b8e989b09e88fe9addd0fe94088b5e804f84f",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "cf-errors": "^0.1.11",
