@@ -87,6 +87,7 @@ class Express {
                     }));
                 }
 
+                // TODO this should be removed. check all existing services that still makes assumptions on this
                 app.use((request, response, next) => {
                     const userHeader = request.headers['x-user-json'];
                     if (userHeader) {

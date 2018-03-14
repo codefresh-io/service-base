@@ -2,9 +2,10 @@
 
 const config = require('./infra/config');
 const service = require('./infra');
-const {getAuthenticatedEntity, request} = require('@codefresh-io/http-infra');
+const {getAuthenticatedEntity, setAuthenticatedEntity, request} = require('@codefresh-io/http-infra');
 const Promise = require('bluebird');
 const express = require('express');
+const logger = require('cf-logs');
 
 const OPTIONAL_COMPONENTS = {
   mongo: { name: 'mongoClient' },
@@ -18,9 +19,11 @@ const exportedComponents = {
   validation: require('./infra/validation'),
   makeEndpoint: require('./infra/express').makeEndpoint,
   getAuthenticatedEntity,
+  setAuthenticatedEntity,
   request,
   Promise,
   express,
+  logger,
   config
 };
 

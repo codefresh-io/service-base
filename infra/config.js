@@ -114,7 +114,8 @@ base.redis= {
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1
 };
-_.merge(base, internalServices);
+_.merge(base, internalServices); // TODO deprecate use of this root level
+base.services = internalServices;
 
 const serviceConfig = require(path.join(appRoot, 'service.config'));
 
