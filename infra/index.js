@@ -44,8 +44,7 @@ class Microservice {
             .catch((err) => {
                 console.error(`Initialization error: ${err.stack}`);
                 process.exit(1);
-            })
-            .done();
+            });
     }
 
     // TODO need to split shutdown process in to 2 phases.

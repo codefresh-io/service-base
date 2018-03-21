@@ -23,6 +23,7 @@ const exportedComponents = {
   request,
   Promise,
   express,
+  expressApp: require('./infra/express').expressApp,
   logger,
   config
 };

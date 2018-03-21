@@ -3,6 +3,7 @@
 const Promise   = require('bluebird');
 const eventBus  = require('@codefresh-io/eventbus');
 const monitor   = require('cf-monitor');
+const CFError   = require('cf-errors');
 class Eventbus {
 
     constructor() {
@@ -91,6 +92,30 @@ class Eventbus {
             return listener;
           });
         });
+    }
+
+    publish(eventName, data, returnPromise = false) {
+        const logger = this.logger;
+
+        logger.debug(`publishing event: ${eventName}`);
+        const promise = eventBus.publish(eventName, data);
+
+        if (returnPromise) {
+            return promise;
+        } else {
+            promise
+                .then(() => {
+                    logger.debug(`event: ${eventName} published successfully`);
+                })
+                .catch((err) => {
+                    const error = new CFError({
+                        cause: err,
+                        message: `Failed to publish event ${name}`
+                    });
+                    logger.error(error.stack);
+                    monitor.noticeError(error);
+                });
+        }
     }
 
 }

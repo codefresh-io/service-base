@@ -13,7 +13,7 @@ const { newDomainMiddleware } = require('@codefresh-io/http-infra');
 class Express {
 
     constructor() {
-        this.expressApp; // the express app definition
+        this.expressApp = express(); // the express app definition
         this.expressServer; // the express server instance
         this.healthy = true;
     }
@@ -30,8 +30,7 @@ class Express {
                 this.config = config;
                 this.createRoutes = createRoutes;
                 return this._create()
-                    .then((expressApp) => {
-                        this.expressApp = expressApp;
+                    .then(() => {
                         return this._start(this.expressApp);
                     })
                     .then((expressServer) => {
@@ -57,7 +56,7 @@ class Express {
         const logger = this.logger;
         return Promise.resolve()
             .then(() => {
-                const app = express();
+                const app = this.expressApp;
 
                 app.use(newDomainMiddleware());
 
@@ -132,8 +131,6 @@ class Express {
                         message: err.message
                     });
                 });
-
-                return app;
             });
 
     }
