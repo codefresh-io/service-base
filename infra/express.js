@@ -101,36 +101,38 @@ class Express {
                     next();
                 });
 
-                this.createRoutes(app);
+                return this.createRoutes(app)
+                    .then(() => {
 
-                app.get('/api/ping', (req, res) => {
-                    res.status(200).send();
-                });
+                        app.get('/api/ping', (req, res) => {
+                            res.status(200).send();
+                        });
 
-                app.get('/api/health', (req, res) => {
-                    if (this.healthy) {
-                        res.status(200).send();
-                    } else {
-                        res.status(400).send();
-                    }
-                });
+                        app.get('/api/health', (req, res) => {
+                            if (this.healthy) {
+                                res.status(200).send();
+                            } else {
+                                res.status(400).send();
+                            }
+                        });
 
-                // the last error handler
-                app.use((err, req, res, next) => {
-                    logger.error(err.stack);
+                        // the last error handler
+                        app.use((err, req, res, next) => {
+                            logger.error(err.stack);
 
-                    if (res.headersSent) {
-                        return next(err);
-                    }
+                            if (res.headersSent) {
+                                return next(err);
+                            }
 
-                    monitor.noticeError(err);
+                            monitor.noticeError(err);
 
-                    const statusCode = err.statusCode || 500;
+                            const statusCode = err.statusCode || 500;
 
-                    res.status(statusCode).send({
-                        message: err.message
+                            res.status(statusCode).send({
+                                message: err.message
+                            });
+                        });
                     });
-                });
             });
 
     }
