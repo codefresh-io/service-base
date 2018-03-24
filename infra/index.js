@@ -66,7 +66,7 @@ class Microservice {
         shutdownPromise =  timeout ? shutdownPromise.timeout(timeout) : shutdownPromise
 
         return shutdownPromise.catch(error => {
-          console.log(`error during shutdown: ${error}`);
+          console.error(`error during shutdown: ${error.stack}`);
         });
     }
 

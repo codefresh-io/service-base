@@ -1,6 +1,22 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
 const Joi = require('joi').extend(require('@codefresh-io/joi-objectid'));
+const YAML = require('js-yaml');
+
+const customYamlJoi = Joi.extend((joi) => ({ // eslint-disable-line
+    name: 'yaml',
+    language: {},
+    pre(value, state, options) {
+        try {
+            YAML.safeLoad(value);
+            return value;
+        } catch (err) {
+            return this.createError('yaml', { v: value }, state, options);
+        }
+    },
+    rules: [],
+}));
+Joi.yaml = customYamlJoi.yaml;
 
 function validateField(field, val, options = {optional: false}) {
   if (val === undefined && _.get(options, 'optional')) {

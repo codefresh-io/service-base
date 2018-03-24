@@ -16,6 +16,7 @@ const OPTIONAL_COMPONENTS = {
 
 const exportedComponents = {
   initService: service.init.bind(service),
+  stopService: service.stop.bind(service),
   validation: require('./infra/validation'),
   makeEndpoint: require('./infra/express').makeEndpoint,
   getAuthenticatedEntity,

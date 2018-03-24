@@ -48,7 +48,7 @@ class Express {
         return Promise.resolve()
             .then(() => {
                 this.healthy = false;
-                logger.info('Express health route marked as unhealthy');
+                this.logger.info('Express health route marked as unhealthy');
             });
     }
 

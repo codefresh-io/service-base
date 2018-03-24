@@ -1,10 +1,10 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "0.2.22",
+  "version": "0.2.23",
   "main": "index.js",
   "description": "",
   "engines": {
-    "node" : ">=8.9.4"
+    "node": ">=8.9.4"
   },
   "scripts": {
     "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
@@ -26,8 +26,8 @@
     "@codefresh-io/eventbus": "0.0.20",
     "@codefresh-io/http-infra": "^1.1.21",
     "@codefresh-io/internal-service-config": "^0.0.16",
-    "@ronomon/crypto-async": "^2.2.1",
     "@codefresh-io/joi-objectid": "git+https://github.com/codefresh-io/joi-objectid.git#d66b8e989b09e88fe9addd0fe94088b5e804f84f",
+    "@ronomon/crypto-async": "^2.2.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "cf-errors": "^0.1.11",
@@ -38,6 +38,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "joi": "^13.0.2",
+    "js-yaml": "^3.11.0",
     "lodash": "^4.17.4",
     "method-override": "^2.3.9",
     "mongodb": "^2.2.33",
