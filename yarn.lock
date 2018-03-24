@@ -471,9 +471,9 @@ cf-logs@^1.0.0:
     winston "2.1.1"
     winston-loggly "1.2.0"
 
-"cf-monitor@git+https://github.com/codefresh-io/cf-monitor.git#8439bee57bc276b5d5f69beab6498c397cf38eeb":
-  version "0.0.13"
-  resolved "git+https://github.com/codefresh-io/cf-monitor.git#8439bee57bc276b5d5f69beab6498c397cf38eeb"
+"cf-monitor@git+https://github.com/codefresh-io/cf-monitor.git#402ae863708ea6754d6e7d766485e8b01f73a463":
+  version "0.0.14"
+  resolved "git+https://github.com/codefresh-io/cf-monitor.git#402ae863708ea6754d6e7d766485e8b01f73a463"
   dependencies:
     newrelic "2.7.1"
 
