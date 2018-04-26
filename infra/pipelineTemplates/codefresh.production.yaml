@@ -1,0 +1,109 @@
+version: '1.0'
+
+steps:
+
+  fail_if_not_master:
+    title: "Validate running on master branch"
+    image: codefresh/cli-build
+    commands:
+      - 'echo This pipeline should be run only on master'
+      - 'exit 1'
+    when:
+      branch:
+        ignore: [ master ]
+
+  prepare_envriornment_variables:
+    title: "Prepare environment variables"
+    image: codefresh/cli
+    commands:
+    - export PACKAGE_VERSION=$(jq -r ".version" package.json)
+    - export HELM_REPO_URL=http://chartmuseum.codefresh.io
+    - cf_export HELM_REPO_FULL_PATH=$HELM_REPO_URL/api/charts
+    - cf_export HELM_REPO_URL=$HELM_REPO_URL
+    - cf_export LAST_GIT_VERSION=v$(git describe --tags --abbrev=0)
+    - TAG_EXISTS=0; git rev-parse --verify "v"$PACKAGE_VERSION || TAG_EXISTS=$? && true
+    - cf_export TAG_EXISTS=$TAG_EXISTS
+    - cf_export PACKAGE_VERSION=$PACKAGE_VERSION
+
+  fetch_current_prod_version:
+    image: codefresh/kube-helm:master
+    title: "Fetch the current ${{CHART_NAME}} status version from production"
+    commands:
+    - kubectl config use-context cf-prod@codefresh-production
+    - cf_export LAST_PROD_VERSION=$(kubectl get pod -l app=production-${{CHART_NAME}} -o custom-columns=VERSION:.metadata.labels.chart | tail -n 1 | sed 's/${{CHART_NAME}}-//g')
+
+  git_tag:
+    title: "Git tag with version ${{PACKAGE_VERSION}}"
+    image: codefresh/cli
+    commands:
+    - git tag $PACKAGE_VERSION
+    when:
+      condition:
+        all:
+          gitTagNotExists: '"${{TAG_EXISTS}}" != "0"'
+
+  create_release:
+    title: "Create github release"
+    image: codefresh/cli-build
+    commands:
+      - 'curl --fail -X POST -d ''{"body":"https://g.codefresh.io/helm/charts/codefresh_stable/onboarding-status","tag_name":"v${{PACKAGE_VERSION}}","target_commitish":"${{CF_REVISION}}","name":"{{CHART_NAME_UPPER}} V${{PACKAGE_VERSION}}"}'' -H "Content-Type: application/json" -H "Authorization: token ${{GITHUB_TOKEN}}" https://api.github.com/repos/codefresh-io/${{REPO_NAME}}/releases'
+    when:
+      condition:
+        all:
+          gitTagNotExists: '"${{TAG_EXISTS}}" != "0"'
+
+  tag_image_with_new_version:
+    title: "Tag image to ${{PACKAGE_VERSION}}"
+    image: codefresh/cli
+    commands:
+    - export IMAGE_ID=$(codefresh get img --image-name codefresh/${{REPO_NAME}} --sha ${{CF_REVISION}} --branch ${{CF_BRANCH_TAG_NORMALIZED}} | awk '{ print $1 }' | tail -n 1)
+    - codefresh tag $IMAGE_ID $PACKAGE_VERSION
+
+#   push_to_enterprise_registry:
+#    title: "Pushing image to enterprise registry"
+#    type: push
+#    candidate: ${{build_step}}
+#    tag: ${{CF_BRANCH_TAG_NORMALIZED}}
+#    registry: codefresh-enterprise
+
+  build_helm_package_for_master_branch:
+    image: codefresh/kube-helm:master
+    title: Build helm package for master
+    commands:
+    # update imageTag in values.yaml
+    - yq '.imageTag = env.PACKAGE_VERSION' ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}}/values.yaml --yaml-output > ${{CF_VOLUME_PATH}}/values.new.yaml
+    - mv ${{CF_VOLUME_PATH}}/values.new.yaml ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}}/values.yaml
+    # update version and add source to the commit in Chart.yaml
+    - yq '.version = env.PACKAGE_VERSION' ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}}/Chart.yaml | yq -y '.sources[.sources | length] = env.CF_COMMIT_URL' --yaml-output > ${{CF_VOLUME_PATH}}/Chart.new.yaml
+    - mv ${{CF_VOLUME_PATH}}/Chart.new.yaml ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}}/Chart.yaml
+    # build and push
+    - export PACKAGE=$(helm package ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}} --destination ${{CF_VOLUME_PATH}} | cut -d " " -f 8 )
+    - curl --user ${{BASIC_AUTH_USER}}:${{BASIC_AUTH_PASS}} --fail --data-binary "@$PACKAGE" $HELM_REPO_FULL_PATH
+
+  block_cd_for_non_standard_version_bump:
+    image: codefresh/version-compare
+    title: 'Block CD pipeline for non standard version bumps'
+    commands:
+    - VERSIONS_BUMP_VALID=0; compare compare $LAST_GIT_VERSION $PACKAGE_VERSION || VERSIONS_BUMP_VALID=$? && true
+    - cf_export VERSIONS_BUMP_VALID=$VERSIONS_BUMP_VALID
+
+  update_reqs_in_cf_helm:
+    image: codefresh/cli
+    commands:
+    - rm -rf cf-helm
+    - git clone https://${{GITHUB_TOKEN}}@github.com/codefresh-io/cf-helm.git
+    - cd cf-helm
+    # get the index of ${{CHART_NAME}} chart in requirements.yaml
+    - export ${{SERVICE_INDEX}}=$(cat codefresh/requirements.yaml | yq -c '[.dependencies[] | .name == ${{CHART_NAME}}] | index(true)')
+    # update the version on ${{CHART_NAME}} chart
+    - cat codefresh/requirements.yaml | yq -c '.dependencies[env.${{SERVICE_INDEX}} | tonumber ].version = env.PACKAGE_VERSION' --yaml-output > codefresh/requirements.new.yaml
+    - mv codefresh/requirements.new.yaml codefresh/requirements.yaml
+    - git config user.email "codefresh@codefresh.io"
+    - git config user.name "Automation"
+    - git commit -am "Update {{CHART_NAME}} version to $PACKAGE_VERSION"
+    - git push
+    when:
+      condition:
+        all:
+          runWhenVersionsMatch: '"v${{LAST_PROD_VERSION}}" == "${{LAST_GIT_VERSION}}"'
+          runWhenVersionBumpValid: '"${{VERSIONS_BUMP_VALID}}" == "0"'
