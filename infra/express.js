@@ -129,7 +129,7 @@ class Express {
                             const statusCode = err.statusCode || 500;
 
                             res.status(statusCode).send({
-                                message: err.message
+                                message: err.toString()
                             });
                         });
                     });
