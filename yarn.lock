@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@codefresh-io/authenticated-entity@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.0.1.tgz#6bb8ea7b23665cdb092b5e7255962e6ad8ff85f6"
+"@codefresh-io/authenticated-entity@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.0.2.tgz#b4ae9331a99117edb2426997313795863a438d9e"
   dependencies:
     lodash "^4.17.4"
 
@@ -21,11 +21,11 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@^1.1.24":
-  version "1.1.24"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.1.24.tgz#0eb8e29ef3af5ca98c8e59a850232144ed543d06"
+"@codefresh-io/http-infra@^1.1.25":
+  version "1.1.25"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.1.25.tgz#73d811a8086d8ef99155b357a2bd8559d408e6e1"
   dependencies:
-    "@codefresh-io/authenticated-entity" "^2.0.1"
+    "@codefresh-io/authenticated-entity" "^2.0.2"
     lodash "^4.17.5"
     randomatic "^2.0.0"
     request "^2.82.0"
