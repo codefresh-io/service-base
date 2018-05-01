@@ -60,7 +60,7 @@ base.logger = {
         },
         formatter: function (options) {
             // Return string will be passed to logger.
-            const shouldFormatOutput = !!process.env['FORMAT_LOGS_TO_ELK'];
+            const shouldFormatOutput = process.env['FORMAT_LOGS_TO_ELK'] === 'true';
             if (shouldFormatOutput) {
                 return JSON.stringify({
                     metadata: options.meta || {},
@@ -87,12 +87,13 @@ base.logger = {
         },
         authenticatedEntity: () => {
             try {
-                return getAuthenticatedEntity();
+                const object = getAuthenticatedEntity().toJson({partial: true});
+                return object;
             } catch (err) {
                 return {};
             }
-        }
-    }
+        },
+    },
 };
 
 base.httpLogger = {
