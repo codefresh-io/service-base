@@ -85,10 +85,9 @@ base.logger = {
                 return {};
             }
         },
-        user: () => {
+        authenticatedEntity: () => {
             try {
-                const { _user: { name, _id } } = getAuthenticatedEntity();
-                return { name, _id };
+                return getAuthenticatedEntity();
             } catch (err) {
                 return {};
             }
