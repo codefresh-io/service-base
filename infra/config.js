@@ -93,7 +93,7 @@ base.logger = {
                 return {};
             }
         },
-    }
+    },
 };
 
 base.httpLogger = {
