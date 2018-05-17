@@ -6,6 +6,7 @@ const {getAuthenticatedEntity, setAuthenticatedEntity, request} = require('@code
 const Promise = require('bluebird');
 const express = require('express');
 const logger = require('cf-logs');
+const monitor = require('cf-monitor');
 
 const OPTIONAL_COMPONENTS = {
   mongo: { name: 'mongoClient' },
@@ -26,7 +27,8 @@ const exportedComponents = {
   express,
   expressApp: require('./infra/express').expressApp,
   logger,
-  config
+  config,
+  monitor,
 };
 
 const enabledComponents = config.getConfigArray('enabledComponents')
