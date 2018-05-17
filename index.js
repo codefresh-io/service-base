@@ -26,7 +26,8 @@ const exportedComponents = {
   express,
   expressApp: require('./infra/express').expressApp,
   logger,
-  config
+  config,
+  monitor : require('cf-monitor'),
 };
 
 const enabledComponents = config.getConfigArray('enabledComponents')

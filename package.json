@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -25,7 +25,7 @@
   "dependencies": {
     "@codefresh-io/eventbus": "0.0.20",
     "@codefresh-io/http-infra": "^1.1.28",
-    "@codefresh-io/internal-service-config": "^0.0.16",
+    "@codefresh-io/internal-service-config": "^0.0.17",
     "@codefresh-io/joi-objectid": "git+https://github.com/codefresh-io/joi-objectid.git#d66b8e989b09e88fe9addd0fe94088b5e804f84f",
     "@ronomon/crypto-async": "^2.2.1",
     "bluebird": "^3.5.0",
