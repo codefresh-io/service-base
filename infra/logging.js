@@ -2,12 +2,17 @@
 
 const Promise = require('bluebird');
 const cflogs  = require('cf-logs');
+const config = require('./config');
 let logger;
 
 class Logging {
 
     constructor() {
 
+    }
+
+    getLogger(namespace) {
+        return cflogs.Logger(`codefresh:${config.name}${namespace ? `:${namespace}` : ''}`);
     }
 
     init(config) {

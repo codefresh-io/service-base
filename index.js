@@ -5,8 +5,8 @@ const service = require('./infra');
 const {getAuthenticatedEntity, setAuthenticatedEntity, request} = require('@codefresh-io/http-infra');
 const Promise = require('bluebird');
 const express = require('express');
-const logger = require('cf-logs');
 const monitor = require('cf-monitor');
+const logging = require('./infra/logging');
 
 const OPTIONAL_COMPONENTS = {
   mongo: { name: 'mongoClient' },
@@ -26,7 +26,7 @@ const exportedComponents = {
   Promise,
   express,
   expressApp: require('./infra/express').expressApp,
-  logger,
+  getLogger: logging.getLogger,
   config,
   monitor,
 };
