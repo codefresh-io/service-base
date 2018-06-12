@@ -4,20 +4,20 @@ const safe = require('./safe');
 
 function _encryptDecryptMultipleValues(safeObj, values, encrypt = true) {
     return Promise.all((values || [])
-      .map(val => safeObj[encrypt ? 'write' : 'read'](val)));
+        .map(val => safeObj[encrypt ? 'write' : 'read'](val)));
 }
 
 function _encryptDecryptObjectValues(safeId, obj, keysToEncrypt, encrypt = true) {
     const fieldsToEncrypt = _.pick(obj, keysToEncrypt);
     const keys = _.keys(fieldsToEncrypt);
     if (keys.length === 0) {
-      return Promise.resolve(obj);
+        return Promise.resolve(obj);
     }
     const values = _.values(fieldsToEncrypt);
     return safe.getOrCreateSafe(safeId)
-      .then(safeObj => _encryptDecryptMultipleValues(safeObj, values, encrypt))
-      .then(encryptedValues => _.zipObject(keys, encryptedValues))
-      .then(encryptedFields => Object.assign({}, obj, encryptedFields));
+        .then(safeObj => _encryptDecryptMultipleValues(safeObj, values, encrypt))
+        .then(encryptedValues => _.zipObject(keys, encryptedValues))
+        .then(encryptedFields => Object.assign({}, obj, encryptedFields));
 }
 
 function encryptObjectValues(safeId, obj, keysToEncrypt) {
@@ -31,5 +31,5 @@ function decryptObjectValues(safeId, obj, keysToEncrypt) {
 module.exports = {
     encryptObjectValues,
     decryptObjectValues,
-    getSafe: safeId => safe.getOrCreateSafe(safeId)
+    getSafe: safeId => safe.getOrCreateSafe(safeId),
 };

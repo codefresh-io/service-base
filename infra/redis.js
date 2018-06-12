@@ -1,13 +1,12 @@
-'use strict';
+
 
 const Promise = require('bluebird');
 const monitor = require('cf-monitor');
 const redis = require('redis');
 
 class Redis {
-
     constructor() {
-        this.client;
+        this.client = undefined;
         this.redisInitialized = false;
     }
 
@@ -16,11 +15,11 @@ class Redis {
      * @returns {*}
      */
     init(config) {
-        const logger = require('cf-logs').Logger('codefresh:infra:redis');
+        const logger = require('cf-logs').Logger('codefresh:infra:redis'); // eslint-disable-line
         this.logger = logger;
-        var deferred = Promise.defer();
+        const deferred = Promise.defer();
 
-        //TODO a fallback for case where redis is not up. should be removed once redis is fully used
+        // TODO a fallback for case where redis is not up. should be removed once redis is fully used
         setTimeout(() => {
             deferred.resolve();
         }, 30000);
@@ -29,7 +28,7 @@ class Redis {
             redis.createClient({
                 host: config.redis.url,
                 password: config.redis.password,
-                db: config.redis.db
+                db: config.redis.db,
             });
 
         this.client.on('ready', () => {
@@ -52,7 +51,6 @@ class Redis {
         });
 
         return deferred.promise;
-
     }
 
 
@@ -61,12 +59,12 @@ class Redis {
      * @returns {*}
      */
     stop() {
-        const logger = this.logger;
+        const logger = this.logger; // eslint-disable-line
         if (!this.redisInitialized) {
             return Promise.resolve();
         }
 
-        var deferred = Promise.defer();
+        const deferred = Promise.defer();
 
         this.client.on('end', () => {
             logger.info('Redis client ended');

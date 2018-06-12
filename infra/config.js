@@ -1,9 +1,8 @@
-'use strict';
+
 
 const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
-const os = require('os');
 const internalServices = require('@codefresh-io/internal-service-config');
 const { getRequestId, getAuthenticatedEntity } = require('@codefresh-io/http-infra');
 
@@ -17,50 +16,48 @@ function findAppRoot(dir = path.dirname(require.main.filename)) {
 const appRoot = process.env.NODE_ENV === 'test' ? path.resolve(__dirname).split('/node_modules')[0] : findAppRoot();
 
 
-const packageJson = require(path.join(appRoot, 'package.json'));
+const packageJson = require(path.join(appRoot, 'package.json')); // eslint-disable-line
 
 const name = packageJson.name.replace(/^@codefresh-io\//, '');
 
 const base = {};
 
-base.env  = process.env.NODE_ENV || 'kubernetes';
+base.env = process.env.NODE_ENV || 'kubernetes';
 base.port = process.env.PORT || 9001;
 base.name = name;
-base.api  = {
+base.api = {
     url: process.env.API_URL || APPLICATION_DOMAIN,
-    protocol: process.env.API_PROTOCOL || 'http'
+    protocol: process.env.API_PROTOCOL || 'http',
 };
 
 base.eventbus = {
-    uri: process.env.EVENTBUS_URI || ('amqp://' + APPLICATION_DOMAIN),
+    uri: process.env.EVENTBUS_URI || (`amqp://${APPLICATION_DOMAIN}`),
     reconnectInterval: process.env.EVENTBUS_INTERVAL || 5,
-    serviceName: name
+    serviceName: name,
 };
 
 base.postgres = {
     host: process.env.POSTGRES_HOST || APPLICATION_DOMAIN,
     database: process.env.POSTGRES_DATABASE || 'postgres',
     user: process.env.POSTGRES_USER || 'postgres',
-    password: process.env.POSTGRES_PASSWORD || 'postgres'
+    password: process.env.POSTGRES_PASSWORD || 'postgres',
 };
 
-base.mongo = {
-    uri: process.env.MONGO_URI || `mongodb://${APPLICATION_DOMAIN}/${name}`
-};
+base.mongo = { uri: process.env.MONGO_URI || `mongodb://${APPLICATION_DOMAIN}/${name}` };
 
 base.logger = {
     filePath: process.env.LOGS_PATH || path.join(__dirname, '../../logs', 'kubernetes-logs.log'),
     console: true,
     handleExceptions: false,
     showNamespace: true,
-    level: "debug",
+    level: 'debug',
     consoleOptions: {
-        timestamp: function () {
+        timestamp() {
             return new Date().toISOString();
         },
-        formatter: function (options) {
+        formatter(options) {
             // Return string will be passed to logger.
-            const shouldFormatOutput = process.env['FORMAT_LOGS_TO_ELK'] === 'true';
+            const shouldFormatOutput = process.env.FORMAT_LOGS_TO_ELK === 'true';
             if (shouldFormatOutput) {
                 return JSON.stringify({
                     metadata: options.meta || {},
@@ -71,13 +68,13 @@ base.logger = {
             return `${options.timestamp()} ${options.level.toUpperCase()} >> ` +
             `${options.message || ''}` +
             `${options.meta && Object.keys(options.meta).length ? ` << ${JSON.stringify(options.meta)}` : ''}`;
-        }
+        },
     },
     basePath: null,
-    baseNamespace: "codefresh",
+    baseNamespace: 'codefresh',
     fields: {
-        service: process.env['SERVICE_NAME'] || 'service-base',
-        time: () => { return new Date().toISOString(); },
+        service: process.env.SERVICE_NAME || 'service-base',
+        time: () => new Date().toISOString(),
         correlationId: () => {
             try {
                 return getRequestId();
@@ -87,7 +84,7 @@ base.logger = {
         },
         authenticatedEntity: () => {
             try {
-                const object = getAuthenticatedEntity().toJson({partial: true});
+                const object = getAuthenticatedEntity().toJson({ partial: true });
                 return object;
             } catch (err) {
                 return {};
@@ -98,35 +95,31 @@ base.logger = {
 
 base.httpLogger = {
     level: process.env.HTTP_LOGGER_LEVEL || 'debug',
-    format: 'dev'
+    format: 'dev',
 };
 
-base.newrelic = {
-    license_key: process.env.NEWRELIC_LICENSE_KEY
-};
+base.newrelic = { license_key: process.env.NEWRELIC_LICENSE_KEY };
 
-base.safe = {
-  secret: process.env.SAFE_SECRET || 'secret'
-};
+base.safe = { secret: process.env.SAFE_SECRET || 'secret' };
 
-base.redis= {
+base.redis = {
     url: process.env.REDIS_URL || APPLICATION_DOMAIN,
     password: process.env.REDIS_PASSWORD || 'redisPassword',
-    db: process.env.REDIS_DB || 1
+    db: process.env.REDIS_DB || 1,
 };
 _.merge(base, internalServices); // TODO deprecate use of this root level
 base.services = internalServices;
 
-const serviceConfig = require(path.join(appRoot, 'service.config'));
+const serviceConfig = require(path.join(appRoot, 'service.config')); // eslint-disable-line
 
 _.merge(base, serviceConfig);
 
-base.getConfigVal = function(key) {
-  return _.get(this, key);
+base.getConfigVal = function (key) { // eslint-disable-line
+    return _.get(this, key);
 }.bind(base);
 
-base.getConfigArray = function(key) {
-  return _.flatten([_.get(this, key, [])]);
+base.getConfigArray = function (key) { // eslint-disable-line
+    return _.flatten([_.get(this, key, [])]);
 }.bind(base);
 
 module.exports = base;

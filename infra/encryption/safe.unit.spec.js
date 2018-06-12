@@ -1,34 +1,26 @@
-'use strict';
+/* eslint-disable */
 
-const chai    = require('chai');
+const chai = require('chai');
 const Promise = require('bluebird'); // jshint ignore:line
 const helpers = require('../server/test/helpers.js');
-const INIT    = require('../server/api/index.js');
+const INIT = require('../server/api/index.js');
 const Account = require('../server/api/accounts/accounts.model');
-const safe    = require('./safe');
+const safe = require('./safe');
 
 const expect = chai.expect;
 
 describe.skip('Safe Unit Tests', () => {
+    before(() => Promise.resolve()
+        .then(() => {
+            INIT.init({ uri: process.env.TEST_MONGO_URI });
+            return Promise.fromCallback(helpers.dropAllData);
+        }));
 
-    before(() => {
-        return Promise.resolve()
-            .then(() => {
-                INIT.init({ uri: process.env.TEST_MONGO_URI });
-                return Promise.fromCallback(helpers.dropAllData);
-            });
-    });
+    after(() => Promise.fromCallback(helpers.dropAllData));
 
-    after(() => {
-        return Promise.fromCallback(helpers.dropAllData);
-    });
-
-    beforeEach(() => {
-        return Promise.fromCallback(helpers.dropAllData);
-    });
+    beforeEach(() => Promise.fromCallback(helpers.dropAllData));
 
     describe('Get Or Create', () => {
-
         it('Create a new safe', (done) => {
             createAccount('new-key')
                 .then((account) => {
@@ -41,24 +33,23 @@ describe.skip('Safe Unit Tests', () => {
                             done(err);
                         });
                 });
-
         });
 
         it('Create a new safe and get it once more', (done) => {
             createAccount('new-key')
-                .then((account) => {
-                    return safe.getOrCreateSafe(account)
-                        .then((firstSafe) => {
-                            return safe.getOrCreateSafe(account)
-                                .then((secondSafe) => {
-                                    firstSafe.safeModel._id.toString().should.equal(secondSafe.safeModel._id.toString(),
-                                        'The second invocation shouldn\'t create a new safe ID');
-                                    firstSafe.safeModel.key.should.equal(secondSafe.safeModel.key,
-                                        'The second invocation shouldn\'t create a new safe');
-                                    done();
-                                });
-                        });
-                })
+                .then(account => safe.getOrCreateSafe(account)
+                    .then(firstSafe => safe.getOrCreateSafe(account)
+                        .then((secondSafe) => {
+                            firstSafe.safeModel._id.toString().should.equal(
+                                secondSafe.safeModel._id.toString(),
+                                'The second invocation shouldn\'t create a new safe ID',
+                            );
+                            firstSafe.safeModel.key.should.equal(
+                                secondSafe.safeModel.key,
+                                'The second invocation shouldn\'t create a new safe',
+                            );
+                            done();
+                        })))
                 .catch((err) => {
                     done(err);
                 });
@@ -66,19 +57,14 @@ describe.skip('Safe Unit Tests', () => {
     });
 
     describe('Read and write', () => {
-
         it('Successfully read and write', (done) => {
             createSafe()
-                .then((createdSafe) => {
-                    return createdSafe.write('mysecret')
-                        .then((writtenSecret) => {
-                            return createdSafe.read(writtenSecret);
-                        })
-                        .then((decrypted) => {
-                            decrypted.should.equal('mysecret', 'Unexpected decrypted value');
-                            done();
-                        });
-                })
+                .then(createdSafe => createdSafe.write('mysecret')
+                    .then(writtenSecret => createdSafe.read(writtenSecret))
+                    .then((decrypted) => {
+                        decrypted.should.equal('mysecret', 'Unexpected decrypted value');
+                        done();
+                    }))
                 .catch((err) => {
                     done(err);
                 });
@@ -90,16 +76,12 @@ describe.skip('Safe Unit Tests', () => {
             this.timeout(5000);
             // triplesec is very sensitive to CPU load and fails frequently on timeout with CI builds
             createSafe()
-                .then((createdSafe) => {
-                    return createdSafe.write_triplesec('mysecret with triplecec')
-                        .then((writtenSecret) => {
-                            return createdSafe.read(writtenSecret);
-                        })
-                        .then((decrypted) => {
-                            decrypted.should.equal('mysecret with triplecec', 'Unexpected decrypted value');
-                            done();
-                        });
-                })
+                .then(createdSafe => createdSafe.write_triplesec('mysecret with triplecec')
+                    .then(writtenSecret => createdSafe.read(writtenSecret))
+                    .then((decrypted) => {
+                        decrypted.should.equal('mysecret with triplecec', 'Unexpected decrypted value');
+                        done();
+                    }))
                 .catch((err) => {
                     done(err);
                 })
@@ -108,30 +90,25 @@ describe.skip('Safe Unit Tests', () => {
 
         it('Tamper with the safe key and fail to read and write', (done) => {
             createSafe()
-                .then((createdSafe) => {
-                    return createdSafe.write('mysecret')
-                        .then((writtenSecret) => {
-                            createdSafe.safeModel.key = 'jim';
-                            createdSafe.read(writtenSecret)
-                                .then((decrypted) => {
-                                    decrypted.should.not.equal('mysecret', 'Unexpected decrypted value');
-                                    done();
-                                })
-                                .catch(() => {
-                                    done();
-                                });
-                        });
-                });
-
+                .then(createdSafe => createdSafe.write('mysecret')
+                    .then((writtenSecret) => {
+                        createdSafe.safeModel.key = 'jim';
+                        createdSafe.read(writtenSecret)
+                            .then((decrypted) => {
+                                decrypted.should.not.equal('mysecret', 'Unexpected decrypted value');
+                                done();
+                            })
+                            .catch(() => {
+                                done();
+                            });
+                    }));
         });
     });
 });
 
 function createSafe() {
     return createAccount('new-key')
-        .then((account) => {
-            return safe.getOrCreateSafe(account);
-        });
+        .then(account => safe.getOrCreateSafe(account));
 }
 
 function createAccount(username) {
@@ -142,11 +119,9 @@ function createAccount(username) {
             provider: { name: 'github', credentials: { accessToken: 'token' } },
             roles: ['User', 'Admin'],
             account: { name: `${username}-account`, provider: 'github', isAdmin: true },
-            user_data: { image: '' }
-        }
+            user_data: { image: '' },
+        },
     ];
     return Promise.fromCallback(cb => helpers.storeTestUsers(userMetaData, cb))
-        .then(() => {
-            return Account.findOne({ name: `${username}-account` });
-        });
+        .then(() => Account.findOne({ name: `${username}-account` }));
 }

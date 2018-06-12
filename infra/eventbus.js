@@ -1,11 +1,11 @@
-'use strict';
 
-const Promise   = require('bluebird');
-const eventBus  = require('@codefresh-io/eventbus');
-const monitor   = require('cf-monitor');
-const CFError   = require('cf-errors');
+
+const Promise = require('bluebird');
+const eventBus = require('@codefresh-io/eventbus');
+const monitor = require('cf-monitor');
+const CFError = require('cf-errors');
+
 class Eventbus {
-
     constructor() {
         this.eventbusInitialized = false;
     }
@@ -15,15 +15,15 @@ class Eventbus {
      * @returns {*}
      */
     init(config) {
-        const logger = require('cf-logs').Logger("codefresh:infra:eventbus");
+        const logger = require('cf-logs').Logger('codefresh:infra:eventbus'); // eslint-disable-line
         this.logger = logger;
         return Promise.resolve()
             .then(() => {
                 this.config = config;
 
-                var deferred = Promise.defer();
+                const deferred = Promise.defer();
 
-                //TODO a fallback for case where rabbitmq is not up. should be removed once rabbitmq is fully used
+                // TODO a fallback for case where rabbitmq is not up. should be removed once rabbitmq is fully used
                 setTimeout(() => {
                     deferred.resolve(this);
                 }, 30000);
@@ -31,15 +31,15 @@ class Eventbus {
                 eventBus.init({
                     bus: {
                         url: this.config.eventbus.uri,
-                        reconnectInterval: 5
+                        reconnectInterval: 5,
                     },
                     store: {
                         host: this.config.postgres.host,
                         database: this.config.postgres.database,
                         user: this.config.postgres.user,
-                        password: this.config.postgres.password
+                        password: this.config.postgres.password,
                     },
-                    microServiceName: this.config.eventbus.serviceName
+                    microServiceName: this.config.eventbus.serviceName,
                 });
 
                 eventBus.on('ready', () => {
@@ -55,7 +55,7 @@ class Eventbus {
                 });
 
                 return deferred.promise;
-            })
+            });
     }
 
 
@@ -64,12 +64,12 @@ class Eventbus {
      * @returns {*}
      */
     stop() {
-        const logger = this.logger;
+        const logger = this.logger; // eslint-disable-line
         if (!this.eventbusInitialized) {
             return Promise.resolve();
         }
 
-        var deferred = Promise.defer();
+        const deferred = Promise.defer();
 
         eventBus.on('close', () => {
             logger.info('Eventbus client closed');
@@ -82,42 +82,40 @@ class Eventbus {
     }
 
     subscribe(eventName, handler) {
-      const logger = this.logger;
-      return eventBus.subscribe(eventName, handler)
-        .then((listener) => {
-          logger.info(`Listening on event ${eventName}`);
-          listener.on('error', (err) => {
-            logger.error(`${eventName} handler failed: ${err.stack}`);
-            monitor.noticeError(err);
-            return listener;
-          });
-        });
+        const logger = this.logger; // eslint-disable-line
+        return eventBus.subscribe(eventName, handler)
+            .then((listener) => {
+                logger.info(`Listening on event ${eventName}`);
+                listener.on('error', (err) => {
+                    logger.error(`${eventName} handler failed: ${err.stack}`);
+                    monitor.noticeError(err);
+                    return listener;
+                });
+            });
     }
 
-    publish(eventName, data, returnPromise = false) {
-        const logger = this.logger;
+    publish(eventName, data, returnPromise = false) { // eslint-disable-line
+        const logger = this.logger; // eslint-disable-line
 
         logger.debug(`publishing event: ${eventName}`);
         const promise = eventBus.publish(eventName, data);
 
         if (returnPromise) {
             return promise;
-        } else {
-            promise
-                .then(() => {
-                    logger.debug(`event: ${eventName} published successfully`);
-                })
-                .catch((err) => {
-                    const error = new CFError({
-                        cause: err,
-                        message: `Failed to publish event ${name}`
-                    });
-                    logger.error(error.stack);
-                    monitor.noticeError(error);
-                });
         }
+        promise
+            .then(() => {
+                logger.debug(`event: ${eventName} published successfully`);
+            })
+            .catch((err) => {
+                const error = new CFError({
+                    cause: err,
+                    message: `Failed to publish event ${eventName}`,
+                });
+                logger.error(error.stack);
+                monitor.noticeError(error);
+            });
     }
-
 }
 
 

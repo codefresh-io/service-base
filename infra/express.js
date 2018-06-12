@@ -1,20 +1,19 @@
-'use strict';
 
-const Promise                 = require('bluebird');
-const express                 = require('express');
-const compression             = require('compression');
-const bodyParser              = require('body-parser');
-const methodOverride          = require('method-override');
-const cookieParser            = require('cookie-parser');
-const morgan                  = require('morgan');
-const monitor                 = require('cf-monitor');
+
+const Promise = require('bluebird');
+const express = require('express');
+const compression = require('compression');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
+const monitor = require('cf-monitor');
 const { newDomainMiddleware } = require('@codefresh-io/http-infra');
 
 class Express {
-
     constructor() {
         this.expressApp = express(); // the express app definition
-        this.expressServer; // the express server instance
+        this.expressServer = undefined; // the express server instance
         this.healthy = true;
     }
 
@@ -23,16 +22,14 @@ class Express {
      * @returns {*}
      */
     init(config, createRoutes) {
-        const logger = require('cf-logs').Logger("codefresh:infra:express");
+        const logger = require('cf-logs').Logger('codefresh:infra:express'); // eslint-disable-line
         this.logger = logger;
         return Promise.resolve()
             .then(() => {
                 this.config = config;
                 this.createRoutes = createRoutes;
                 return this._create()
-                    .then(() => {
-                        return this._start(this.expressApp);
-                    })
+                    .then(() => this._start(this.expressApp))
                     .then((expressServer) => {
                         this.expressServer = expressServer;
                     });
@@ -53,7 +50,7 @@ class Express {
     }
 
     _create() {
-        const logger = this.logger;
+        const logger = this.logger; // eslint-disable-line
         return Promise.resolve()
             .then(() => {
                 const app = this.expressApp;
@@ -63,7 +60,7 @@ class Express {
                 app.use(cookieParser());
                 app.use(compression());
 
-                app.use('/api/stripe/hook', bodyParser.raw({ type: "*/*" }));
+                app.use('/api/stripe/hook', bodyParser.raw({ type: '*/*' }));
                 app.use(bodyParser.json());
 
                 app.use(bodyParser.urlencoded({ extended: true }));
@@ -75,14 +72,14 @@ class Express {
                             if (this.config.httpLogger.level === 'debug') {
                                 return false;
                             }
-                            var code = res.statusCode;
+                            const code = res.statusCode;
                             return code < 400;
                         },
                         stream: {
                             write: (str) => {
                                 logger.info(str.substring(0, str.length - 1));
-                            }
-                        }
+                            },
+                        },
                     }));
                 }
 
@@ -103,7 +100,6 @@ class Express {
 
                 return this.createRoutes(app)
                     .then(() => {
-
                         app.get('/api/ping', (req, res) => {
                             res.status(200).send();
                         });
@@ -117,7 +113,7 @@ class Express {
                         });
 
                         // the last error handler
-                        app.use((err, req, res, next) => {
+                        app.use((err, req, res, next) => { // eslint-disable-line
                             logger.error(err.stack);
 
                             if (res.headersSent) {
@@ -128,19 +124,15 @@ class Express {
 
                             const statusCode = err.statusCode || 500;
 
-                            res.status(statusCode).send({
-                                message: err.toString()
-                            });
+                            res.status(statusCode).send({ message: err.toString() });
                         });
                     });
             });
-
     }
 
     _start(app) {
-        const logger = this.logger;
+        const logger = this.logger; // eslint-disable-line
         return new Promise((resolve, reject) => {
-
             const server = app.listen(this.config.port, (err) => {
                 if (err) {
                     logger.info(`Failed to load service with message ${err.message}`);
@@ -150,19 +142,18 @@ class Express {
                     resolve(server);
                 }
             });
-
         });
     }
 
-    makeEndpoint(fn) {
-      return function(req, res, next) {
-        Promise.resolve()
-          .then(() => fn(req, res))
-          .then(ret => {
-            res.send(ret);
-          })
-          .catch(err => next(err));
-      }
+    makeEndpoint(fn) { // eslint-disable-line
+        return function (req, res, next) { // eslint-disable-line
+            Promise.resolve()
+                .then(() => fn(req, res))
+                .then((ret) => {
+                    res.send(ret);
+                })
+                .catch(err => next(err));
+        };
     }
 }
 
