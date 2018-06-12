@@ -1,31 +1,32 @@
-'use strict';
+
 
 const Promise = require('bluebird');
-const cflogs  = require('cf-logs');
+const cflogs = require('cf-logs');
+const { name: serviceName } = require('./config');
+
 let logger;
 
 class Logging {
-
-    constructor() {
-
+    getLogger(namespace) { // eslint-disable-line
+        return cflogs.Logger(`codefresh:${serviceName}${namespace ? `:${namespace}` : ''}`);
     }
 
-    init(config) {
+    init(config) { // eslint-disable-line
         return Promise.resolve()
             .then(() => {
                 cflogs.init(config.logger);
-                logger = cflogs.Logger("codefresh");
+                logger = cflogs.Logger('codefresh');
                 // override the default console.log
-                console.log   = function (message) {
+                console.log = (message) => {
                     logger.log('info', message);
                 };
-                console.error = function (message) {
+                console.error = (message) => {
                     logger.log('error', message);
                 };
             });
     }
 
-    stop() {
+    stop() { // eslint-disable-line
         return Promise.resolve();
     }
 }

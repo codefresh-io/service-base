@@ -1,17 +1,14 @@
-'use strict';
+
 
 const Promise = require('bluebird');
-const {MongoClient, ObjectId} = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
-const clientSettings = {
-  promiseLibrary: Promise
-}
+const clientSettings = { promiseLibrary: Promise };
 
 class Mongo {
-
     constructor() {
-      this.db = undefined;
-      this.ObjectId = ObjectId;
+        this.db = undefined;
+        this.ObjectId = ObjectId;
     }
 
     /**
@@ -19,10 +16,10 @@ class Mongo {
      * @returns {*}
      */
     init(config) {
-        const logger = require('cf-logs').Logger('codefresh:infra:mongo');
+        const logger = require('cf-logs').Logger('codefresh:infra:mongo'); // eslint-disable-line
         this.logger = logger;
         return MongoClient.connect(config.mongo.uri, clientSettings)
-            .then(db => {
+            .then((db) => {
                 this.db = db;
                 logger.info(`Mongo driver connected to: ${config.mongo.uri}`);
             });
@@ -35,13 +32,13 @@ class Mongo {
      */
     stop() {
         if (!this.db) {
-          return Promise.resolve();
+            return Promise.resolve();
         }
         return this.db.close();
     }
 
     collection(collectionName) {
-      return this.db.collection(collectionName);
+        return this.db.collection(collectionName);
     }
 }
 

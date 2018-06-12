@@ -1,25 +1,21 @@
-"use strict";
 
-const _ = require('lodash')
+
 const monitor = require('cf-monitor');
+
 monitor.init();
-const Promise       = require('bluebird'); // jshint ignore:line
-const config        = require('./config');
-const eventbus      = require('./eventbus');
-const mongo         = require('./mongo');
+const Promise = require('bluebird'); // jshint ignore:line
+const config = require('./config');
+const eventbus = require('./eventbus');
+const mongo = require('./mongo');
 const processEvents = require('./process-events');
-const express       = require('./express');
-const logging       = require('./logging');
-const redis         = require('./redis');
-const cflogs        = require('cf-logs');
+const express = require('./express');
+const logging = require('./logging');
+const redis = require('./redis');
+const cflogs = require('cf-logs');
+
 let logger;
 
 class Microservice {
-
-    constructor() {
-
-    }
-
     init(initFn) {
         const enabledComponents = config.getConfigArray('enabledComponents');
 
@@ -35,11 +31,9 @@ class Microservice {
             .then(() => (enabledComponents.includes('mongo')) && mongo.init(config))
             .then(() => (enabledComponents.includes('eventbus')) && eventbus.init(config))
             .then(() => (enabledComponents.includes('redis')) && redis.init(config))
-            .then((eventBus) => {
-                return express.init(config, (app) => initFn(app, eventbus));
-            })
+            .then(eventBus => express.init(config, app => initFn(app, eventbus))) // eslint-disable-line
             .then(() => {
-                logger.info(`Initialization completed`);
+                logger.info('Initialization completed');
             })
             .catch((err) => {
                 console.error(`Initialization error: ${err.stack}`);
@@ -51,7 +45,7 @@ class Microservice {
     // - first phase need to make sure to not accept any new requests/events
     // - then a decent amount of time will be given to clear all on-going contexts
     // - second phase will close all dependencies connections like mongo, postgres etc
-    stop(timeout) {
+    stop(timeout) { // eslint-disable-line
         logger.info('Starting shutdown...');
         let shutdownPromise = Promise.all([
             eventbus.stop(),
@@ -63,13 +57,12 @@ class Microservice {
                 logger.info('Shutdown completed, exiting');
             });
 
-        shutdownPromise =  timeout ? shutdownPromise.timeout(timeout) : shutdownPromise
+        shutdownPromise = timeout ? shutdownPromise.timeout(timeout) : shutdownPromise;
 
-        return shutdownPromise.catch(error => {
-          console.error(`error during shutdown: ${error.stack}`);
+        return shutdownPromise.catch((error) => {
+            console.error(`error during shutdown: ${error.stack}`);
         });
     }
-
 }
 
 module.exports = new Microservice();

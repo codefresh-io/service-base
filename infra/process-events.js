@@ -1,21 +1,15 @@
-'use strict';
+
 
 const EventEmitter = require('events');
-const Promise      = require('bluebird');
-const redis        = require('redis');
+const Promise = require('bluebird');
 
 class ProcessEvents extends EventEmitter {
-
-    constructor() {
-        super();
-    }
-
     /**
      * starts listening on process events
      * @param config
      */
     init(config) {
-        const logger = require('cf-logs').Logger('codefresh:infra:process-events');
+        const logger = require('cf-logs').Logger('codefresh:infra:process-events'); // eslint-disable-line
         return Promise.resolve()
             .then(() => {
                 this.config = config;
@@ -38,7 +32,6 @@ class ProcessEvents extends EventEmitter {
                 process.on('uncaughtException', (err) => {
                     logger.error(`Uncaught Exception: ${err.stack}`);
                 });
-
             });
     }
 }

@@ -11,10 +11,22 @@ module.exports = {
             'code': 140,
             'ignoreComments': true
         }],
-        'no-console': 0
+        'no-console': 0,
+        "object-curly-newline": ["error", {
+            "ObjectPattern": { "multiline": true },
+        }],
+        "newline-per-chained-call": ["error", {
+            "ignoreChainWithDepth": 10,
+        }],
+        "object-property-newline": ["error", {
+            "allowAllPropertiesOnSameLine": true,
+        }]
     },
     'env': {
         'mocha': true,
         'jest': true
+    },
+    "globals": {
+        "negativeAssertion": true
     }
 };
