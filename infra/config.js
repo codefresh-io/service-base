@@ -61,7 +61,7 @@ base.logger = {
             const shouldFormatOutput = process.env.FORMAT_LOGS_TO_ELK === 'true';
             if (shouldFormatOutput) {
                 return JSON.stringify({
-                    metadata: Object.assign(options.meta || {}, {level: options.level}),
+                    metadata: Object.assign(options.meta || {}, { level: options.level }),
                     data: Object.assign(options.data || {}, { message: options.message, level: options.level.toUpperCase() }),
                 });
             }
