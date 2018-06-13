@@ -62,7 +62,7 @@ base.logger = {
             if (shouldFormatOutput) {
                 return JSON.stringify({
                     metadata: options.meta || {},
-                    data: Object.assign(options.data || {}, { message: options.message }),
+                    data: Object.assign(options.data || {}, { message: options.message, level: options.level.toUpperCase() }),
                 });
             }
             // human readable format
