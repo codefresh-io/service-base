@@ -52,6 +52,7 @@ base.logger = {
     showNamespace: true,
     level: 'debug',
     consoleOptions: {
+        stderrLevels: ['error'],
         timestamp() {
             return new Date().toISOString();
         },
