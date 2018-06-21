@@ -37,19 +37,6 @@ class Express {
             });
     }
 
-
-    /**
-     * stops the express app server
-     * @returns {*}
-     */
-    stop() {
-        return Promise.resolve()
-            .then(() => {
-                this.healthy = false;
-                this.logger.info('Express health route marked as unhealthy');
-            });
-    }
-
     _create() {
         const logger = this.logger; // eslint-disable-line
         return Promise.resolve()

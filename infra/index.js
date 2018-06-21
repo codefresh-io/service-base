@@ -88,7 +88,6 @@ class Microservice {
             enabledComponents.includes('mongo') && mongo.stop(timeout),
             enabledComponents.includes('eventbus') && eventbus.stop(timeout),
             enabledComponents.includes('redis') && redis.stop(timeout),
-            express.stop(timeout),
         ])
             .then(() => {
                 logger.info('Shutdown completed, exiting');
