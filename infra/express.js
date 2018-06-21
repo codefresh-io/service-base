@@ -60,7 +60,6 @@ class Express {
                 app.use(cookieParser());
                 app.use(compression());
 
-                app.use('/api/stripe/hook', bodyParser.raw({ type: '*/*' }));
                 app.use(bodyParser.json());
 
                 app.use(bodyParser.urlencoded({ extended: true }));
