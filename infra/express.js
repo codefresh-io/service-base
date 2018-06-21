@@ -100,21 +100,6 @@ class Express {
                     }));
                 }
 
-                // TODO this should be removed. check all existing services that still makes assumptions on this
-                app.use((request, response, next) => {
-                    const userHeader = request.headers['x-user-json'];
-                    if (userHeader) {
-                        request.user = JSON.parse(request.headers['x-user-json']);
-                    }
-
-                    const accountHeader = request.headers['x-account-json'];
-                    if (accountHeader) {
-                        request.account = JSON.parse(request.headers['x-account-json']);
-                    }
-
-                    next();
-                });
-
                 return this.createRoutes(app)
                     .then(() => {
                         app.get('/api/ping', (req, res) => {
