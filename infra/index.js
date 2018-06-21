@@ -83,12 +83,17 @@ class Microservice {
     stop(timeout = 15000) { // eslint-disable-line
         const enabledComponents = config.getConfigArray('enabledComponents');
         logger.info(`Starting shutdown... Time to finish: ${timeout}`);
+        const timeToWaitBeforeStoppingAll = 5000;
         this.markAsNotReady();
-        return Promise.all([
-            enabledComponents.includes('mongo') && mongo.stop(timeout),
-            enabledComponents.includes('eventbus') && eventbus.stop(timeout),
-            enabledComponents.includes('redis') && redis.stop(timeout),
-        ])
+        return Promise
+            .resolve()
+            .delay(timeToWaitBeforeStoppingAll)
+            .all([
+                enabledComponents.includes('mongo') && mongo.stop(timeout),
+                enabledComponents.includes('eventbus') && eventbus.stop(timeout),
+                enabledComponents.includes('redis') && redis.stop(timeout),
+            ])
+            .timeout(timeToWaitBeforeStoppingAll + timeout)
             .then(() => {
                 logger.info('Shutdown completed, exiting');
                 process.exit();
