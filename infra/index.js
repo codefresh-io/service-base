@@ -47,7 +47,11 @@ class Microservice {
 
     init(initFn) {
         const enabledComponents = config.getConfigArray('enabledComponents');
+        const opt = {
+            isReady: this.isReady.bind(this),
+            isHealthy: this.isHealthy.bind(this),
 
+        };
         return logging.init(config)
             .then(() => {
                 logger = cflogs.Logger('codefresh:infra:index');
@@ -60,7 +64,7 @@ class Microservice {
             .then(() => (enabledComponents.includes('mongo')) && mongo.init(config))
             .then(() => (enabledComponents.includes('eventbus')) && eventbus.init(config))
             .then(() => (enabledComponents.includes('redis')) && redis.init(config))
-            .then(eventBus => express.init(config, app => initFn(app, eventbus), this)) // eslint-disable-line
+            .then(eventBus => express.init(config, app => initFn(app, eventbus), opt)) // eslint-disable-line
             .then(() => {
                 logger.info('Initialization completed');
                 this.markAsReady();

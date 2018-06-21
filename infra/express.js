@@ -21,10 +21,10 @@ class Express {
      * starts the connection to mongo
      * @returns {*}
      */
-    init(config, createRoutes, microservice) {
+    init(config, createRoutes, opt = {}) {
         const logger = require('cf-logs').Logger('codefresh:infra:express'); // eslint-disable-line
         this.logger = logger;
-        this.microservice = microservice;
+        this.options = opt;
         return Promise.resolve()
             .then(() => {
                 this.config = config;
@@ -57,8 +57,8 @@ class Express {
                 const app = this.expressApp;
 
                 app.use((req, res, next) => {
-                    const ready = this.microservice.isReady();
-                    const healthy = this.microservice.isHealthy();
+                    const ready = this.options.isReady();
+                    const healthy = this.options.isHealthy();
                     if (!ready) {
                         const message = 'Service is not ready yet to receive requests';
                         res.status(503).send(message);
