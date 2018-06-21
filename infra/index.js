@@ -16,6 +16,35 @@ const cflogs = require('cf-logs');
 let logger;
 
 class Microservice {
+    constructor() {
+        this._ready = false;
+        this._healty = false;
+    }
+
+    isReady() {
+        return this._ready;
+    }
+
+    isHealthy() {
+        return this._healty;
+    }
+
+    markAsReady() {
+        this._ready = true;
+    }
+
+    markAsNotReady() {
+        this._ready = false;
+    }
+
+    markAsHealthy() {
+        this._healty = true;
+    }
+
+    markAsUnhealthy() {
+        this._healty = false;
+    }
+
     init(initFn) {
         const enabledComponents = config.getConfigArray('enabledComponents');
 
@@ -24,16 +53,18 @@ class Microservice {
                 logger = cflogs.Logger('codefresh:infra:index');
                 return processEvents.init(config)
                     .then(() => {
-                        processEvents.on('SIGTERM', this.stop.bind(this));
-                        processEvents.on('SIGINT', () => this.stop(2000).then(() => process.exit()));
+                        processEvents.on('SIGTERM', () => this.stop(30000));
+                        processEvents.on('SIGINT', () => this.stop());
                     });
             })
             .then(() => (enabledComponents.includes('mongo')) && mongo.init(config))
             .then(() => (enabledComponents.includes('eventbus')) && eventbus.init(config))
             .then(() => (enabledComponents.includes('redis')) && redis.init(config))
-            .then(eventBus => express.init(config, app => initFn(app, eventbus))) // eslint-disable-line
+            .then(eventBus => express.init(config, app => initFn(app, eventbus), this)) // eslint-disable-line
             .then(() => {
                 logger.info('Initialization completed');
+                this.markAsReady();
+                this.markAsHealthy();
             })
             .catch((err) => {
                 console.error(`Initialization error: ${err.stack}`);
@@ -45,23 +76,24 @@ class Microservice {
     // - first phase need to make sure to not accept any new requests/events
     // - then a decent amount of time will be given to clear all on-going contexts
     // - second phase will close all dependencies connections like mongo, postgres etc
-    stop(timeout) { // eslint-disable-line
-        logger.info('Starting shutdown...');
-        let shutdownPromise = Promise.all([
-            eventbus.stop(),
-            mongo.stop(),
-            express.stop(),
-            redis.stop(),
+    stop(timeout = 15000) { // eslint-disable-line
+        const enabledComponents = config.getConfigArray('enabledComponents');
+        logger.info(`Starting shutdown... Time to finish: ${timeout}`);
+        this.markAsNotReady();
+        return Promise.all([
+            enabledComponents.includes('mongo') && mongo.stop(timeout),
+            enabledComponents.includes('eventbus') && eventbus.stop(timeout),
+            enabledComponents.includes('redis') && redis.stop(timeout),
+            express.stop(timeout),
         ])
             .then(() => {
                 logger.info('Shutdown completed, exiting');
+                process.exit();
+            })
+            .catch((error) => {
+                console.error(`error during shutdown: ${error.stack}`);
+                process.exit();
             });
-
-        shutdownPromise = timeout ? shutdownPromise.timeout(timeout) : shutdownPromise;
-
-        return shutdownPromise.catch((error) => {
-            console.error(`error during shutdown: ${error.stack}`);
-        });
     }
 }
 
