@@ -43,23 +43,6 @@ class Express {
             .then(() => {
                 const app = this.expressApp;
 
-                app.use((req, res, next) => {
-                    const ready = this.options.isReady();
-                    const healthy = this.options.isHealthy();
-                    if (!ready) {
-                        const message = 'Service is not ready yet to receive requests';
-                        res.status(503).send(message);
-                        return;
-                    }
-                    if (!healthy) {
-                        const message = 'Service cannot complete requests atm';
-                        res.status(503).send(message);
-                        return;
-                    }
-                    next();
-                });
-
-
                 app.use(newDomainMiddleware());
 
                 app.use(cookieParser());
@@ -94,7 +77,7 @@ class Express {
                         });
 
                         app.get('/api/ready', (req, res) => {
-                            if (this.microservice.isReady()) {
+                            if (this.options.isReady()) {
                                 res.status(200).send();
                             } else {
                                 res.status(503).send();
@@ -102,7 +85,7 @@ class Express {
                         });
 
                         app.get('/api/health', (req, res) => {
-                            if (this.microservice.isHealthy()) {
+                            if (this.options.isHealthy()) {
                                 res.status(200).send();
                             } else {
                                 res.status(503).send();
