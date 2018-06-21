@@ -71,6 +71,7 @@ class Express {
                     }
                     next();
                 });
+                
 
                 app.use(newDomainMiddleware());
 
@@ -120,11 +121,19 @@ class Express {
                             res.status(200).send();
                         });
 
-                        app.get('/api/health', (req, res) => {
-                            if (this.healthy) {
+                        app.get('/api/ready', (req, res) => {
+                            if (this.microservice.isReady()) {
                                 res.status(200).send();
                             } else {
-                                res.status(400).send();
+                                res.status(503).send();
+                            }
+                        });
+
+                        app.get('/api/health', (req, res) => {
+                            if (this.microservice.isHealthy()) {
+                                res.status(200).send();
+                            } else {
+                                res.status(503).send();
                             }
                         });
 
