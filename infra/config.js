@@ -117,10 +117,11 @@ base.redis = {
 // 4. Close connections to all core infrastructure services
 // 5. Kill the process
 base.gracePeriodTimers = {
-    totalPeriod: ((process.env.GRACE_PERIOD || 30) * 1000) - 300,
+    totalPeriod: ((process.env.GRACE_PERIOD || 20) * 1000) - 300,
     secondsToAcceptAdditionalRequests: (process.env.SECONDS_TO_ACCEPT_ADDITIONAL_REQUESTS || 3) * 1000,
     secondsToProcessOngoingRequests: (process.env.SECONDS_TO_PROCESS_ONGOING_REQUESTS || 20) * 1000,
     secondsToCloseInfraConnections: (process.env.SECONDS_TO_CLOSE_INFRA_CONNECTIONS || 5) * 1000,
+    skipGraceTimersValidation: (process.env.SKIP_GRACE_TIMERS_VALIDATION || 'false') === 'true',
 };
 
 _.merge(base, internalServices); // TODO deprecate use of this root level

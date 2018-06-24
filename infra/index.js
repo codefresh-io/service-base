@@ -60,6 +60,7 @@ class Microservice {
             .then(() => {
                 logger = cflogs.Logger('codefresh:infra:index');
                 let sigintCount = 0;
+                this._validateGraceTimers();
                 return processEvents.init(config)
                     .then(() => {
                         processEvents.on('SIGTERM', () => this.stop());
@@ -148,6 +149,22 @@ class Microservice {
                 console.error(`error during shutdown: ${error.stack}`);
                 process.exit();
             });
+    }
+
+    _validateGraceTimers() { // eslint-disable-line
+        const gracePeriod = config.gracePeriodTimers.totalPeriod;
+        const incomingHttpRequests = config.gracePeriodTimers.secondsToAcceptAdditionalRequests;
+        const ongoingHttpRequest = config.gracePeriodTimers.secondsToProcessOngoingRequests;
+        const infraDependencies = config.gracePeriodTimers.secondsToCloseInfraConnections;
+
+        if (gracePeriod < (incomingHttpRequests + ongoingHttpRequest + infraDependencies)) {
+            const message = 'Service will not have enough time to preform graceful shotdown, check gracefull period and service config';
+            if (!config.gracePeriodTimers.skipGraceTimersValidation) {
+                logger.warn(message);
+            } else {
+                throw new Error(message);
+            }
+        }
     }
 }
 
