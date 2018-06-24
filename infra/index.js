@@ -18,7 +18,7 @@ let logger;
 class Microservice {
     constructor() {
         this._ready = false;
-        this._healty = false;
+        this._healthy = false;
     }
 
     isReady() {
@@ -26,7 +26,7 @@ class Microservice {
     }
 
     isHealthy() {
-        return this._healty;
+        return this._healthy;
     }
 
     markAsReady() {
@@ -38,15 +38,15 @@ class Microservice {
         logger.info('Service marked as not ready');
         this._ready = false;
     }
-    
+
     markAsHealthy() {
         logger.info('Service marked as healthy');
-        this._healty = true;
+        this._healthy = true;
     }
-    
+
     markAsUnhealthy() {
         logger.info('Service marked as unhealthy');
-        this._healty = false;
+        this._healthy = false;
     }
 
     init(initFn) {
