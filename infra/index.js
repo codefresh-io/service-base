@@ -158,7 +158,7 @@ class Microservice {
         const infraDependencies = config.gracePeriodTimers.secondsToCloseInfraConnections;
 
         if (gracePeriod < (incomingHttpRequests + ongoingHttpRequest + infraDependencies)) {
-            const message = 'Service will not have enough time to preform graceful shotdown, check gracefull period and service config';
+            const message = `Total grace period: ${gracePeriod}, the service needs at least ${incomingHttpRequests + ongoingHttpRequest + infraDependencies} to perform graceful showdown. Check service configuration`;
             if (!config.gracePeriodTimers.skipGraceTimersValidation) {
                 logger.warn(message);
             } else {
