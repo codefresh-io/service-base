@@ -101,7 +101,7 @@ class Microservice {
 
         // time in seconds to process all on going request
         const ongoingHttpRequest = config.gracePeriodTimers.secondsToProcessOngoingRequests;
-        
+
         // time in seconds to close all connection to all infra-core services
         const infraDependencies = config.gracePeriodTimers.secondsToCloseInfraConnections;
 
