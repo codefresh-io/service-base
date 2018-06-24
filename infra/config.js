@@ -108,6 +108,21 @@ base.redis = {
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1,
 };
+
+
+// This timers are associated with termination signals the service should handle
+// 1. The grace period should first of all know that no more requests will be forward to the process
+// 2. Stop listening on the port
+// 3. Finish all accepted request
+// 4. Close connections to all core infrastructure services
+// 5. Kill the process
+base.gracePeriodTimers = {
+    totalPeriod: ((process.env.GRACE_PERIOD || 30) * 1000) - 300,
+    secondsToAcceptAdditionalRequests: (process.env.SECONDS_TO_ACCEPT_ADDITIONAL_REQUESTS || 3) * 1000,
+    secondsToProcessOngoingRequests: (process.env.SECONDS_TO_PROCESS_ONGOING_REQUESTS || 20) * 1000,
+    secondsToCloseInfraConnections: (process.env.SECONDS_TO_CLOSE_INFRA_CONNECTIONS || 5) * 1000,
+};
+
 _.merge(base, internalServices); // TODO deprecate use of this root level
 base.services = internalServices;
 
