@@ -62,7 +62,7 @@ class Microservice {
                 let sigintCount = 0;
                 return processEvents.init(config)
                     .then(() => {
-                        processEvents.on('SIGTERM', () => this.stop(30000));
+                        processEvents.on('SIGTERM', () => this.stop());
                         processEvents.on('SIGINT', () => {
                             if (sigintCount >= 1) {
                                 process.exit();
