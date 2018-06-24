@@ -95,10 +95,10 @@ class Microservice {
     stop() { // eslint-disable-line
         const enabledComponents = config.getConfigArray('enabledComponents');
         const gracePeriod = config.gracePeriodTimers.totalPeriod;
-        
+
         // time in seconds to accept incoming request after marking as not ready
         const incomingHttpRequests = config.gracePeriodTimers.secondsToAcceptAdditionalRequests;
-        
+
         // time in seconds to process all on going request
         const ongoingHttpRequest = config.gracePeriodTimers.secondsToProcessOngoingRequests;
         
