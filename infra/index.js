@@ -97,13 +97,13 @@ class Microservice {
         const gracePeriod = config.gracePeriodTimers.totalPeriod;
         
         // time in seconds to accept incoming request after marking as not ready
-        const incomingHttpRequests = config.secondsToAcceptAdditionalRequests;
+        const incomingHttpRequests = config.gracePeriodTimers.secondsToAcceptAdditionalRequests;
         
         // time in seconds to process all on going request
-        const ongoingHttpRequest = config.secondsToProcessOngoingRequests;
+        const ongoingHttpRequest = config.gracePeriodTimers.secondsToProcessOngoingRequests;
         
         // time in seconds to close all connection to all infra-core services
-        const infraDependencies = config.secondsToCloseInfraConnections;
+        const infraDependencies = config.gracePeriodTimers.secondsToCloseInfraConnections;
 
         logger.info(`Starting shutdown... Timeout: ${gracePeriod}`);
         const promises = [];
@@ -122,24 +122,24 @@ class Microservice {
         return Promise
             .resolve()
             .then(() => {
-                // Lets give another incomingHttpRequests seconds to accepts requests while the service is reporting no ready status
                 this.markAsNotReady();
+                logger.info(`Waiting more ${incomingHttpRequests} ms to accept more request`);
                 return Promise.resolve()
                     .delay(incomingHttpRequests);
             })
             .then(() => {
-                // Wait ongoingHttpRequest seconds to process all already accepted requests before stopping listening on port
+                logger.info(`Waiting more ${ongoingHttpRequest} ms to process all ongoing requests`);
                 return Promise.resolve()
                     .delay(ongoingHttpRequest)
                     .then(() => express.stop());
             })
             .then(() => {
-                // Stop all connections to infra services with timeout of infraDependencies seconds
+                logger.info(`Setting up ${infraDependencies} ms to finish all core service connections timeout`);
                 return Promise.resolve()
                     .then(() => Promise.all(promises))
                     .timeout(infraDependencies);
             })
-            .timeout(gracePeriod) // die before we go killed
+            .timeout(gracePeriod)
             .then(() => {
                 logger.info('Shutdown completed, exiting');
                 process.exit();
