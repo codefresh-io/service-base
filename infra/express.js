@@ -17,13 +17,19 @@ class Express {
         this.healthy = true;
     }
 
+    stop() {
+        return Promise.resolve()
+            .then(() => this.expressServer.close());
+    }
+
     /**
      * starts the connection to mongo
      * @returns {*}
      */
-    init(config, createRoutes) {
+    init(config, createRoutes, opt = {}) {
         const logger = require('cf-logs').Logger('codefresh:infra:express'); // eslint-disable-line
         this.logger = logger;
+        this.options = opt;
         return Promise.resolve()
             .then(() => {
                 this.config = config;
@@ -33,19 +39,6 @@ class Express {
                     .then((expressServer) => {
                         this.expressServer = expressServer;
                     });
-            });
-    }
-
-
-    /**
-     * stops the express app server
-     * @returns {*}
-     */
-    stop() {
-        return Promise.resolve()
-            .then(() => {
-                this.healthy = false;
-                this.logger.info('Express health route marked as unhealthy');
             });
     }
 
@@ -60,7 +53,6 @@ class Express {
                 app.use(cookieParser());
                 app.use(compression());
 
-                app.use('/api/stripe/hook', bodyParser.raw({ type: '*/*' }));
                 app.use(bodyParser.json());
 
                 app.use(bodyParser.urlencoded({ extended: true }));
@@ -83,32 +75,25 @@ class Express {
                     }));
                 }
 
-                // TODO this should be removed. check all existing services that still makes assumptions on this
-                app.use((request, response, next) => {
-                    const userHeader = request.headers['x-user-json'];
-                    if (userHeader) {
-                        request.user = JSON.parse(request.headers['x-user-json']);
-                    }
-
-                    const accountHeader = request.headers['x-account-json'];
-                    if (accountHeader) {
-                        request.account = JSON.parse(request.headers['x-account-json']);
-                    }
-
-                    next();
-                });
-
                 return this.createRoutes(app)
                     .then(() => {
                         app.get('/api/ping', (req, res) => {
                             res.status(200).send();
                         });
 
-                        app.get('/api/health', (req, res) => {
-                            if (this.healthy) {
+                        app.get('/api/ready', (req, res) => {
+                            if (this.options.isReady()) {
                                 res.status(200).send();
                             } else {
-                                res.status(400).send();
+                                res.status(503).send();
+                            }
+                        });
+
+                        app.get('/api/health', (req, res) => {
+                            if (this.options.isHealthy()) {
+                                res.status(200).send();
+                            } else {
+                                res.status(503).send();
                             }
                         });
 
