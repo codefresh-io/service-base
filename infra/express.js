@@ -17,6 +17,11 @@ class Express {
         this.healthy = true;
     }
 
+    stop() {
+        return Promise.resolve()
+            .then(() => this.expressServer.close());
+    }
+
     /**
      * starts the connection to mongo
      * @returns {*}
