@@ -2,22 +2,28 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const safe = require('./safe');
 
-function _encryptDecryptMultipleValues(safeObj, values, encrypt = true) {
-    return Promise.all((values || [])
-        .map(val => safeObj[encrypt ? 'write' : 'read'](val)));
+function _encryptDecryptValue(safeObj, value, encrypt = true) {
+    return safeObj[encrypt ? 'write' : 'read'](value);
 }
 
-function _encryptDecryptObjectValues(safeId, obj, keysToEncrypt, encrypt = true) {
-    const fieldsToEncrypt = _.pick(obj, keysToEncrypt);
-    const keys = _.keys(fieldsToEncrypt);
-    if (keys.length === 0) {
+function _encryptDecryptObjectValues(safeId, obj, keysToEncrypt = [], encrypt = true) {
+    if (keysToEncrypt.length === 0) {
         return Promise.resolve(obj);
     }
-    const values = _.values(fieldsToEncrypt);
+    const pairs = _.chain(keysToEncrypt)
+        .map(k => _.has(obj, k) && _.assign({ key: k, value: _.get(obj, k) }))
+        .compact()
+        .value();
+
+    const resObj = _.clone(obj);
+
     return safe.getOrCreateSafe(safeId)
-        .then(safeObj => _encryptDecryptMultipleValues(safeObj, values, encrypt))
-        .then(encryptedValues => _.zipObject(keys, encryptedValues))
-        .then(encryptedFields => Object.assign({}, obj, encryptedFields));
+        .then((safeObj) => {
+            const Promises = pairs.map(kv => _encryptDecryptValue(safeObj, kv.value, encrypt)
+                .then(res => _.set(resObj, kv.key, res)));
+            return Promise.all(Promises);
+        })
+        .then(() => resObj);
 }
 
 function encryptObjectValues(safeId, obj, keysToEncrypt) {
