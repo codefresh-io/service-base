@@ -34,8 +34,14 @@ function decryptObjectValues(safeId, obj, keysToEncrypt) {
     return _encryptDecryptObjectValues(safeId, obj, keysToEncrypt, false);
 }
 
+function replaceEncryptedValues(encryptedObject = {}, keys = [], replaceWith = '*****') {
+    _.map(keys, (k => _.has(encryptedObject, k) && _.set(encryptedObject, k, replaceWith)));
+    return encryptedObject;
+}
+
 module.exports = {
     encryptObjectValues,
     decryptObjectValues,
     getSafe: safeId => safe.getOrCreateSafe(safeId),
+    replaceEncryptedValues,
 };
