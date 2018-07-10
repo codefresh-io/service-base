@@ -35,8 +35,8 @@ function decryptObjectValues(safeId, obj, keysToEncrypt) {
 }
 
 function replaceEncryptedValues(encryptedObject = {}, keys = [], replaceWith = '*****') {
-    _.map(keys, (k => _.has(encryptedObject, k) && _.set(encryptedObject, k, replaceWith)));
-    return encryptedObject;
+    return Promise.map(keys, k => _.has(encryptedObject, k) && _.set(encryptedObject, k, replaceWith))
+        .then(() => encryptedObject);
 }
 
 module.exports = {
