@@ -12,21 +12,28 @@ describe('Safe unit tests', () => {
     return 'safe-id';
   }
 
+  const safeProxy = proxyquire('./safe.js', {
+    '../config': {
+      safe: {
+        secret: {
+          key: 'secret'
+        }
+      }
+    },
+    '../mongo': {
+      collection(){
+        return {
+          findOne(){
+            return Promise.resolve('id');
+          }
+        }
+      }
+    }
+  });
+
   function proxy() {
     return proxyquire('./index.js', {
-      './safe': {
-        getOrCreateSafe() {
-          const prefix = 'ENCRYPTED-';
-          return Promise.resolve({
-            write: (value) => {
-              return Promise.resolve(`${prefix}${value}`);
-            },
-            read: (value) => {
-              return Promise.resolve(value.split(prefix)[1]);
-            }
-          });
-        }
-      },
+      './safe': safeProxy
     });
   }
 
@@ -51,6 +58,9 @@ describe('Safe unit tests', () => {
       return Promise.resolve(replaceEncryptedValues(...values));
   }
 
+const CRYPTO_PREFIX = '$$$crypto$$$';
+const STRINGIFY_CRYPTO_PREFIX = '$$$crypto-obj$$$';
+
   describe('encryptObjectValues', () => {
     it('should encrypt all object', () => {
       const objToEncrypt = {
@@ -60,10 +70,8 @@ describe('Safe unit tests', () => {
       const keysToEncrypt = Object.keys(objToEncrypt);
       return encryptObjectValues(generateSafeId(), objToEncrypt, keysToEncrypt)
         .then((res) => {
-          expect(res).to.be.deep.equal({
-            keyToBeEncrypted: 'ENCRYPTED-value-1',
-            keyToBeEncrypted2: 'ENCRYPTED-value-2'
-          });
+          expect(res.keyToBeEncrypted).to.have.string(CRYPTO_PREFIX);
+          expect(res.keyToBeEncrypted2).to.have.string(CRYPTO_PREFIX);
         });
     });
 
@@ -75,11 +83,24 @@ describe('Safe unit tests', () => {
       const keysToEncrypt = ['keyToBeEncrypted']
       return encryptObjectValues(generateSafeId(), objToEncrypt, keysToEncrypt)
         .then((res) => {
-          expect(res).to.be.deep.equal({
-            keyToBeEncrypted: 'ENCRYPTED-value-1',
-            keyToNotBeEncrypted: 'value-2'
-          });
-        })
+          expect(res.keyToBeEncrypted).to.have.string(CRYPTO_PREFIX);
+          expect(res.keyToNotBeEncrypted).to.not.have.string(CRYPTO_PREFIX);
+        });
+    });
+
+    it('should encrypt sub object in object', () => {
+      const objToEncrypt = {
+        keyToBeEncrypted: {
+          key: 'value'
+        },
+        keyToNotBeEncrypted: 'value-2'
+      };
+      const keysToEncrypt = ['keyToBeEncrypted']
+      return encryptObjectValues(generateSafeId(), objToEncrypt, keysToEncrypt)
+        .then((res) => {
+          expect(res.keyToBeEncrypted).to.have.string(STRINGIFY_CRYPTO_PREFIX);
+          expect(res.keyToNotBeEncrypted).to.not.have.string(CRYPTO_PREFIX);
+        });
     });
 
     it('should encrypt nested object with selected keys', () => {
@@ -94,17 +115,10 @@ describe('Safe unit tests', () => {
       const keysToEncrypt = ['prop.key_2.key_3']
       return encryptObjectValues(generateSafeId(), objToEncrypt, keysToEncrypt)
         .then((res) => {
-          const expected = {
-            prop: {
-              key_1: 'not-encrypted',
-              key_2: {
-                key_3: 'ENCRYPTED-encrypted-value'
-              },
-            }
-          };
-          expect(res).to.be.deep.equal(expected);
+          expect(res.prop.key_2.key_3).to.have.string(CRYPTO_PREFIX);
         })
     });
+    
   });
 
   describe('decryptObjectValues', () => {
@@ -122,6 +136,24 @@ describe('Safe unit tests', () => {
           expect(decrypted).to.be.deep.equal(objToEncrypt);
         });
     });
+
+    it('should decrypt sub object in object', () => {
+      const objToEncrypt = {
+        keyToBeEncrypted: {
+          key: 'value'
+        },
+        keyToNotBeEncrypted: 'value-2'
+      };
+      const keysToEncrypt = ['keyToBeEncrypted']
+      return encryptObjectValues(generateSafeId(), objToEncrypt, keysToEncrypt)
+        .then((res) => {
+          return decryptObjectValues(generateSafeId(), res, keysToEncrypt);
+        })
+        .then((decrypted) => {
+          expect(decrypted).to.be.deep.equal(objToEncrypt);
+        });
+    });
+
     it('should decrypt selected keys in object', () => {
       const objToEncrypt = {
         keyToBeEncrypted: 'value-1',
@@ -136,6 +168,7 @@ describe('Safe unit tests', () => {
           expect(decrypted).to.be.deep.equal(objToEncrypt);
         });
     });
+    
     it('should decrypt nested object with selected keys', () => {
       const objToEncrypt = {
         prop: {

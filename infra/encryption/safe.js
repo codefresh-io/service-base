@@ -71,7 +71,6 @@ Safe.prototype.read_crypto = function (ciphertext) { // eslint-disable-line
 // encrypt text and add CRYPTO_PREFIX prefix (to mark the new encryption)
 Safe.prototype.write_crypto = function (plaintext) { // eslint-disable-line
     const deferred = Promise.defer();
-
     const key = Buffer.alloc(32, _.get(config, 'safe.secret'));
     const iv = Buffer.alloc(16, this.safeModel.key);
 
