@@ -6,7 +6,7 @@ const proxyquire = require('proxyquire').noCallThru();
 
 const expect = chai.expect;
 
-describe.only('Safe unit tests', () => {
+describe('Safe unit tests', () => {
 
   function generateSafeId() {
     return 'safe-id';
