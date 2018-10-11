@@ -13,8 +13,6 @@ const logging = require('./logging');
 const redis = require('./redis');
 const cflogs = require('cf-logs');
 
-let logger;
-
 class Microservice {
     constructor() {
         this._ready = false;
@@ -30,26 +28,26 @@ class Microservice {
     }
 
     markAsReady() {
-        logger.info('Service marked as ready');
+        this.logger.info('Service marked as ready');
         this._ready = true;
     }
 
     markAsNotReady() {
-        logger.info('Service marked as not ready');
+        this.logger.info('Service marked as not ready');
         this._ready = false;
     }
 
     markAsHealthy() {
-        logger.info('Service marked as healthy');
+        this.logger.info('Service marked as healthy');
         this._healthy = true;
     }
 
     markAsUnhealthy() {
-        logger.info('Service marked as unhealthy');
+        this.logger.info('Service marked as unhealthy');
         this._healthy = false;
     }
 
-    init(initFn) {
+    init(initFn, stopFn) {
         const enabledComponents = config.getConfigArray('enabledComponents');
         const opt = {
             isReady: this.isReady.bind(this),
@@ -58,18 +56,18 @@ class Microservice {
         };
         return logging.init(config)
             .then(() => {
-                logger = cflogs.Logger('codefresh:infra:index');
+                this.logger = cflogs.Logger('codefresh:infra:index');
                 let sigintCount = 0;
                 this._validateGraceTimers();
                 return processEvents.init(config)
                     .then(() => {
-                        processEvents.on('SIGTERM', () => this.stop());
+                        processEvents.on('SIGTERM', () => this.stop(stopFn));
                         processEvents.on('SIGINT', () => {
                             if (sigintCount >= 1) {
                                 process.exit();
                             } else {
                                 sigintCount++; // eslint-disable-line
-                                this.stop();
+                                this.stop(stopFn);
                             }
                         });
                     });
@@ -79,7 +77,7 @@ class Microservice {
             .then(() => (enabledComponents.includes('redis')) && redis.init(config))
             .then(eventBus => express.init(config, app => initFn(app, eventbus), opt)) // eslint-disable-line
             .then(() => {
-                logger.info('Initialization completed');
+                this.logger.info('Initialization completed');
                 this.markAsReady();
                 this.markAsHealthy();
             })
@@ -93,7 +91,7 @@ class Microservice {
     // - first phase need to make sure to not accept any new requests/events
     // - then a decent amount of time will be given to clear all on-going contexts
     // - second phase will close all dependencies connections like mongo, postgres etc
-    stop() { // eslint-disable-line
+    stop(shutdownFunction) { // eslint-disable-line
         const enabledComponents = config.getConfigArray('enabledComponents');
         const gracePeriod = config.gracePeriodTimers.totalPeriod;
 
@@ -106,43 +104,49 @@ class Microservice {
         // time in seconds to close all connection to all infra-core services
         const infraDependencies = config.gracePeriodTimers.secondsToCloseInfraConnections;
 
-        logger.info(`Starting shutdown... Timeout: ${gracePeriod}`);
+        this.logger.info(`Starting shutdown... Timeout: ${gracePeriod}`);
         const promises = [];
         if (enabledComponents.includes('mongo')) {
-            logger.info('About to stop mongo');
+            this.logger.info('About to stop mongo');
             promises.push(mongo.stop.bind(mongo));
         }
         if (enabledComponents.includes('eventbus')) {
-            logger.info('About to stop eventbus');
+            this.logger.info('About to stop eventbus');
             promises.push(eventbus.stop.bind(eventbus));
         }
         if (enabledComponents.includes('redis')) {
-            logger.info('About to stop redis');
+            this.logger.info('About to stop redis');
             promises.push(redis.stop.bind(redis));
         }
         return Promise
             .resolve()
             .then(() => {
                 this.markAsNotReady();
-                logger.info(`Waiting more ${incomingHttpRequests} ms to accept more request`);
+                this.logger.info(`Waiting more ${incomingHttpRequests} ms to accept more request`);
                 return Promise.resolve()
                     .delay(incomingHttpRequests);
             })
             .then(() => {
-                logger.info(`Waiting more ${ongoingHttpRequest} ms to process all ongoing requests`);
+                this.logger.info(`Waiting more ${ongoingHttpRequest} ms to process all ongoing requests`);
                 return Promise.resolve()
                     .delay(ongoingHttpRequest)
                     .then(() => express.stop());
             })
             .then(() => {
-                logger.info(`Setting up ${infraDependencies} ms to finish all core service connections timeout`);
+                this.logger.info(`Setting up ${infraDependencies} ms to finish all core service connections timeout`);
                 return Promise.resolve()
                     .then(() => Promise.all(promises))
                     .timeout(infraDependencies);
             })
+            .then(() => {
+                if (shutdownFunction) {
+                    this.logger.info('Execute shutdown custom function');
+                    shutdownFunction();
+                }
+            })
             .timeout(gracePeriod)
             .then(() => {
-                logger.info('Shutdown completed, exiting');
+                this.logger.info('Shutdown completed, exiting');
                 process.exit();
             })
             .catch((error) => {
@@ -160,7 +164,7 @@ class Microservice {
         if (gracePeriod < (incomingHttpRequests + ongoingHttpRequest + infraDependencies)) {
             const message = `Total grace period: ${gracePeriod}, the service needs at least ${incomingHttpRequests + ongoingHttpRequest + infraDependencies} to perform graceful shuwdown. Check service configuration`; // eslint-disable-line
             if (!config.gracePeriodTimers.skipGraceTimersValidation) {
-                logger.warn(message);
+                this.logger.warn(message);
             } else {
                 throw new Error(message);
             }
