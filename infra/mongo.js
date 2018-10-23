@@ -21,7 +21,7 @@ class Mongo {
         return MongoClient.connect(config.mongo.uri, clientSettings)
             .then((db) => {
                 this.db = db;
-                logger.info(`Mongo driver connected to: ${config.mongo.uri}`);
+                logger.info('Mongo driver connected');
             });
     }
 
