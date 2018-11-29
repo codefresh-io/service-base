@@ -21,9 +21,9 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@1.1.41":
-  version "1.1.41"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.1.41.tgz#6cf126fb1fc99a4b4dd276d4fd087642a9f76995"
+"@codefresh-io/http-infra@1.1.42":
+  version "1.1.42"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.1.42.tgz#1f0530a67214da2f7bdb397b05ef720157ca710d"
   dependencies:
     "@codefresh-io/authenticated-entity" "^2.0.9"
     lodash "^4.17.5"
