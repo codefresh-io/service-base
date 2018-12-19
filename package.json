@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
     "@codefresh-io/authenticated-entity": "2.0.9",
-    "@codefresh-io/eventbus": "0.0.20",
+    "@codefresh-io/eventbus": "^0.0.23",
     "@codefresh-io/http-infra": "1.1.42",
     "@codefresh-io/internal-service-config": "^0.0.17",
     "@codefresh-io/joi-objectid": "git+https://github.com/codefresh-io/joi-objectid.git#d66b8e989b09e88fe9addd0fe94088b5e804f84f",
