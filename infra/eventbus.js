@@ -81,9 +81,9 @@ class Eventbus {
         return deferred.promise;
     }
 
-    subscribe(eventName, handler) {
+    subscribe(eventName, handler, options) {
         const logger = this.logger; // eslint-disable-line
-        return eventBus.subscribe(eventName, handler)
+        return eventBus.subscribe(eventName, handler, options)
             .then((listener) => {
                 logger.info(`Listening on event ${eventName}`);
                 listener.on('error', (err) => {
