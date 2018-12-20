@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
-    "@codefresh-io/authenticated-entity": "2.0.9",
+    "@codefresh-io/authenticated-entity": "2.0.10",
     "@codefresh-io/eventbus": "^0.0.23",
     "@codefresh-io/http-infra": "1.1.44",
     "@codefresh-io/internal-service-config": "^0.0.17",

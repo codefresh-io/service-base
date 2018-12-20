@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@codefresh-io/authenticated-entity@2.0.10":
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.0.10.tgz#b570b6b43e011de4adf6b6e1f2bec00f39dec2ea"
+  dependencies:
+    lodash "^4.17.4"
+
 "@codefresh-io/authenticated-entity@2.0.9":
   version "2.0.9"
   resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.0.9.tgz#40dc30d01b742622e3a9df00a8ab84770bfefea1"
