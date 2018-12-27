@@ -8,9 +8,9 @@
   dependencies:
     lodash "^4.17.4"
 
-"@codefresh-io/eventbus@^0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-0.0.23.tgz#e3b23fd8359c7e725562d604215d2507595b4900"
+"@codefresh-io/eventbus@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-0.0.24.tgz#7ffe7c36b0cff9118f19c9b2e5cd8feb2ccbf8f7"
   dependencies:
     amqplib "^0.5.1"
     bluebird "^3.5.0"
