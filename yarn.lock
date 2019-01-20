@@ -21,16 +21,16 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@^1.1.46":
-  version "1.1.46"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.1.46.tgz#d0040e04fdfef6c946f6ca2c70cc8d58e79b560a"
-  integrity sha512-YVAXakjgOihIO4RxhzUg6K0BaEssHolFNZvSEr/lWGfvpCKk8fYMYdoGIYQn2XNH2Vb3uFVAXtHlLI7zRqm5Nw==
+"@codefresh-io/http-infra@^1.1.47":
+  version "1.1.47"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.1.47.tgz#c8cc25f53dc489dcd3e3947976c5b546c873dd94"
+  integrity sha512-ufWuna2Hfs6CrB+/hEaJhjANd2gjEopOSy4qx5aHCoEpFsmaWIvZNhs40tbEyOBbfkOfKfpQfwVlpWjSqj4zcQ==
   dependencies:
     "@codefresh-io/authenticated-entity" "2.0.10"
     lodash "^4.17.5"
     randomatic "^2.0.0"
     request "^2.82.0"
-    requestretry "^3.1.0"
+    request-promise "^4.2.2"
 
 "@codefresh-io/internal-service-config@^0.0.17":
   version "0.0.17"
@@ -1178,7 +1178,7 @@ extend@3, extend@^3.0.0, extend@~3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.1.tgz#a755ea7bc1adfcc5a31ce7e762dbaadc5e636444"
 
-extend@^3.0.2, extend@~3.0.1, extend@~3.0.2:
+extend@~3.0.1, extend@~3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
 
@@ -2115,11 +2115,6 @@ lodash@^4.14.0, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
-lodash@^4.17.10:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
-
 log-driver@1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/log-driver/-/log-driver-1.2.5.tgz#7ae4ec257302fd790d557cb10c97100d857b0056"
@@ -2959,9 +2954,10 @@ request-promise-core@1.1.1:
   dependencies:
     lodash "^4.13.1"
 
-request-promise@^4.2.1:
+request-promise@^4.2.1, request-promise@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/request-promise/-/request-promise-4.2.2.tgz#d1ea46d654a6ee4f8ee6a4fea1018c22911904b4"
+  integrity sha1-0epG1lSm7k+O5qT+oQGMIpEZBLQ=
   dependencies:
     bluebird "^3.5.0"
     request-promise-core "1.1.1"
@@ -3096,15 +3092,6 @@ request@^2.82.0:
     tough-cookie "~2.4.3"
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
-
-requestretry@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/requestretry/-/requestretry-3.1.0.tgz#c8e1976bb946f14889d3604bbad56a01d191c10d"
-  integrity sha512-DkvCPK6qvwxIuVA5TRCvi626WHC2rWjF/n7SCQvVHAr2JX9i1/cmIpSEZlmHAo+c1bj9rjaKoZ9IsKwCpTkoXA==
-  dependencies:
-    extend "^3.0.2"
-    lodash "^4.17.10"
-    when "^3.7.7"
 
 require-uncached@^1.0.3:
   version "1.0.3"
@@ -3712,11 +3699,6 @@ wcwidth@>=1.0.1:
 weak-map@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/weak-map/-/weak-map-1.0.5.tgz#79691584d98607f5070bd3b70a40e6bb22e401eb"
-
-when@^3.7.7:
-  version "3.7.8"
-  resolved "https://registry.yarnpkg.com/when/-/when-3.7.8.tgz#c7130b6a7ea04693e842cdc9e7a1f2aa39a39f82"
-  integrity sha1-xxMLan6gRpPoQs3J56Hyqjmjn4I=
 
 which@^1.2.9:
   version "1.3.0"
