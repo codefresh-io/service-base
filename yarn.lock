@@ -21,10 +21,10 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@^1.1.47":
-  version "1.1.47"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.1.47.tgz#c8cc25f53dc489dcd3e3947976c5b546c873dd94"
-  integrity sha512-ufWuna2Hfs6CrB+/hEaJhjANd2gjEopOSy4qx5aHCoEpFsmaWIvZNhs40tbEyOBbfkOfKfpQfwVlpWjSqj4zcQ==
+"@codefresh-io/http-infra@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.2.0.tgz#f55451ec06ffeb4b858ee6c09b2d270affccc1c6"
+  integrity sha512-uovX+3oxss4rxxNhk/wwhAb0w2n8+N/DYEjhP2DbjjpXrIEnNJ98pSKDlLVZL9T4f1jg0XCuSI5vvaeDdNjGrw==
   dependencies:
     "@codefresh-io/authenticated-entity" "2.0.10"
     lodash "^4.17.5"

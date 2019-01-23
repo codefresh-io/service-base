@@ -2,7 +2,12 @@
 
 const config = require('./infra/config');
 const service = require('./infra');
-const { getAuthenticatedEntity, setAuthenticatedEntity, request } = require('@codefresh-io/http-infra');
+const { 
+    getAuthenticatedEntity,
+    setAuthenticatedEntity,
+    request,
+    authEntitiy
+} = require('@codefresh-io/http-infra');
 const Promise = require('bluebird');
 const express = require('express');
 const monitor = require('cf-monitor');
@@ -23,6 +28,7 @@ const exportedComponents = {
     getAuthenticatedEntity,
     setAuthenticatedEntity,
     request,
+    authEntitiy,
     Promise,
     express,
     expressApp: require('./infra/express').expressApp,
