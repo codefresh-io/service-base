@@ -6,7 +6,7 @@ const {
     getAuthenticatedEntity,
     setAuthenticatedEntity,
     request,
-    authEntitiy
+    authEntity
 } = require('@codefresh-io/http-infra');
 const Promise = require('bluebird');
 const express = require('express');
@@ -28,7 +28,7 @@ const exportedComponents = {
     getAuthenticatedEntity,
     setAuthenticatedEntity,
     request,
-    authEntitiy,
+    authEntity,
     Promise,
     express,
     expressApp: require('./infra/express').expressApp,
