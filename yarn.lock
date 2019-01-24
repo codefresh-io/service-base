@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@codefresh-io/authenticated-entity@2.0.10":
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.0.10.tgz#b570b6b43e011de4adf6b6e1f2bec00f39dec2ea"
+"@codefresh-io/authenticated-entity@2.0.11":
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.0.11.tgz#5f0f91100aef425f1d9bca92d43d06f1b661fbad"
   dependencies:
     lodash "^4.17.4"
 
@@ -21,12 +21,11 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.2.3.tgz#516b286fb496caf74fba12116ed51e02461fab2b"
-  integrity sha512-4VuzkXAyNOtyrf91xCyjnirKd4YRW6HvsU0lrGzHs2ECIF4OcgYXHnsvNK9l2vxfvEmQ3xcPGI+lBMlF0Q+0Fg==
+"@codefresh-io/http-infra@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.2.4.tgz#58dd00e5cf6b2b458e835e1f22cd9f0f85a0cf26"
   dependencies:
-    "@codefresh-io/authenticated-entity" "2.0.10"
+    "@codefresh-io/authenticated-entity" "2.0.11"
     lodash "^4.17.5"
     randomatic "^2.0.0"
     request "^2.82.0"
@@ -2957,7 +2956,6 @@ request-promise-core@1.1.1:
 request-promise@^4.2.1, request-promise@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/request-promise/-/request-promise-4.2.2.tgz#d1ea46d654a6ee4f8ee6a4fea1018c22911904b4"
-  integrity sha1-0epG1lSm7k+O5qT+oQGMIpEZBLQ=
   dependencies:
     bluebird "^3.5.0"
     request-promise-core "1.1.1"
