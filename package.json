@@ -23,9 +23,9 @@
   },
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
-    "@codefresh-io/authenticated-entity": "2.0.11",
+    "@codefresh-io/authenticated-entity": "2.0.12",
     "@codefresh-io/eventbus": "^0.0.24",
-    "@codefresh-io/http-infra": "^1.2.4",
+    "@codefresh-io/http-infra": "^1.2.5",
     "@codefresh-io/internal-service-config": "^0.0.17",
     "@codefresh-io/joi-objectid": "git+https://github.com/codefresh-io/joi-objectid.git#d66b8e989b09e88fe9addd0fe94088b5e804f84f",
     "@ronomon/crypto-async": "^2.2.1",
