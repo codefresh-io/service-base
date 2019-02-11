@@ -2,17 +2,15 @@
 # yarn lockfile v1
 
 
-"@codefresh-io/authenticated-entity@2.0.12":
-  version "2.0.12"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.0.12.tgz#cea2edddae14e84f4c6aee0ec4f87edf7344215d"
-  integrity sha512-3gd1CBymW1CFd4v5SR5H9BoYz1/k51gxn7hIMLFSzKuk3kMn+SLwY/taygMz4e2eSVhtUYRF78iV624s8zbp/g==
+"@codefresh-io/authenticated-entity@2.0.13":
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.0.13.tgz#7aeca36d69cbf607e7abfeb1c408031d42f66cc8"
   dependencies:
     lodash "^4.17.4"
 
 "@codefresh-io/eventbus@^0.0.25":
   version "0.0.25"
   resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-0.0.25.tgz#55e6add3bdf83eabcd559a900c897d6a1f7cfe08"
-  integrity sha512-QTqTBnbOOPUzyhjmRCvZnrQ/79WRxRxYFMR9Q0kpLT3aV6qddzzp5WxITOw0g6QjoxyLukxWtFERbKsSCJYa1Q==
   dependencies:
     amqplib "^0.5.1"
     bluebird "^3.5.0"
@@ -23,12 +21,11 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@^1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.2.5.tgz#b9f7ad5d11d7399a485b5ce660e03c7e815a2ae6"
-  integrity sha512-M0ymZy+IyvPkSkIwWP+1o7UygFO6XFfe62hgRFFGrW8w5K7L1a1rx49O0mxN4EmnY09QyECtcTWDgdM2oCrkFw==
+"@codefresh-io/http-infra@^1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.2.7.tgz#07ee8db0fc110247e883f29990669b53d45cd59e"
   dependencies:
-    "@codefresh-io/authenticated-entity" "2.0.12"
+    "@codefresh-io/authenticated-entity" "2.0.13"
     lodash "^4.17.5"
     randomatic "^2.0.0"
     request "^2.82.0"
