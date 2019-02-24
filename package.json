@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -28,6 +28,7 @@
     "@codefresh-io/http-infra": "^1.2.7",
     "@codefresh-io/internal-service-config": "^0.0.17",
     "@ronomon/crypto-async": "^2.2.1",
+    "@wegolook/joi-objectid": "^2.4.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "cf-errors": "^0.1.11",
@@ -39,7 +40,6 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "joi": "^13.0.2",
-    "joi-objectid": "^2.0.0",
     "js-yaml": "^3.11.0",
     "lodash": "^4.17.4",
     "method-override": "^2.3.9",

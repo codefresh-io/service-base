@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
-const Joi = require('joi').extend(require('joi-objectid'));
+const Joi = require('joi').extend(require('@wegolook/joi-objectid'));
 const YAML = require('js-yaml');
 
 const customYamlJoi = Joi.extend((joi) => ({ // eslint-disable-line
