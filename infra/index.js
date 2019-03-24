@@ -12,6 +12,7 @@ const express = require('./express');
 const logging = require('./logging');
 const redis = require('./redis');
 const cflogs = require('cf-logs');
+const openapi = require('./openapi');
 
 let logger;
 
@@ -50,6 +51,7 @@ class Microservice {
     }
 
     init(initFn) {
+        let appInitializer = initFn;
         const enabledComponents = config.getConfigArray('enabledComponents');
         const opt = {
             isReady: this.isReady.bind(this),
@@ -77,7 +79,12 @@ class Microservice {
             .then(() => (enabledComponents.includes('mongo')) && mongo.init(config))
             .then(() => (enabledComponents.includes('eventbus')) && eventbus.init(config))
             .then(() => (enabledComponents.includes('redis')) && redis.init(config))
-            .then(eventBus => express.init(config, app => initFn(app, eventbus), opt)) // eslint-disable-line
+            .then(() => {
+                if (enabledComponents.includes('openapi')) {
+                    appInitializer = openapi.init(config).wrapRoutes(initFn);
+                }
+            })
+            .then(() => express.init(config, app => appInitializer(app, eventbus), opt)) // eslint-disable-line
             .then(() => {
                 logger.info('Initialization completed');
                 this.markAsReady();

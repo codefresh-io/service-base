@@ -2,7 +2,7 @@
 
 const config = require('./infra/config');
 const service = require('./infra');
-const { 
+const {
     getAuthenticatedEntity,
     setAuthenticatedEntity,
     request,
@@ -18,6 +18,7 @@ const OPTIONAL_COMPONENTS = {
     redis: { },
     eventbus: { },
     encryption: { dependencies: ['mongo'] },
+    openapi: {},
 };
 
 const exportedComponents = {

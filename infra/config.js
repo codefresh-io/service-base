@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
-const internalServices = require('@codefresh-io/internal-service-config');
+const internalServiceConfig = require('@codefresh-io/internal-service-config');
 const { getRequestId, getAuthenticatedEntity } = require('@codefresh-io/http-infra');
 
 const APPLICATION_DOMAIN = process.env.APP_DOMAIN || 'local.codefresh.io';
@@ -13,15 +13,18 @@ function findAppRoot(dir = path.dirname(require.main.filename)) {
         ? dir
         : findAppRoot(path.resolve(dir, '..'));
 }
-const appRoot = process.env.NODE_ENV === 'test' ? path.resolve(__dirname).split('/node_modules')[0] : findAppRoot();
 
+const APP_ROOT = process.env.NODE_ENV === 'test' ? path.resolve(__dirname).split('/node_modules')[0] : findAppRoot();
+const SERVICE_CONFIG_PATH = path.join(APP_ROOT, 'service.config');
+const PACKAGE_JSON_PATH = path.join(APP_ROOT, 'package.json');
 
-const packageJson = require(path.join(appRoot, 'package.json')); // eslint-disable-line
+const packageJson = require(PACKAGE_JSON_PATH); // eslint-disable-line
 
 const name = packageJson.name.replace(/^@codefresh-io\//, '');
 
 const base = {};
 
+base.appRoot = APP_ROOT;
 base.env = process.env.NODE_ENV || 'kubernetes';
 base.port = process.env.PORT || 9001;
 base.name = name;
@@ -124,10 +127,21 @@ base.gracePeriodTimers = {
     skipGraceTimersValidation: (process.env.SKIP_GRACE_TIMERS_VALIDATION || 'false') === 'true',
 };
 
-_.merge(base, internalServices); // TODO deprecate use of this root level
-base.services = internalServices;
+_.merge(base, internalServiceConfig.services); // TODO deprecate use of this root level
+base.services = internalServiceConfig.services;
 
-const serviceConfig = require(path.join(appRoot, 'service.config')); // eslint-disable-line
+const serviceConfig = require(SERVICE_CONFIG_PATH); // eslint-disable-line
+
+if (!serviceConfig.name && serviceConfig.requireName !== false) {
+    const message = 'Property "name" is not specified inside the "service.config.js". Please specify or set "requireName=false" property';
+    throw new Error(message);
+}
+
+if (serviceConfig.name && !internalServiceConfig.names[serviceConfig.name] && serviceConfig.isInternalService !== false) {
+    const message = 'Property "name" from service.config.js is not specified inside the "@codefresh-io/internal-service-config package"\n'
+      + 'Please specify or set "isInternalService=false" property';
+    throw new Error(message); // eslint-disable-line
+}
 
 _.merge(base, serviceConfig);
 
