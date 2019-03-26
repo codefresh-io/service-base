@@ -24,7 +24,7 @@ const name = packageJson.name.replace(/^@codefresh-io\//, '');
 
 const base = {};
 
-base.appRoot = APP_ROOT;
+base.root = APP_ROOT;
 base.env = process.env.NODE_ENV || 'kubernetes';
 base.port = process.env.PORT || 9001;
 base.name = name;
