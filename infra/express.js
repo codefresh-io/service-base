@@ -1,5 +1,4 @@
 
-
 const Promise = require('bluebird');
 const express = require('express');
 const compression = require('compression');
@@ -9,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const monitor = require('cf-monitor');
 const { newDomainMiddleware } = require('@codefresh-io/http-infra');
+const eventbus = require('./eventbus');
+const { openapi } = require('@codefresh-io/cf-openapi');
 
 class Express {
     constructor() {
@@ -27,6 +28,7 @@ class Express {
      * @returns {*}
      */
     init(config, createRoutes, opt = {}) {
+        openapi.init(config);
         const logger = require('cf-logs').Logger('codefresh:infra:express'); // eslint-disable-line
         this.logger = logger;
         this.options = opt;
@@ -74,7 +76,7 @@ class Express {
                         },
                     }));
                 }
-
+                openapi.endpoints().register(app);
                 return this.createRoutes(app)
                     .then(() => {
                         app.get('/api/ping', (req, res) => {
@@ -117,6 +119,7 @@ class Express {
 
     _start(app) {
         const logger = this.logger; // eslint-disable-line
+        openapi.dependencies().fetch();
         return new Promise((resolve, reject) => {
             const server = app.listen(this.config.port, (err) => {
                 if (err) {
@@ -127,7 +130,11 @@ class Express {
                     resolve(server);
                 }
             });
-        });
+        })
+            .then(() => {
+                openapi.events().subscribe(eventbus);
+                openapi.events().publish(eventbus);
+            });
     }
 
     makeEndpoint(fn) { // eslint-disable-line

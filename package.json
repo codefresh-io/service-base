@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -26,7 +26,7 @@
     "@codefresh-io/authenticated-entity": "2.0.13",
     "@codefresh-io/eventbus": "^0.0.25",
     "@codefresh-io/http-infra": "^1.2.7",
-    "@codefresh-io/internal-service-config": "^0.0.17",
+    "@codefresh-io/internal-service-config": "^1.0.0",
     "@codefresh-io/cf-openapi": "latest",
     "@ronomon/crypto-async": "^2.2.1",
     "@wegolook/joi-objectid": "^2.4.0",

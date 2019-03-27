@@ -137,7 +137,7 @@ if (!serviceConfig.name && serviceConfig.requireName !== false) {
     throw new Error(message);
 }
 
-if (serviceConfig.name && !internalServiceConfig.names[serviceConfig.name] && serviceConfig.isInternalService !== false) {
+if (serviceConfig.name && !internalServiceConfig.services[serviceConfig.name] && serviceConfig.isInternalService !== false) {
     const message = 'Property "name" from service.config.js is not specified inside the "@codefresh-io/internal-service-config package"\n'
       + 'Please specify or set "isInternalService=false" property';
     throw new Error(message); // eslint-disable-line
