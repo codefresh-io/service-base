@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=8.9.4"
   },
+  "bin": {
+    "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
+  },
   "scripts": {
     "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
     "start": "node index.js",
@@ -24,10 +27,10 @@
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
     "@codefresh-io/authenticated-entity": "2.0.13",
+    "@codefresh-io/cf-openapi": "../cf-openapi/",
     "@codefresh-io/eventbus": "^0.0.25",
     "@codefresh-io/http-infra": "^1.2.7",
     "@codefresh-io/internal-service-config": "^1.0.0",
-    "@codefresh-io/cf-openapi": "latest",
     "@ronomon/crypto-async": "^2.2.1",
     "@wegolook/joi-objectid": "^2.4.0",
     "bluebird": "^3.5.0",
