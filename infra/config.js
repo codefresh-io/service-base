@@ -133,13 +133,14 @@ base.services = internalServiceConfig.services;
 const serviceConfig = require(SERVICE_CONFIG_PATH); // eslint-disable-line
 
 if (!serviceConfig.name && serviceConfig.requireName !== false) {
-    const message = 'Property "name" is not specified inside the "service.config.js". Please specify or set "requireName=false" property';
+    const message = 'Property "name" is not specified inside the "service.config.js".\n' +
+      'Please specify one from the @codefresh-io/internal-service-config or set "requireName=false" property';
     throw new Error(message);
 }
 
 if (serviceConfig.name && !internalServiceConfig.services[serviceConfig.name] && serviceConfig.isInternalService !== false) {
-    const message = 'Property "name" from service.config.js is not specified inside the "@codefresh-io/internal-service-config package"\n'
-      + 'Please specify or set "isInternalService=false" property';
+    const message = 'Property "name" from service.config.js is not specified inside the @codefresh-io/internal-service-config package\n'
+      + 'Please update @codefresh-io/internal-service-config or set "isInternalService=false" property';
     throw new Error(message); // eslint-disable-line
 }
 
