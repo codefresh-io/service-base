@@ -30,7 +30,7 @@
     "@codefresh-io/cf-openapi": "^0.0.1",
     "@codefresh-io/eventbus": "^0.0.25",
     "@codefresh-io/http-infra": "^1.2.7",
-    "@codefresh-io/internal-service-config": "^1.0.0",
+    "@codefresh-io/internal-service-config": "^1.0.1",
     "@ronomon/crypto-async": "^2.2.1",
     "@wegolook/joi-objectid": "^2.4.0",
     "bluebird": "^3.5.0",

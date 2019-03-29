@@ -19,7 +19,6 @@ const OPTIONAL_COMPONENTS = {
     redis: { },
     eventbus: { },
     encryption: { dependencies: ['mongo'] },
-    openapi: {},
 };
 
 const exportedComponents = {
