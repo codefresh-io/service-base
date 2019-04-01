@@ -13,6 +13,7 @@ const logging = require('./logging');
 const redis = require('./redis');
 const cflogs = require('cf-logs');
 const { openapi } = require('@codefresh-io/cf-openapi');
+const { publishInterface, subscribeInterface } = require('./openapi-events');
 
 let logger;
 
@@ -82,19 +83,8 @@ class Microservice {
                 if (enabledComponents.includes('eventbus')) {
                     eventbus.init(config);
 
-                    openapi.events().setPublishInterface((serviceName, spec) => eventbus.publish('openapi.push', {
-                        aggregateId: serviceName,
-                        props: { spec: JSON.stringify(spec) },
-                    }, true, true));
-
-                    openapi.events().setSubscribeInterface((handler) => {
-                        eventbus.subscribe('openapi.push', (data) => {
-                            const serviceName = data.aggregateId;
-                            const spec = JSON.parse(data.props.spec);
-                            return Promise.resolve()
-                                .then(() => handler(serviceName, spec));
-                        });
-                    });
+                    openapi.events().setPublishInterface(publishInterface);
+                    openapi.events().setSubscribeInterface(subscribeInterface);
                 }
             })
             .then(() => express.init(config, app => initFn(app, eventbus), opt))
