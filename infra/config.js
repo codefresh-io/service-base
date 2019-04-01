@@ -131,19 +131,6 @@ _.merge(base, internalServiceConfig.services); // TODO deprecate use of this roo
 base.services = internalServiceConfig.services;
 
 const serviceConfig = require(SERVICE_CONFIG_PATH); // eslint-disable-line
-
-if (!serviceConfig.name && serviceConfig.requireName !== false) {
-    const message = 'Property "name" is not specified inside the "service.config.js".\n' +
-      'Please specify one from the @codefresh-io/internal-service-config or set "requireName=false" property';
-    throw new Error(message);
-}
-
-if (serviceConfig.name && !internalServiceConfig.nameExists(serviceConfig.name) && serviceConfig.isInternalService !== false) {
-    const message = `Property "name" (value = "${serviceConfig.name}") from "service.config.js" is not specified inside the @codefresh-io/internal-service-config package\n` // eslint-disable-line
-      + 'Please update @codefresh-io/internal-service-config or set "isInternalService=false" property';
-    throw new Error(message); // eslint-disable-line
-}
-
 _.merge(base, serviceConfig);
 
 base.getConfigVal = function (key) { // eslint-disable-line

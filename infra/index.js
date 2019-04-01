@@ -12,6 +12,7 @@ const express = require('./express');
 const logging = require('./logging');
 const redis = require('./redis');
 const cflogs = require('cf-logs');
+const { openapi } = require('@codefresh-io/cf-openapi');
 
 let logger;
 
@@ -74,9 +75,28 @@ class Microservice {
                         });
                     });
             })
+            .then(() => openapi.init(config))
             .then(() => (enabledComponents.includes('mongo')) && mongo.init(config))
-            .then(() => (enabledComponents.includes('eventbus')) && eventbus.init(config))
             .then(() => (enabledComponents.includes('redis')) && redis.init(config))
+            .then(() => {
+                if (enabledComponents.includes('eventbus')) {
+                    eventbus.init(config);
+
+                    openapi.events().setPublishInterface((serviceName, spec) => eventbus.publish('openapi.push', {
+                        aggregateId: serviceName,
+                        props: { spec: JSON.stringify(spec) },
+                    }, true, true));
+
+                    openapi.events().setSubscribeInterface((handler) => {
+                        eventbus.subscribe('openapi.push', (data) => {
+                            const serviceName = data.aggregateId;
+                            const spec = JSON.parse(data.props.spec);
+                            return Promise.resolve()
+                                .then(() => handler(serviceName, spec));
+                        });
+                    });
+                }
+            })
             .then(() => express.init(config, app => initFn(app, eventbus), opt))
             .then(() => {
                 logger.info('Initialization completed');
