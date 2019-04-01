@@ -6,14 +6,14 @@ const {
     getAuthenticatedEntity,
     setAuthenticatedEntity,
     request,
-    authEntity
+    authEntity,
 } = require('@codefresh-io/http-infra');
 const Promise = require('bluebird');
 const express = require('express');
 const monitor = require('cf-monitor');
 const logging = require('./infra/logging');
-const routes = require('./infra/routes');
 const internalServiceConfig = require('@codefresh-io/internal-service-config');
+const { openapi } = require('@codefresh-io/cf-openapi');
 
 const OPTIONAL_COMPONENTS = {
     mongo: { name: 'mongoClient' },
@@ -23,9 +23,9 @@ const OPTIONAL_COMPONENTS = {
 };
 
 const exportedComponents = {
+    openapi,
     initService: service.init.bind(service),
     stopService: service.stop.bind(service),
-    routes,
     validation: require('./infra/validation'),
     makeEndpoint: require('./infra/express').makeEndpoint,
     getAuthenticatedEntity,
