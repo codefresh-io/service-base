@@ -127,6 +127,8 @@ base.gracePeriodTimers = {
     skipGraceTimersValidation: (process.env.SKIP_GRACE_TIMERS_VALIDATION || 'false') === 'true',
 };
 
+base.openapi = { dependenciesSpec: false };
+
 _.merge(base, internalServiceConfig.services); // TODO deprecate use of this root level
 base.services = internalServiceConfig.services;
 
