@@ -2,7 +2,7 @@
 
 const config = require('./infra/config');
 const service = require('./infra');
-const { 
+const {
     getAuthenticatedEntity,
     setAuthenticatedEntity,
     request,
