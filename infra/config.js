@@ -25,7 +25,7 @@ if (fs.existsSync(OPENAPI_JSON_PATH)) {
     openapiJson = require(OPENAPI_JSON_PATH); // eslint-disable-line
 }
 
-const name = openapiJson['x-service-name'] || packageJson.name.replace(/^@codefresh-io\//, '');
+const name = (openapiJson && openapiJson['x-service-name']) || packageJson.name.replace(/^@codefresh-io\//, '');
 
 const base = {};
 
