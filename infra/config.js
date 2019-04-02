@@ -17,10 +17,15 @@ function findAppRoot(dir = path.dirname(require.main.filename)) {
 const APP_ROOT = process.env.NODE_ENV === 'test' ? path.resolve(__dirname).split('/node_modules')[0] : findAppRoot();
 const SERVICE_CONFIG_PATH = path.join(APP_ROOT, 'service.config');
 const PACKAGE_JSON_PATH = path.join(APP_ROOT, 'package.json');
+const OPENAPI_JSON_PATH = path.join(APP_ROOT, 'openapi.json');
 
 const packageJson = require(PACKAGE_JSON_PATH); // eslint-disable-line
+let openapiJson;
+if (fs.existsSync(OPENAPI_JSON_PATH)) {
+    openapiJson = require(OPENAPI_JSON_PATH); // eslint-disable-line
+}
 
-const name = packageJson.name.replace(/^@codefresh-io\//, '');
+const name = openapiJson['x-service-name'] || packageJson.name.replace(/^@codefresh-io\//, '');
 
 const base = {};
 
