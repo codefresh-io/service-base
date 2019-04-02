@@ -12,7 +12,6 @@ const Promise = require('bluebird');
 const express = require('express');
 const monitor = require('cf-monitor');
 const logging = require('./infra/logging');
-const internalServiceConfig = require('@codefresh-io/internal-service-config');
 const { openapi } = require('@codefresh-io/cf-openapi');
 
 const OPTIONAL_COMPONENTS = {
@@ -38,7 +37,6 @@ const exportedComponents = {
     getLogger: logging.getLogger,
     config,
     monitor,
-    internalServiceConfig,
 };
 
 const enabledComponents = config.getConfigArray('enabledComponents');

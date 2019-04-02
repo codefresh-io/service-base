@@ -8,7 +8,6 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const monitor = require('cf-monitor');
 const { newDomainMiddleware } = require('@codefresh-io/http-infra');
-const eventbus = require('./eventbus');
 const { openapi } = require('@codefresh-io/cf-openapi');
 
 class Express {
@@ -28,7 +27,6 @@ class Express {
      * @returns {*}
      */
     init(config, createRoutes, opt = {}) {
-        openapi.init(config);
         const logger = require('cf-logs').Logger('codefresh:infra:express'); // eslint-disable-line
         this.logger = logger;
         this.options = opt;
@@ -132,8 +130,8 @@ class Express {
             });
         })
             .then(() => {
-                openapi.events().subscribe(eventbus);
-                openapi.events().publish(eventbus);
+                openapi.events().subscribe();
+                openapi.events().publish();
             });
     }
 
