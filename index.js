@@ -12,7 +12,7 @@ const Promise = require('bluebird');
 const express = require('express');
 const monitor = require('cf-monitor');
 const logging = require('./infra/logging');
-const { openapi } = require('@codefresh-io/cf-openapi');
+const { openapi, verifyEndpoints } = require('@codefresh-io/cf-openapi');
 
 const OPTIONAL_COMPONENTS = {
     mongo: { name: 'mongoClient' },
@@ -23,6 +23,7 @@ const OPTIONAL_COMPONENTS = {
 
 const exportedComponents = {
     openapi,
+    verifyEndpoints,
     initService: service.init.bind(service),
     stopService: service.stop.bind(service),
     validation: require('./infra/validation'),
