@@ -1,16 +1,14 @@
 const eventbus = require('./eventbus');
 
-const publishInterface = (serviceName, spec) => eventbus.publish('openapi.push', {
+const publishInterface = (serviceName) => eventbus.publish('openapi.push', { // eslint-disable-line
     aggregateId: serviceName,
-    props: { spec: JSON.stringify(spec) },
 }, true, true);
 
 const subscribeInterface = (handler) => {
     eventbus.subscribe('openapi.push', (data) => {
         const serviceName = data.aggregateId;
-        const spec = JSON.parse(data.props.spec);
         return Promise.resolve()
-            .then(() => handler(serviceName, spec));
+            .then(() => handler(serviceName));
     });
 };
 
