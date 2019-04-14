@@ -1,10 +1,13 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "1.1.8",
+  "version": "1.2.4",
   "main": "index.js",
   "description": "",
   "engines": {
     "node": ">=8.9.4"
+  },
+  "bin": {
+    "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
   },
   "scripts": {
     "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
@@ -24,9 +27,10 @@
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
     "@codefresh-io/authenticated-entity": "2.0.13",
+    "@codefresh-io/cf-openapi": "^0.0.4",
     "@codefresh-io/eventbus": "^0.0.25",
     "@codefresh-io/http-infra": "^1.2.7",
-    "@codefresh-io/internal-service-config": "^0.0.17",
+    "@codefresh-io/internal-service-config": "^1.0.1",
     "@ronomon/crypto-async": "^3.0.1",
     "@wegolook/joi-objectid": "^2.4.0",
     "bluebird": "^3.5.3",
