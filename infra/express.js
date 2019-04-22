@@ -38,6 +38,10 @@ class Express {
                     .then(() => this._start(this.expressApp))
                     .then((expressServer) => {
                         this.expressServer = expressServer;
+                    })
+                    .then(() => {
+                        openapi.events().subscribe();
+                        openapi.events().publish();
                     });
             });
     }
@@ -128,11 +132,7 @@ class Express {
                     resolve(server);
                 }
             });
-        })
-            .then(() => {
-                openapi.events().subscribe();
-                openapi.events().publish();
-            });
+        });
     }
 
     makeEndpoint(fn) { // eslint-disable-line
