@@ -58,7 +58,7 @@ base.logger = {
     console: true,
     handleExceptions: false,
     showNamespace: true,
-    level: 'debug',
+    level: process.env.LOGGER_LEVEL || 'debug',
     consoleOptions: {
         stderrLevels: ['error'],
         timestamp() {
