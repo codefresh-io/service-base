@@ -9,7 +9,7 @@ const { getRequestId, getAuthenticatedEntity } = require('@codefresh-io/http-inf
 const APPLICATION_DOMAIN = process.env.APP_DOMAIN || 'local.codefresh.io';
 
 function findAppRoot(dir = path.dirname(require.main.filename)) {
-    return fs.existsSync(path.join(dir, 'package.json'))
+    return !_.includes(dir, 'node_modules') && fs.existsSync(path.join(dir, 'package.json'))
         ? dir
         : findAppRoot(path.resolve(dir, '..'));
 }
@@ -58,7 +58,7 @@ base.logger = {
     console: true,
     handleExceptions: false,
     showNamespace: true,
-    level: 'debug',
+    level: process.env.LOGGER_LEVEL || 'debug',
     consoleOptions: {
         stderrLevels: ['error'],
         timestamp() {
