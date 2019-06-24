@@ -2,6 +2,7 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const Joi = require('joi').extend(require('@wegolook/joi-objectid'));
 const YAML = require('js-yaml');
+const Ajv = require('ajv');
 
 const customYamlJoi = Joi.extend((joi) => ({ // eslint-disable-line
     name: 'yaml',
@@ -19,21 +20,19 @@ const customYamlJoi = Joi.extend((joi) => ({ // eslint-disable-line
 Joi.yaml = customYamlJoi.yaml;
 
 const customJsonSchemaStringJoi = Joi.extend((joi) => ({ // eslint-disable-line
-  base: Joi.string(),
-  name: 'jsonSchemaString',
-  language: {
-    pre: 'is not a valid JSON Schema: {{err}}'
-  },
-  pre(value, state, options) {
-    try {
-      var ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
-      ajv.compile(JSON.parse(value));
-      return value;
-    } catch (err) {
-      return this.createError('jsonSchemaString.pre', { v: value, err: err.toString().replace('Error: schema is invalid: ', '') }, state, options);
-    }
-  },
-  rules: [],
+    base: Joi.string(),
+    name: 'jsonSchemaString',
+    language: { pre: 'is not a valid JSON Schema: {{err}}' },
+    pre(value, state, options) {
+        try {
+            const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
+            ajv.compile(JSON.parse(value));
+            return value;
+        } catch (err) {
+            return this.createError('jsonSchemaString.pre', { v: value, err: err.toString().replace('Error: schema is invalid: ', '') }, state, options); // eslint-disable-line max-len
+        }
+    },
+    rules: [],
 }));
 Joi.jsonSchemaString = customJsonSchemaStringJoi.jsonSchemaString;
 
