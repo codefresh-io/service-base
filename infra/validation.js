@@ -18,6 +18,26 @@ const customYamlJoi = Joi.extend((joi) => ({ // eslint-disable-line
 }));
 Joi.yaml = customYamlJoi.yaml;
 
+const customJsonSchemaStringJoi = Joi.extend((joi) => ({ // eslint-disable-line
+  base: Joi.string(),
+  name: 'jsonSchemaString',
+  language: {
+    pre: 'is not a valid JSON Schema: {{err}}'
+  },
+  pre(value, state, options) {
+    try {
+      var ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
+      ajv.compile(JSON.parse(value));
+      return value;
+    } catch (err) {
+      return this.createError('jsonSchemaString.pre', { v: value, err: err.toString().replace('Error: schema is invalid: ', '') }, state, options);
+    }
+  },
+  rules: [],
+}));
+Joi.jsonSchemaString = customJsonSchemaStringJoi.jsonSchemaString;
+
+
 function validateField(field, val, options = { optional: false }) {
     if (val === undefined && _.get(options, 'optional')) {
         return Promise.resolve();
