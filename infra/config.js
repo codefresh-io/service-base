@@ -4,7 +4,7 @@ const _ = require('lodash');
 const path = require('path');
 const fs = require('fs');
 const internalServiceConfig = require('@codefresh-io/internal-service-config');
-const { getRequestId, getAuthenticatedEntity } = require('@codefresh-io/http-infra');
+const { getRequestId, getAuthenticatedEntity, getSourceIp } = require('@codefresh-io/http-infra');
 
 const APPLICATION_DOMAIN = process.env.APP_DOMAIN || 'local.codefresh.io';
 
@@ -87,6 +87,13 @@ base.logger = {
         correlationId: () => {
             try {
                 return getRequestId();
+            } catch (err) {
+                return {};
+            }
+        },
+        sourceIp: () => {
+            try {
+                return getSourceIp();
             } catch (err) {
                 return {};
             }
