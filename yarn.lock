@@ -57,10 +57,10 @@
     retry "^0.12.0"
     speccy "^0.9.0"
 
-"@codefresh-io/eventbus@^0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-0.0.25.tgz#55e6add3bdf83eabcd559a900c897d6a1f7cfe08"
-  integrity sha512-QTqTBnbOOPUzyhjmRCvZnrQ/79WRxRxYFMR9Q0kpLT3aV6qddzzp5WxITOw0g6QjoxyLukxWtFERbKsSCJYa1Q==
+"@codefresh-io/eventbus@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-1.0.0.tgz#ccdad6c80d0118f4030373dfc40a16409024bdf7"
+  integrity sha512-89T91J/RQcjjP7u4xjYgX5eqYRCuwVIIQfPWSMJ8Pp/xTVj+N64cdHM2F988DwkeIE7XnXX9UBAf9T4mV2VX1w==
   dependencies:
     amqplib "^0.5.1"
     bluebird "^3.5.0"
