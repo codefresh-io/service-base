@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -28,7 +28,7 @@
   "dependencies": {
     "@codefresh-io/authenticated-entity": "2.0.13",
     "@codefresh-io/cf-openapi": "^0.4.0",
-    "@codefresh-io/eventbus": "^1.0.0",
+    "@codefresh-io/eventbus": "^1.1.0",
     "@codefresh-io/http-infra": "1.2.7",
     "@codefresh-io/internal-service-config": "^1.0.1",
     "@ronomon/crypto-async": "^3.0.1",
