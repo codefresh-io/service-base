@@ -37,10 +37,10 @@
   dependencies:
     lodash "^4.17.4"
 
-"@codefresh-io/cf-openapi@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.2.3.tgz#ebaa46970fcbe3b9b970ff06376070e738845ca1"
-  integrity sha512-72E0gYcoTe6gCo9dT+zDrlWj1jon3wUGACEFluTA3Rw0QuprmVs5rPSY0XihyScl+JjbHmma428KOYXP4F3rvg==
+"@codefresh-io/cf-openapi@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.4.0.tgz#3b4c9e6a2cc1d6f5505456cb1514612465c8cc20"
+  integrity sha512-1MfDB5o9tjuQ65TvGPtclXn/yIrvWXFtBu2fFbS1jfMrUt9I5gZVvYIPjehWZHV8los3pJ+1avpwUgbpCKGSqg==
   dependencies:
     bluebird "^3.5.4"
     cf-errors "^0.1.11"
