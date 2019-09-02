@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
     "@codefresh-io/authenticated-entity": "2.0.13",
-    "@codefresh-io/cf-openapi": "^0.4.0",
+    "@codefresh-io/cf-openapi": "^0.6.0",
     "@codefresh-io/eventbus": "^1.1.0",
     "@codefresh-io/http-infra": "1.2.7",
     "@codefresh-io/internal-service-config": "^1.0.1",
