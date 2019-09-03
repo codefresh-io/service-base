@@ -37,12 +37,13 @@
   dependencies:
     lodash "^4.17.4"
 
-"@codefresh-io/cf-openapi@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.4.0.tgz#3b4c9e6a2cc1d6f5505456cb1514612465c8cc20"
-  integrity sha512-1MfDB5o9tjuQ65TvGPtclXn/yIrvWXFtBu2fFbS1jfMrUt9I5gZVvYIPjehWZHV8los3pJ+1avpwUgbpCKGSqg==
+"@codefresh-io/cf-openapi@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.6.0.tgz#8e1d0af0874a8f0e3e3debe81bccc5468b03de3d"
+  integrity sha512-Uj0JbYl7/Dwhr+32CwOKKId8+LKGd6N5pwN24+fNcx2OWCjODknr4iPA9gzEAoupyXmjElODvLIvJeicXtkzlA==
   dependencies:
     bluebird "^3.5.4"
+    body-parser "^1.19.0"
     cf-errors "^0.1.11"
     cf-logs "^1.0.0"
     codefresh-sdk "^1.1.0"
@@ -545,7 +546,7 @@ body-parser@1.18.3:
     raw-body "2.3.3"
     type-is "~1.6.16"
 
-body-parser@1.19.0, body-parser@^1.18.3:
+body-parser@1.19.0, body-parser@^1.18.3, body-parser@^1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
   integrity sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
