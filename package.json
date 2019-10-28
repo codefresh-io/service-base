@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -31,7 +31,7 @@
     "@codefresh-io/eventbus": "^1.2.0",
     "@codefresh-io/http-infra": "1.2.7",
     "@codefresh-io/internal-service-config": "^1.0.1",
-    "@ronomon/crypto-async": "^5.0.1",
+    "@ronomon/crypto-async": "^3.0.1",
     "@wegolook/joi-objectid": "^2.4.0",
     "ajv": "^6.10.0",
     "bluebird": "^3.5.3",
