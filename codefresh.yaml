@@ -3,7 +3,7 @@ steps:
 
   install_dependencies:
     title: 'Installing testing dependencies'
-    image: node:10.15.3
+    image: node:12.13.0
     commands:
         - yarn install --frozen-lockfile
 
