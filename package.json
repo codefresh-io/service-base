@@ -29,7 +29,7 @@
     "@codefresh-io/authenticated-entity": "2.0.13",
     "@codefresh-io/cf-openapi": "^0.6.0",
     "@codefresh-io/eventbus": "^1.2.0",
-    "@codefresh-io/http-infra": "1.2.7",
+    "@codefresh-io/http-infra": "^1.2.11",
     "@codefresh-io/internal-service-config": "^1.0.1",
     "@ronomon/crypto-async": "^5.0.1",
     "@wegolook/joi-objectid": "^2.4.0",
