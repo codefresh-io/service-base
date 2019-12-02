@@ -751,10 +751,10 @@ cf-errors@^0.1.11:
   dependencies:
     lodash "4.15.0"
 
-cf-logs@1.1.21:
-  version "1.1.21"
-  resolved "https://registry.yarnpkg.com/cf-logs/-/cf-logs-1.1.21.tgz#1a990dc005465e801d3b3e38e773645c9f87e0b7"
-  integrity sha512-4v3dYrKG2AoE6Na0z+5z5GWYVSh4VurmvakEM64XGc7jM7tvlUYQGntMQz1jUj52Dh72irni7OluU2UCTRNmJQ==
+cf-logs@1.1.22:
+  version "1.1.22"
+  resolved "https://registry.yarnpkg.com/cf-logs/-/cf-logs-1.1.22.tgz#cc7e6701cb15565cfc74130fe82e92464aa0cf1c"
+  integrity sha512-EqXpyP5FDGtMDYCAtq2kKrNjDtPrKnS8rj0/WDEpFiB6nhuwg+7RwjZ1vTC/uY9Qw+vo7X/UqU0sZYzlqw/S4w==
   dependencies:
     lodash "^4.17.11"
     winston "3.2.1"
