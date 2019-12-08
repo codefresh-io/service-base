@@ -9,6 +9,7 @@ const morgan = require('morgan');
 const monitor = require('cf-monitor');
 const { newDomainMiddleware } = require('@codefresh-io/http-infra');
 const { openapi } = require('@codefresh-io/cf-openapi');
+const CFError = require('cf-errors');
 
 class Express {
     constructor() {
@@ -110,7 +111,13 @@ class Express {
                                 return next(err);
                             }
 
-                            monitor.noticeError(err);
+                            if (err instanceof CFError) {
+                                if (!err.getFirstValue('recognized')) {
+                                    monitor.noticeError(err);
+                                }
+                            } else {
+                                monitor.noticeError(err);
+                            }
 
                             const statusCode = err.statusCode || 500;
 
