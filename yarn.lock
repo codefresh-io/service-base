@@ -37,10 +37,10 @@
   dependencies:
     lodash "^4.17.4"
 
-"@codefresh-io/authenticated-entity@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.3.0.tgz#13e837a9a9a7be3d56d4a230f802df9ba38493fa"
-  integrity sha512-eM9TAQVjtX+IszVPSwVg4rvV06blFjEqXDgsWqXCR8mjilunUZcLXyn13rLa0sbbzdyK59hcxGhAZPvbZ3eyEw==
+"@codefresh-io/authenticated-entity@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.4.0.tgz#b884697c703179f7b632d4c9663189271da59028"
+  integrity sha512-jPPazEJwCRLntKHN37ZWLK2eps0p97+xcXBjU5Qr+k6zafnes2PUlOjs+HhE73AZpqc2JCaFwa9+X8wtyz5Rvw==
   dependencies:
     lodash "^4.17.4"
     semver "^7.0.0"
