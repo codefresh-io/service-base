@@ -30,13 +30,6 @@
   resolved "https://registry.yarnpkg.com/@cloudflare/json-schema-walker/-/json-schema-walker-0.1.1.tgz#d1cc94065327b0b3800158db40cb78124a3476de"
   integrity sha512-P3n0hEgk1m6uKWgL4Yb1owzXVG4pM70G4kRnDQxZXiVvfCRtaqiHu+ZRiRPzmwGBiLTO1LWc2yR1M8oz0YkXww==
 
-"@codefresh-io/authenticated-entity@2.0.13":
-  version "2.0.13"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.0.13.tgz#7aeca36d69cbf607e7abfeb1c408031d42f66cc8"
-  integrity sha512-aR6nrbo0KfO0qaqtUFtzOTfu5a8cC3wDWoeMfT8HbagiR17SOTvQbPRd51Un3H2SL91EfCGuTAvWl0LwEtoY9g==
-  dependencies:
-    lodash "^4.17.4"
-
 "@codefresh-io/authenticated-entity@2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.4.0.tgz#b884697c703179f7b632d4c9663189271da59028"
@@ -80,12 +73,12 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.5.0.tgz#a03586b7487af90ecc65c0e4e371da1109e12229"
-  integrity sha512-QFEnsgVVSttt+3KByOJ0vhI0rAhyIhAsw93jZt1eNwwXunm6a39NvqnFb5NI80p91QcTWYPVN7xMRLNosWQqAg==
+"@codefresh-io/http-infra@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.8.1.tgz#4c12f2b4428c69028576588a679dd7faf1dc5631"
+  integrity sha512-Pd+E3Gw3sV7VHip3FN/teXXTBM2tQVzc5HiHBCq7wXuk1Kcid4QpBKcOkE7CqJaX3qcUdq0uX0NVm4MxQzfhbw==
   dependencies:
-    "@codefresh-io/authenticated-entity" "2.0.13"
+    "@codefresh-io/authenticated-entity" "2.4.0"
     lodash "^4.17.5"
     randomatic "^2.0.0"
     request "^2.82.0"
