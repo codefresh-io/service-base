@@ -93,7 +93,7 @@ base.logger = {
         },
         authenticatedEntity: () => {
             try {
-                const authEntity = getAuthenticatedEntity().toJson({partial: true});
+                const authEntity = getAuthenticatedEntity().toJson({ partial: true });
                 if (_.get(authEntity, 'activeAccount')) {
                     authEntity.activeAccount = _.omit(authEntity.activeAccount, 'features');
                 }
