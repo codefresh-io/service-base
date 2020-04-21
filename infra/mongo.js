@@ -3,8 +3,6 @@
 const Promise = require('bluebird');
 const { MongoClient, ObjectId } = require('mongodb');
 
-const clientSettings = { promiseLibrary: Promise };
-
 class Mongo {
     constructor() {
         this.db = undefined;
@@ -16,6 +14,12 @@ class Mongo {
      * @returns {*}
      */
     init(config) {
+        const clientSettings = {
+            promiseLibrary: Promise,
+            reconnectTries: config.mongo.reconnectTries,
+            reconnectInterval: config.mongo.reconnectInterval,
+        };
+
         const logger = require('cf-logs').Logger('codefresh:infra:mongo'); // eslint-disable-line
         this.logger = logger;
         return MongoClient.connect(config.mongo.uri, clientSettings)
