@@ -38,14 +38,6 @@
     lodash "^4.17.4"
     semver "^7.0.0"
 
-"@codefresh-io/authenticated-entity@2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.4.0.tgz#b884697c703179f7b632d4c9663189271da59028"
-  integrity sha512-jPPazEJwCRLntKHN37ZWLK2eps0p97+xcXBjU5Qr+k6zafnes2PUlOjs+HhE73AZpqc2JCaFwa9+X8wtyz5Rvw==
-  dependencies:
-    lodash "^4.17.4"
-    semver "^7.0.0"
-
 "@codefresh-io/cf-openapi@^0.6.0":
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.6.0.tgz#8e1d0af0874a8f0e3e3debe81bccc5468b03de3d"
@@ -81,12 +73,13 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@^1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.8.1.tgz#4c12f2b4428c69028576588a679dd7faf1dc5631"
-  integrity sha512-Pd+E3Gw3sV7VHip3FN/teXXTBM2tQVzc5HiHBCq7wXuk1Kcid4QpBKcOkE7CqJaX3qcUdq0uX0NVm4MxQzfhbw==
+"@codefresh-io/http-infra@^1.8.4":
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.8.4.tgz#73589c7e5e8838da0bdd20f0809b04005f1fb665"
+  integrity sha512-kWxIgqFZZvJZbqc8h9oj1SU6f1B2aUMNHCa/8O5jkqAEHVMNDWzz++tXQTjd+n+V4XOpjMQ6JKfgV5jc/avz4Q==
   dependencies:
-    "@codefresh-io/authenticated-entity" "2.4.0"
+    "@codefresh-io/authenticated-entity" "2.11.0"
+    bluebird "^3.7.2"
     lodash "^4.17.5"
     randomatic "^2.0.0"
     request "^2.82.0"
@@ -544,6 +537,11 @@ bluebird@^3.5.4:
   version "3.5.4"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.4.tgz#d6cc661595de30d5b3af5fcedd3c0b3ef6ec5714"
   integrity sha512-FG+nFEZChJrbQ9tIccIfZJBz3J7mLrAhxakAbnrJWn8d7aKOC+LWifa0G+p4ZqKp4y13T7juYvdhq9NzKdsrjw==
+
+bluebird@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
+  integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
 body-parser@1.18.3:
   version "1.18.3"
