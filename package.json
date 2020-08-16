@@ -59,11 +59,13 @@
     "request-promise": "^4.2.4"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.2",
     "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jest": "^21.12.3",
     "eslint-plugin-mocha": "^4.12.1",
-    "jest": "^26.4.0"
+    "jest": "^26.4.0",
+    "mongodb-memory-server": "^6.6.3"
   }
 }

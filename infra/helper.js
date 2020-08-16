@@ -2,9 +2,11 @@ const splitUriBySlash = (uri) => {
     const parts = uri.split('/');
     const lastIndex = parts.length - 1;
     return {
-        uri: parts.slice(0, -1)
+        prefix: parts.slice(0, -1)
             .join('/'),
-        dbname: parts[lastIndex],
+        dbName: parts[lastIndex].split('?')[0],
     };
 };
-module.exports = {splitUriBySlash};
+
+const getDbNameFromUri = uri => splitUriBySlash(uri).dbName;
+module.exports = { splitUriBySlash, getDbNameFromUri };
