@@ -2,6 +2,7 @@
 
 const Promise = require('bluebird');
 const { MongoClient, ObjectId } = require('mongodb');
+const { splitUriBySlash } = require('./helper');
 
 class Mongo {
     constructor() {
@@ -22,9 +23,10 @@ class Mongo {
 
         const logger = require('cf-logs').Logger('codefresh:infra:mongo'); // eslint-disable-line
         this.logger = logger;
-        return MongoClient.connect(config.mongo.uri, clientSettings)
-            .then((db) => {
-                this.db = db;
+        const { uri, dbname } = splitUriBySlash(config.mongo.uri);
+        return MongoClient.connect(uri, clientSettings)
+            .then((client) => {
+                this.db = client.db(dbname);
                 logger.info('Mongo driver connected');
             });
     }
