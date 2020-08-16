@@ -11,6 +11,7 @@
   },
   "scripts": {
     "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
+    "jtest": "jest",
     "start": "node index.js",
     "ci-publish": "ci-publish",
     "eslint": "eslint infra/**"
@@ -65,6 +66,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jest": "^21.12.3",
-    "eslint-plugin-mocha": "^4.12.1"
+    "eslint-plugin-mocha": "^4.12.1",
+    "jest": "^26.4.0"
   }
 }
