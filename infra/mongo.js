@@ -25,8 +25,8 @@ class Mongo {
         this.logger = logger;
         const { uri, dbname } = splitUriBySlash(config.mongo.uri);
         return MongoClient.connect(uri, clientSettings)
-            .then((client) => {
-                this.db = client.db(dbname);
+            .then( async (client) => {
+                this.db = await client.db(dbname);
                 logger.info('Mongo driver connected');
             });
     }
