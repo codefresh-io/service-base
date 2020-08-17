@@ -6,14 +6,16 @@ const mongo = require('../mongo');
 const cryptoasync = require('@ronomon/crypto-async');
 
 let mongod;
-beforeEach(async () => {
-    mongod = new MongoMemoryServer();
-});
-afterEach(async () => {
-    await mongo.stop();
-    await mongod.stop();
-});
+
 describe('mongo init compatability code', () => {
+    beforeEach(async () => {
+        mongod = new MongoMemoryServer();
+    });
+    afterEach(async () => {
+        await mongo.stop();
+        await mongod.stop();
+    });
+
     it('splitUriBySlash', async () => {
         const { prefix, dbName } = splitUriBySlash('mongodb://localhost:27017/mytestingdb?xyz');
         expect(dbName)
