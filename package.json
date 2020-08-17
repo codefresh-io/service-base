@@ -4,7 +4,7 @@
   "main": "index.js",
   "description": "",
   "engines": {
-    "node": ">=8.9.4"
+    "node": ">=12.13.0"
   },
   "bin": {
     "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
