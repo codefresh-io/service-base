@@ -65,4 +65,25 @@ describe('mongo init compatability code', () => {
         expect(insertedUser)
             .toEqual(mockUser);
     });
+
+    it('client.db', async () => {
+        const uri = await mongod.getUri();
+        const port = await mongod.getPort();
+        console.log(`using port ${port}`);
+        const dbPath = await mongod.getDbPath();
+        console.log(`dbPath ${dbPath}`);
+        const dbName = await mongod.getDbName();
+        console.log(`dbName ${dbName}`);
+        expect(dbName)
+            .toEqual(getDbNameFromUri(uri));
+        await mongo.init({ mongo: { uri } });
+        const pipelineManagerDB = await mongo.client.db(process.env.PIPELINE_MANAGER_DB || 'pipeline-manager');
+        const mockUser = { _id: 'some-user-id', name: 'John' };
+        const stepCollection = pipelineManagerDB.collection('steps')
+        await stepCollection.insertOne(mockUser);
+
+        const insertedUser = await stepCollection.findOne({ _id: 'some-user-id' });
+        expect(insertedUser)
+            .toEqual(mockUser);
+    });
 });
