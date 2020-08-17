@@ -2,8 +2,15 @@ const { splitUriBySlash, getDbNameFromUri } = require('../helper');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongo = require('../mongo');
 
+let mongod;
+beforeEach(async () => {
+    mongod = new MongoMemoryServer();
+});
+afterEach(async () => {
+    await mongo.stop();
+    await mongod.stop();
+});
 describe('mongo init compatability code', () => {
-
     it('splitUriBySlash', async () => {
         const { prefix, dbName } = splitUriBySlash('mongodb://localhost:27017/mytestingdb?xyz');
         expect(dbName)
@@ -14,13 +21,14 @@ describe('mongo init compatability code', () => {
 
 
     it('smokeTest explicit ', async () => {
-        const mongod = new MongoMemoryServer();
         const uri = await mongod.getUri();
-        // eslint-disable-next-line no-unused-vars
         const port = await mongod.getPort();
-        // eslint-disable-next-line no-unused-vars
+        console.log(`using port ${port}`);
         const dbPath = await mongod.getDbPath();
+        console.log(`dbPath ${dbPath}`);
         const dbName = await mongod.getDbName();
+        console.log(`dbName ${dbName}`);
+
         await mongo.init({ mongo: { uri, dbName } });
         const users = mongo.collection('users');
 
@@ -33,13 +41,13 @@ describe('mongo init compatability code', () => {
     });
 
     it('smokeTest2.2.33  and 3.6 implicit dbname', async () => {
-        const mongod = new MongoMemoryServer();
         const uri = await mongod.getUri();
-        // eslint-disable-next-line no-unused-vars
         const port = await mongod.getPort();
-        // eslint-disable-next-line no-unused-vars
+        console.log(`using port ${port}`);
         const dbPath = await mongod.getDbPath();
+        console.log(`dbPath ${dbPath}`);
         const dbName = await mongod.getDbName();
+        console.log(`dbName ${dbName}`);
         expect(dbName)
             .toEqual(getDbNameFromUri(uri));
         await mongo.init({ mongo: { uri } });

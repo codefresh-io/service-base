@@ -29,6 +29,7 @@ class Mongo {
         logger.info(`Use Uri ${uri} settings ${JSON.stringify(clientSettings)}, the dbName is ${dbName}`);
         return MongoClient.connect(uri, clientSettings)
             .then(async (client) => {
+                this.client = client;
                 this.db = await client.db(dbName);
                 logger.info('Mongo driver connected');
             });
@@ -50,7 +51,8 @@ class Mongo {
         if (!this.db) {
             return Promise.resolve();
         }
-        return this.db.close();
+        return this.client.close();
+        // return this.db.close();
     }
 
     collection(collectionName) {
