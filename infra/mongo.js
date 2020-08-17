@@ -23,8 +23,10 @@ class Mongo {
 
         const logger = require('cf-logs').Logger('codefresh:infra:mongo'); // eslint-disable-line
         this.logger = logger;
+        logger.info(`Mongo got config ${JSON.stringify(config.mongo)}`);
         const { uri } = config.mongo;
         const dbName = config.mongo.dbName || getDbNameFromUri(uri);
+        logger.info(`Use Uri ${uri} settings ${JSON.stringify(clientSettings)}, the dbName is ${dbName}`);
         return MongoClient.connect(uri, clientSettings)
             .then(async (client) => {
                 this.db = await client.db(dbName);
