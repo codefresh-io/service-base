@@ -1,6 +1,9 @@
 const { splitUriBySlash, getDbNameFromUri } = require('../helper');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongo = require('../mongo');
+// had import issue when used in projects.
+// eslint-disable-next-line no-unused-vars
+const cryptoasync = require('@ronomon/crypto-async');
 
 let mongod;
 beforeEach(async () => {
