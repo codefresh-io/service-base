@@ -1,18 +1,18 @@
 const { splitUriBySlash, getDbNameFromUri } = require('../helper');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongo = require('../mongo');
+const mongoClient = require('../mongo');
 // had import issue when used in projects.
 // eslint-disable-next-line no-unused-vars
 const cryptoasync = require('@ronomon/crypto-async');
 
 let mongod;
 
-describe('mongo init compatability code', () => {
+describe('mongo init compatibility code', () => {
     beforeEach(async () => {
         mongod = new MongoMemoryServer();
     });
     afterEach(async () => {
-        await mongo.stop();
+        await mongoClient.stop();
         await mongod.stop();
     });
 
@@ -34,8 +34,8 @@ describe('mongo init compatability code', () => {
         const dbName = await mongod.getDbName();
         console.log(`dbName ${dbName}`);
 
-        await mongo.init({ mongo: { uri, dbName } });
-        const users = mongo.collection('users');
+        await mongoClient.init({ mongo: { uri, dbName } });
+        const users = mongoClient.collection('users');
 
         const mockUser = { _id: 'some-user-id', name: 'John' };
         await users.insertOne(mockUser);
@@ -55,8 +55,8 @@ describe('mongo init compatability code', () => {
         console.log(`dbName ${dbName}`);
         expect(dbName)
             .toEqual(getDbNameFromUri(uri));
-        await mongo.init({ mongo: { uri } });
-        const users = mongo.collection('users');
+        await mongoClient.init({ mongo: { uri } });
+        const users = mongoClient.collection('users');
 
         const mockUser = { _id: 'some-user-id', name: 'John' };
         await users.insertOne(mockUser);
@@ -76,14 +76,43 @@ describe('mongo init compatability code', () => {
         console.log(`dbName ${dbName}`);
         expect(dbName)
             .toEqual(getDbNameFromUri(uri));
-        await mongo.init({ mongo: { uri } });
-        const pipelineManagerDB = await mongo.client.db(process.env.PIPELINE_MANAGER_DB || 'pipeline-manager');
+        await mongoClient.init({ mongo: { uri } });
+        const pipelineManagerDB = await mongoClient.client.db(process.env.PIPELINE_MANAGER_DB || 'pipeline-manager');
         const mockUser = { _id: 'some-user-id', name: 'John' };
-        const stepCollection = pipelineManagerDB.collection('steps')
+        const stepCollection = pipelineManagerDB.collection('steps');
         await stepCollection.insertOne(mockUser);
 
         const insertedUser = await stepCollection.findOne({ _id: 'some-user-id' });
         expect(insertedUser)
             .toEqual(mockUser);
     });
+
+    it('additional uses', async () => {
+        const uri = await mongod.getUri();
+        const port = await mongod.getPort();
+        console.log(`using port ${port}`);
+        const dbPath = await mongod.getDbPath();
+        console.log(`dbPath ${dbPath}`);
+        const dbName = await mongod.getDbName();
+        console.log(`dbName ${dbName}`);
+        expect(dbName)
+            .toEqual(getDbNameFromUri(uri));
+        await mongoClient.init({ mongo: { uri } });
+        // eslint-disable-next-line prefer-destructuring
+        const ObjectId = mongoClient.ObjectId;
+        expect(ObjectId)
+            .toBeTruthy();
+        const collection = mongoClient.collection('charts');
+        collection.ensureIndex({ account: 1, repository: 1, name: 1, version: 1 }, {
+            unique: true,
+            background: true,
+        });
+        collection.ensureIndex({ created: 1 }, { expireAfterSeconds: 60 });
+        const generateObjectId = () => new mongoClient.ObjectId().toString();
+        const objectId = generateObjectId();
+        expect(objectId)
+            .toBeTruthy();
+    });
+
+
 });
