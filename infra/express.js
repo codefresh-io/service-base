@@ -120,8 +120,10 @@ class Express {
                             }
 
                             const statusCode = err.statusCode || 500;
-
-                            res.status(statusCode).send({ message: err.toString() });
+                            const message = err.toString === Object.prototype.toString ?
+                                (err.message || 'Internal server error') :
+                                err.toString();
+                            res.status(statusCode).send({ message });
                         });
                     });
             });
