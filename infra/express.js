@@ -120,6 +120,8 @@ class Express {
                             }
 
                             const statusCode = err.statusCode || 500;
+                            // check if err object has overridden toString method
+                            // before sending toString() response to prevent [object Object] responses
                             const message = err.toString === Object.prototype.toString ?
                                 (err.message || 'Internal server error') :
                                 err.toString();
