@@ -1,9 +1,7 @@
 const { splitUriBySlash, getDbNameFromUri } = require('../helper');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoClient = require('../mongo');
-// had import issue when used in projects.
-// eslint-disable-next-line no-unused-vars
-const cryptoasync = require('@ronomon/crypto-async');
+
 
 let mongod;
 
@@ -66,6 +64,15 @@ describe('mongo init compatibility code', () => {
             .toEqual(mockUser);
     });
 
+    it('db.db', async () => {
+        const uri = await mongod.getUri();
+        await mongoClient.init({ mongo: { uri } });
+        const pipelineManagerDB = mongoClient.client.db(process.env.PIPELINE_MANAGER_DB || 'pipeline-manager');
+        const stepCollection = pipelineManagerDB.collection('steps');
+        const steps = await stepCollection.find()
+            .sort({ 'metadata.official': -1, 'metadata.categories': 1, 'metadata.name': 1, _id: -1 }).toArray();
+        expect(steps.length).toEqual(0);
+    });
     it('client.db', async () => {
         const uri = await mongod.getUri();
         const port = await mongod.getPort();
