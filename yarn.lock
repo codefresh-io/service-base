@@ -299,7 +299,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@codefresh-io/authenticated-entity@2.11.0":
+"@codefresh-io/authenticated-entity@2.11.0", "@codefresh-io/authenticated-entity@^2.11.0":
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.11.0.tgz#f5d3600137a9141f00061a62c95be2a59765a14c"
   integrity sha512-qVHWUFhGRVwWfSIA86X79BvaVtPE5495KryynxgN2sFu55e1vGmTWrnM50KWZMg8dArEsbvBF+ADLpDMv9vgfg==
@@ -1329,6 +1329,14 @@ bl@^2.2.0:
     readable-stream "^2.3.5"
     safe-buffer "^5.1.1"
 
+bl@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/bl/-/bl-2.2.1.tgz#8c11a7b730655c5d56898cdc871224f40fd901d5"
+  integrity sha512-6Pesp1w0DEX1N550i/uGV/TqucVL4AM/pgThFSN/Qq9si1/DF9aIHs1BxD8V/QU0HoeHO6cQRTAuYnLPKq1e4g==
+  dependencies:
+    readable-stream "^2.3.5"
+    safe-buffer "^5.1.1"
+
 bl@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/bl/-/bl-4.0.2.tgz#52b71e9088515d0606d9dd9cc7aa48dc1f98e73a"
@@ -1660,14 +1668,6 @@ cf-errors@^0.1.11:
   dependencies:
     lodash "4.15.0"
 
-cf-logs@1.1.22:
-  version "1.1.22"
-  resolved "https://registry.yarnpkg.com/cf-logs/-/cf-logs-1.1.22.tgz#cc7e6701cb15565cfc74130fe82e92464aa0cf1c"
-  integrity sha512-EqXpyP5FDGtMDYCAtq2kKrNjDtPrKnS8rj0/WDEpFiB6nhuwg+7RwjZ1vTC/uY9Qw+vo7X/UqU0sZYzlqw/S4w==
-  dependencies:
-    lodash "^4.17.11"
-    winston "3.2.1"
-
 cf-logs@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/cf-logs/-/cf-logs-1.1.0.tgz#2ea2dae43c71a2a06579b82a287a4d91a86db3f5"
@@ -1677,6 +1677,14 @@ cf-logs@^1.0.0:
     q "^1.5.1"
     winston "2.1.1"
     winston-loggly "1.2.0"
+
+cf-logs@^1.1.22:
+  version "1.1.23"
+  resolved "https://registry.yarnpkg.com/cf-logs/-/cf-logs-1.1.23.tgz#3d10b68f817b77dbba11ce6fb03b2141cdbfa760"
+  integrity sha512-3X9vF/6Adc+Wsy7KssWsg3UV6og0mOGQoCMqMi84tc34xYbRim6SJ0txff3rsC/5weZIuCJOT+sqcKXuRjFMpw==
+  dependencies:
+    lodash "^4.17.11"
+    winston "3.2.1"
 
 "cf-monitor@git+https://github.com/codefresh-io/cf-monitor.git#072ce2b419bb615a9567d253139431ca3c3adf17":
   version "0.0.16"
@@ -5730,7 +5738,20 @@ mongodb-memory-server@6.6.3, mongodb-memory-server@^6.6.3:
   dependencies:
     mongodb-memory-server-core "6.6.3"
 
-mongodb@^3.5.9, mongodb@^3.6.0:
+mongodb@^3.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.6.3.tgz#eddaed0cc3598474d7a15f0f2a5b04848489fd05"
+  integrity sha512-rOZuR0QkodZiM+UbQE5kDsJykBqWi0CL4Ec2i1nrGrUI3KO11r6Fbxskqmq3JK2NH7aW4dcccBuUujAP0ERl5w==
+  dependencies:
+    bl "^2.2.1"
+    bson "^1.1.4"
+    denque "^1.4.1"
+    require_optional "^1.0.1"
+    safe-buffer "^5.1.2"
+  optionalDependencies:
+    saslprep "^1.0.0"
+
+mongodb@^3.5.9:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-3.6.0.tgz#babd7172ec717e2ed3f85e079b3f1aa29dce4724"
   integrity sha512-/XWWub1mHZVoqEsUppE0GV7u9kanLvHxho6EvBxQbShXTKYF9trhZC2NzbulRGeG7xMJHD8IOWRcdKx5LPjAjQ==
@@ -7230,7 +7251,7 @@ request@2.81.0:
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
 
-request@^2.74.0, request@^2.82.0, request@^2.87.0, request@^2.88.0:
+request@^2.74.0, request@^2.82.0, request@^2.88.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
@@ -7256,7 +7277,7 @@ request@^2.74.0, request@^2.82.0, request@^2.87.0, request@^2.88.0:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-request@^2.88.2:
+request@^2.87.0, request@^2.88.2:
   version "2.88.2"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.2.tgz#d73c918731cb5a87da047e207234146f664d12b3"
   integrity sha512-MsvtOrfG9ZcrOwAW+Qi+F6HbD0CWXEh9ou77uOb7FM2WPhwT7smM833PzanhJLsgXjN89Ir6V2PczXNnMpwKhw==
