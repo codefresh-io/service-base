@@ -14,7 +14,15 @@ function findAppRoot(dir = path.dirname(require.main.filename)) {
         : findAppRoot(path.resolve(dir, '..'));
 }
 
-const APP_ROOT = process.env.NODE_ENV === 'test' ? path.resolve(__dirname).split('/node_modules')[0] : findAppRoot();
+function getApproot() {
+    if ((process.env.NODE_ENV === 'test') &&
+        (_.includes(__dirname, 'node_modules'))) {
+        return path.resolve(__dirname).split('/node_modules')[0];
+    }
+    return findAppRoot();
+}
+
+const APP_ROOT = getApproot();
 const SERVICE_CONFIG_PATH = path.join(APP_ROOT, 'service.config');
 const PACKAGE_JSON_PATH = path.join(APP_ROOT, 'package.json');
 const OPENAPI_JSON_PATH = path.join(APP_ROOT, 'openapi.json');
