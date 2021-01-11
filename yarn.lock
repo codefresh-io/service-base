@@ -38,10 +38,10 @@
     lodash "^4.17.4"
     semver "^7.0.0"
 
-"@codefresh-io/cf-openapi@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.6.0.tgz#8e1d0af0874a8f0e3e3debe81bccc5468b03de3d"
-  integrity sha512-Uj0JbYl7/Dwhr+32CwOKKId8+LKGd6N5pwN24+fNcx2OWCjODknr4iPA9gzEAoupyXmjElODvLIvJeicXtkzlA==
+"@codefresh-io/cf-openapi@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.6.2.tgz#0d258daa87b79600d605b6e3a22bec834ee27989"
+  integrity sha512-E6jvmR5N/lwgh78uaTxvPl+Gwf1hq/SMvYgMgGPoNCYJdUr7EzJJp/K9B4Y05cDtFdVHWGFMk1dTeOc1O/m4PA==
   dependencies:
     bluebird "^3.5.4"
     body-parser "^1.19.0"
@@ -2960,18 +2960,10 @@ js-tokens@^3.0.2:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
   integrity sha1-mGbfOVECEw449/mWvOtlRDIJwls=
 
-js-yaml@^3.12.1, js-yaml@^3.2.3, js-yaml@^3.6.1, js-yaml@^3.9.1:
-  version "3.13.0"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.13.0.tgz#38ee7178ac0eea2c97ff6d96fff4b18c7d8cf98e"
-  integrity sha512-pZZoSxcCYco+DIKBTimr67J6Hy+EYGZDY/HCWC+iAEA9h1ByhMXAIVUXMcMFpOCxQ/xjXmPI2MkDL5HRm5eFrQ==
-  dependencies:
-    argparse "^1.0.7"
-    esprima "^4.0.0"
-
-js-yaml@^3.13.0:
-  version "3.13.1"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.13.1.tgz#aff151b30bfdfa8e49e05da22e7415e9dfa37847"
-  integrity sha512-YfbcO7jXDdyj0DGxYVSlSeQNHbD7XPWvrVWeVUujrQEoZzWJIRrCPoyk6kL6IAjAG2IolMK4T0hNUe0HOUs5Jw==
+js-yaml@^3.12.1, js-yaml@^3.13.1, js-yaml@^3.2.3, js-yaml@^3.6.1, js-yaml@^3.9.1:
+  version "3.14.1"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.14.1.tgz#dae812fdb3825fa306609a8717383c50c36a0537"
+  integrity sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
