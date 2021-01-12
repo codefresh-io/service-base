@@ -28,6 +28,9 @@
     "js-yaml": "^3.13.1"
   },
   "homepage": "https://github.com/codefresh-io/service-base#readme",
+  "resolutions": {
+    "request": "2.88.2"
+  },
   "dependencies": {
     "@codefresh-io/authenticated-entity": "2.11.0",
     "@codefresh-io/cf-openapi": "^0.6.2",
@@ -57,7 +60,7 @@
     "proxyquire": "^1.8.0",
     "queue": "^4.2.1",
     "redis": "^2.7.1",
-    "request": "^2.87.0",
+    "request": "2.88.2",
     "request-promise": "^4.2.4"
   },
   "devDependencies": {
