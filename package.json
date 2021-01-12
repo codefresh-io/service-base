@@ -4,14 +4,13 @@
   "main": "index.js",
   "description": "",
   "engines": {
-    "node": ">=10.15.3"
+    "node": ">=8.9.4"
   },
   "bin": {
     "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
   },
   "scripts": {
     "test": "(find . -not -path './node_modules/*' -path '*/*.spec.js' | grep -v '__tests__' | NODE_ENV=test xargs mocha) && jest",
-    "jtest": "jest",
     "start": "node index.js",
     "ci-publish": "ci-publish",
     "eslint": "eslint infra/**"

@@ -33,13 +33,6 @@ class Mongo {
                 this.db = await client.db(dbName);
                 logger.info('Mongo driver connected');
             });
-        /* old connect
-        return MongoClient.connect(config.mongo.uri, clientSettings)
-            .then((db) => {
-                this.db = db;
-                logger.info('Mongo driver connected');
-            });
-         */
     }
 
 
@@ -52,7 +45,6 @@ class Mongo {
             return Promise.resolve();
         }
         return this.client.close();
-        // return this.db.close();
     }
 
     collection(collectionName) {
