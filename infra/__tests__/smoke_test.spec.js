@@ -110,11 +110,11 @@ describe('mongo init compatibility code', () => {
         expect(ObjectId)
             .toBeTruthy();
         const collection = mongoClient.collection('charts');
-        collection.ensureIndex({ account: 1, repository: 1, name: 1, version: 1 }, {
+        await collection.ensureIndex({ account: 1, repository: 1, name: 1, version: 1 }, {
             unique: true,
             background: true,
         });
-        collection.ensureIndex({ created: 1 }, { expireAfterSeconds: 60 });
+        await collection.ensureIndex({ created: 1 }, { expireAfterSeconds: 60 });
         const generateObjectId = () => new mongoClient.ObjectId().toString();
         const objectId = generateObjectId();
         expect(objectId)
