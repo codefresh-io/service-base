@@ -18,7 +18,7 @@ steps:
     stage: publish
     arguments:
       NPM_TOKEN: '${{NPM_TOKEN}}'
-      DIR: ./test
+      DIR: ./service-base
     when:
       branch:
         only: [ master ]
