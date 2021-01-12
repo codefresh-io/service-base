@@ -15,7 +15,6 @@ steps:
 
   deploy_to_npm:
     type: npm-publish
-    stage: publish
     arguments:
       NPM_TOKEN: '${{NPM_TOKEN}}'
       DIR: ./service-base
