@@ -10,7 +10,7 @@
     "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
   },
   "scripts": {
-    "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
+    "test": "(find . -not -path './node_modules/*' -path '*/*.spec.js' | grep -v '__tests__' | NODE_ENV=test xargs mocha) && jest",
     "jtest": "jest",
     "start": "node index.js",
     "ci-publish": "ci-publish",
@@ -69,6 +69,7 @@
     "eslint-plugin-jest": "^21.12.3",
     "eslint-plugin-mocha": "^4.12.1",
     "jest": "^26.4.0",
+    "mocha": "^8.2.1",
     "mongodb-memory-server": "^6.6.3"
   }
 }
