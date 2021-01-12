@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "2.9.2",
+  "version": "3.0.1",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -10,7 +10,7 @@
     "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
   },
   "scripts": {
-    "test": "find . -not -path './node_modules/*' -path '*/*.spec.js' | NODE_ENV=test xargs mocha",
+    "test": "(find . -not -path './node_modules/*' -path '*/*.spec.js' | grep -v '__tests__' | NODE_ENV=test xargs mocha) && jest",
     "start": "node index.js",
     "eslint": "eslint infra/**"
   },
@@ -22,6 +22,9 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/codefresh-io/service-base/issues"
+  },
+  "resolutions": {
+    "js-yaml": "^3.13.1"
   },
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
@@ -43,10 +46,10 @@
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
     "joi": "^13.0.2",
-    "js-yaml": "^3.13.0",
+    "js-yaml": "^3.13.1",
     "lodash": "4.17.20",
     "method-override": "^3.0.0",
-    "mongodb": "^2.2.33",
+    "mongodb": "^3.3",
     "morgan": "^1.9.1",
     "node-uuid": "^1.4.8",
     "proxyquire": "^1.8.0",
@@ -56,10 +59,14 @@
     "request-promise": "4.2.6"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.2",
     "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jest": "^21.12.3",
-    "eslint-plugin-mocha": "^4.12.1"
+    "eslint-plugin-mocha": "^4.12.1",
+    "jest": "^26.4.0",
+    "mocha": "^8.2.1",
+    "mongodb-memory-server": "^6.6.3"
   }
 }
