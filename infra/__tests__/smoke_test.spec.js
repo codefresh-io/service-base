@@ -120,6 +120,4 @@ describe('mongo init compatibility code', () => {
         expect(objectId)
             .toBeTruthy();
     });
-
-
 });
