@@ -5,7 +5,6 @@ steps:
     type: "git-clone"
     repo: "codefresh-io/service-base"
     revision: "${{CF_BRANCH}}"
-    git: "cf_github"
 
   install_dependencies:
     title: 'Installing testing dependencies'
