@@ -22,7 +22,7 @@ steps:
     type: npm-publish
     arguments:
       NPM_TOKEN: '${{NPM_TOKEN}}'
-      DIR: ./service-base
+      DIR: '${{CF_REPO_NAME}}'
     when:
       branch:
         only: [ master ]
