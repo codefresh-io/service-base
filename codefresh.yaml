@@ -1,23 +1,28 @@
 version: '1.0'
 steps:
+    main_clone:
+        title: 'Cloning main repository...'
+        type: git-clone
+        repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+        revision: ${{CF_BRANCH}}
 
-  install_dependencies:
-    title: 'Installing testing dependencies'
-    image: node:12.13.0
-    commands:
-        - yarn install --frozen-lockfile
+    install_dependencies:
+        title: 'Installing testing dependencies'
+        image: node:12.13.0
+        commands:
+            - yarn install --frozen-lockfile
 
-  eslint:
-    title: 'Running linting logic'
-    image: node:12.13.0
-    commands:
-        - yarn eslint
+    eslint:
+        title: 'Running linting logic'
+        image: node:12.13.0
+        commands:
+            - yarn eslint
 
-  deploy_to_npm:
-    title: Publishing To Npm
-    image: codefresh/npm-publish:master
-    commands:
-      - NPM_TOKEN=${{NPM_TOKEN}} npm run ci-publish
-    when:
-      branch:
-        only: [ master ]
+    deploy_to_npm:
+        type: npm-publish
+        arguments:
+            NPM_TOKEN: '${{NPM_TOKEN}}'
+            DIR: '${{CF_REPO_NAME}}'
+        when:
+            branch:
+                only: [ master ]
