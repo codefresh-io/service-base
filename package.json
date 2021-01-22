@@ -36,7 +36,7 @@
     "@ronomon/crypto-async": "^5.0.1",
     "@wegolook/joi-objectid": "^2.4.0",
     "ajv": "^6.10.0",
-    "bluebird": "^3.5.3",
+    "bluebird": "^3.7.2",
     "body-parser": "^1.18.3",
     "cf-errors": "^0.1.15",
     "cf-logs": "^1.1.24",
