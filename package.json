@@ -50,7 +50,7 @@
     "lodash": "4.17.20",
     "method-override": "^3.0.0",
     "mongodb": "~3.3.0",
-    "morgan": "^1.9.1",
+    "morgan": "^1.10.0",
     "node-uuid": "^1.4.8",
     "proxyquire": "^1.8.0",
     "queue": "^4.2.1",
