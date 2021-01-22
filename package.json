@@ -35,7 +35,7 @@
     "@codefresh-io/internal-service-config": "^1.0.2",
     "@ronomon/crypto-async": "^5.0.1",
     "@wegolook/joi-objectid": "^2.4.0",
-    "ajv": "^6.10.0",
+    "ajv": "^6.12.6",
     "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "cf-errors": "^0.1.15",
