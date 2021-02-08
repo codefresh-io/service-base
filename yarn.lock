@@ -294,10 +294,10 @@
     lodash "4.17.20"
     semver "^7.0.0"
 
-"@codefresh-io/cf-openapi@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.0.tgz#b413177ea40ab4eaf3eb1b9210fa77e32753bc74"
-  integrity sha512-6JasaFl1IqkDW4rGew4LeJbE+3JYtMt5QNCxGni3X2BxYvlSAIu/akcvjo3g/bSbhEa+WcXqGaTAZW6jkKk0fQ==
+"@codefresh-io/cf-openapi@~0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.1.tgz#467aba5750a18b939d2c7f8678600e70172a0859"
+  integrity sha512-wvTXpGvhTbbbXOYVN7i/AF69J7j16w55jucDWb4VpHq1D2NxIpQPgKYAdYRaJ/qPGDQlUhQgEgC1A2mqX5CfPw==
   dependencies:
     bluebird "^3.5.4"
     body-parser "^1.19.0"
