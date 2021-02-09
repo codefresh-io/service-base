@@ -347,6 +347,7 @@
     request "2.88.2"
     requestretry "^3.1.0"
 
+
 "@codefresh-io/internal-service-config@^1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@codefresh-io/internal-service-config/-/internal-service-config-1.0.2.tgz#d713efdf38085cd841279426bff6b0e62f1aa626"
