@@ -294,7 +294,7 @@
     lodash "4.17.20"
     semver "^7.0.0"
 
-"@codefresh-io/cf-openapi@^0.7.0":
+"@codefresh-io/cf-openapi@0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.0.tgz#b413177ea40ab4eaf3eb1b9210fa77e32753bc74"
   integrity sha512-6JasaFl1IqkDW4rGew4LeJbE+3JYtMt5QNCxGni3X2BxYvlSAIu/akcvjo3g/bSbhEa+WcXqGaTAZW6jkKk0fQ==
@@ -346,7 +346,6 @@
     lodash "4.17.20"
     request "2.88.2"
     requestretry "^3.1.0"
-
 
 "@codefresh-io/internal-service-config@^1.0.2":
   version "1.0.2"
