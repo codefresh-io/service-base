@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -47,7 +47,7 @@
     "express": "^4.16.4",
     "joi": "^13.0.2",
     "js-yaml": "^3.13.1",
-    "lodash": "4.17.20",
+    "lodash": "~4.17.20",
     "method-override": "^3.0.0",
     "mongodb": "~3.3.0",
     "morgan": "^1.9.1",
@@ -55,8 +55,8 @@
     "proxyquire": "^1.8.0",
     "queue": "^4.2.1",
     "redis": "^2.7.1",
-    "request": "2.88.2",
-    "request-promise": "4.2.6"
+    "request": "~2.88.2",
+    "request-promise": "~4.2.6"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.2",
