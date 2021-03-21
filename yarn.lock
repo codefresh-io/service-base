@@ -294,16 +294,16 @@
     lodash "4.17.20"
     semver "^7.0.0"
 
-"@codefresh-io/cf-openapi@~0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.2.tgz#001d206f81fafb66e89f8a9ec36bab072fda48f9"
-  integrity sha512-eOAxxffgVDk/jl9e8NrMT5aVkIgn1hSWo4pTVLdfYutyaOc4uiuM9bGLgQLnqPaCvlF0urFY7zoO9Fr9JDMGgA==
+"@codefresh-io/cf-openapi@~0.7.7":
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.7.tgz#adc774aa9cefabd4f2b18b3535a37868b113d533"
+  integrity sha512-OVCE3NFhAfPVRSlFiKi/UtXpOZ0PYFPoNbyFwJkAOnQ1a0xUx2q/kjoFXZ6uDuvwMp++fN5gVW2/6Fan18UVhA==
   dependencies:
     bluebird "^3.5.4"
     body-parser "^1.19.0"
     cf-errors "^0.1.15"
     cf-logs "^1.1.24"
-    codefresh-sdk "^1.9.17"
+    codefresh-sdk "^1.9.20"
     columnify "^1.5.4"
     flat "^4.1.0"
     json-schema-deref-sync "0.14.0"
@@ -1570,17 +1570,17 @@ co@^4.6.0:
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
   integrity sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=
 
-codefresh-sdk@^1.9.17:
-  version "1.9.17"
-  resolved "https://registry.yarnpkg.com/codefresh-sdk/-/codefresh-sdk-1.9.17.tgz#89f7bcfb128b352a718c9146cfb596292e186a84"
-  integrity sha512-mMcgv+PwBv+TbQLwTWV361Ye2a8hhd7OCogCWMMw/zy6u2WHWMyiejJgBlMfJjWskX4ErMZVGfetEqM8EKlW7g==
+codefresh-sdk@^1.9.20:
+  version "1.9.20"
+  resolved "https://registry.yarnpkg.com/codefresh-sdk/-/codefresh-sdk-1.9.20.tgz#69c27effe63765d9c96370b495fc8c49551065b9"
+  integrity sha512-o35gFi63Evkx0Gr7UJeNcdr6b0FGplgOCYQI9rdh18EbXuTtuZHdIjdNgcsA6zBuh7G4tSIOmtPj7oMpM7AhzA==
   dependencies:
     "@codefresh-io/cf-receiver" "0.0.1-alpha19"
     bluebird "^3.5.3"
     cf-errors "^0.1.15"
     compare-versions "^3.4.0"
     debug "^4.1.1"
-    decompress "^4.2.0"
+    decompress "^4.2.1"
     decompress-targz "^4.1.1"
     decompress-unzip "^4.0.1"
     firebase "git+https://github.com/codefresh-io/firebase.git#80b2ed883ff281cd67b53bd0f6a0bbd6f330fed5"
@@ -1593,7 +1593,7 @@ codefresh-sdk@^1.9.17:
     request "2.88.2"
     request-promise "4.2.6"
     requestretry "^4.1.2"
-    swagger-client "^3.12.1"
+    swagger-client "~3.12.2"
     uniqid "^5.2.0"
     uuid "^3.3.2"
 
@@ -2012,7 +2012,7 @@ decompress-unzip@^4.0.1:
     pify "^2.3.0"
     yauzl "^2.4.2"
 
-decompress@^4.2.0:
+decompress@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/decompress/-/decompress-4.2.1.tgz#007f55cc6a62c055afa37c07eb6a4ee1b773f118"
   integrity sha512-e48kc2IjU+2Zw8cTb6VZcJQ3lgVbS4uuB1TfCHbiZIP/haNXm+SVyhu+87jts5/3ROpd82GSVCoNs/z8l4ZOaQ==
@@ -6185,10 +6185,10 @@ supports-hyperlinks@^2.0.0:
     has-flag "^4.0.0"
     supports-color "^7.0.0"
 
-swagger-client@^3.12.1:
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.12.1.tgz#bbe4521c0f662e72ad84fa9dbe3eb42c9960d901"
-  integrity sha512-jxhf7yvMq1SIlaMBlL0S+2mk5eovdYNzVAn1Ewrpe1pkby2pm5PnnP8XiSImCuX7d+BxUfVFkOgCTeK38+fBlA==
+swagger-client@~3.12.2:
+  version "3.12.2"
+  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.12.2.tgz#c6d1148d749507d328a1647bd71f33166147387d"
+  integrity sha512-l4aAty0VNmHaOEEvOI7Tc6xtUZLNxtFEOZzansjxHjbV9o2ZsiFPMdomIGj14n/Zb0S2eN83cEJYHJ3SENUYPw==
   dependencies:
     "@babel/runtime-corejs3" "^7.11.2"
     btoa "^1.2.1"
