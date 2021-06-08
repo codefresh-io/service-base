@@ -1,0 +1,83 @@
+version: '1.0'
+steps:
+
+  prepare_envriornment_variables:
+    title: "Prepare environment variables"
+    image: codefresh/cli
+    commands:
+    - export CURRENT_VERSION=$(jq -r ".version" package.json)
+    - cf_export CURRENT_VERSION=$CURRENT_VERSION
+    - export NORMALIZED_BRANCH_NAME=$(echo ${{CF_BRANCH_TAG_NORMALIZED}} | sed 's/_/-/g' | tr '[:upper:]' '[:lower:]')
+    - cf_export CHRAT_FULL_SEMVER=$CURRENT_VERSION-$NORMALIZED_BRANCH_NAME
+    - cf_export NAMESPACE_NAME=$NORMALIZED_BRANCH_NAME
+    - export HELM_REPO_URL=http://chartmuseum-dev.codefresh.io
+    - cf_export HELM_REPO_FULL_PATH=$HELM_REPO_URL/api/charts
+    - cf_export HELM_REPO_URL=$HELM_REPO_URL
+    - cf_export TEMP_BRANCH_NAME=${{TEMP_BRANCH_NAME}}-${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_REVISION}}
+
+
+  build_helm_package_for_commit:
+    image: codefresh/kube-helm:master
+    commands:
+    # update imageTag in values.yaml
+    - yq '.imageTag = env.CF_BRANCH_TAG_NORMALIZED' ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}}/values.yaml --yaml-output > ${{CF_VOLUME_PATH}}/values.new.yaml
+    - mv ${{CF_VOLUME_PATH}}/values.new.yaml ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}}/values.yaml
+    # update version and add source to the commit in Chart.yaml
+    - yq  '.sources[.sources | length] = env.CF_COMMIT_URL' ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}}/Chart.yaml --yaml-output > ${{CF_VOLUME_PATH}}/Chart.new.yaml
+    - mv ${{CF_VOLUME_PATH}}/Chart.new.yaml ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}}/Chart.yaml
+
+    - export PACKAGE=$(helm package ${{CF_VOLUME_PATH}}/${{REPO_NAME}}/${{CHART_NAME}} --version $CHRAT_FULL_SEMVER --destination ${{CF_VOLUME_PATH}} | cut -d " " -f 8 )
+    - curl --user ${{BASIC_AUTH_USER}}:${{BASIC_AUTH_PASS}} --fail --data-binary "@$PACKAGE" $HELM_REPO_FULL_PATH
+    when:
+      branch:
+        ignore: [ master ]
+
+  create_dynamic_temp_branch_on_cf_helm:
+    image: codefresh/cli
+    commands:
+    - rm -rf cf-helm
+    - git clone https://${{GITHUB_TOKEN}}@github.com/codefresh-io/cf-helm.git
+    - cd cf-helm
+    - git checkout -b $TEMP_BRANCH_NAME || git checkout $TEMP_BRANCH_NAME
+    - git config user.email "codefresh@codefresh.io"
+    - git config user.name "Automation"
+    # get the index of ${{CHART_NAME}} chart in requirements.yaml
+    - export ${{SERVICE_INDEX}}=$(cat codefresh/requirements.yaml | yq -c '[.dependencies[] | .name == ${{CHART_NAME}}] | index(true)')
+    # update the version on ${{CHART_NAME}} chart
+    - cat codefresh/requirements.yaml | yq -c '.dependencies[env.${{SERVICE_INDEX}} | tonumber ].version = env.CHRAT_FULL_SEMVER' | yq -c '.dependencies[env.${{SERVICE_INDEX}} | tonumber ].repository = env.HELM_REPO_URL' --yaml-output > codefresh/requirements.new.yaml
+    - mv codefresh/requirements.new.yaml codefresh/requirements.yaml
+    - git commit -am "Update ${{CHART_NAME}} version to $CHRAT_FULL_SEMVER"
+    - git push origin $TEMP_BRANCH_NAME
+    when:
+      branch:
+        ignore: [ master ]
+
+  create_dynamic_environment_from_superchart:
+    image: codefresh/cli
+    commands:
+    - codefresh run 59832ff8270a7e00012f395c --variable custom_ingress_domain=$NAMESPACE_NAME.dev.codefresh.io --variable custom_global_appUrl=$NAMESPACE_NAME.dev.codefresh.io --variable custom_ingress_enabled=true --variable NAMESPACE_NAME=$NAMESPACE_NAME --variable WAIT=false -b $TEMP_BRANCH_NAME
+    fail_fast: false
+    when:
+      branch:
+        ignore: [ master ]
+
+  delete_dynamic_temp_branch_on_cf_helm:
+    image: codefresh/cli
+    commands:
+    - rm -rf cf-helm
+    - git clone https://${{GITHUB_TOKEN}}@github.com/codefresh-io/cf-helm.git
+    - cd cf-helm
+    - git push origin --delete $TEMP_BRANCH_NAME
+    when:
+      branch:
+        ignore: [ master ]
+
+  run_cd_pipeline:
+    image: codefresh/cli
+    commands:
+    - codefresh run ${{PRODUCTION_PIPELINE_ID}} -b master --sha ${{CF_REVISION}}
+    when:
+      condition:
+        all:
+          masterBranch: '"${{CF_BRANCH}}" == "master"'
+    fail_fast: false
