@@ -286,10 +286,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@codefresh-io/authenticated-entity@^2.13.0":
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.13.0.tgz#eb5706d9b0d2b0ec6d18ec239754b06e288edd0f"
-  integrity sha512-9WTAFfDg5Beyba8pVZc8EcecWp5FdD9YW7djHfsgtmJ7rjSs4AUJl5x7WEpvifEZswzqcnm3YLNVL3KJ4mTspg==
+"@codefresh-io/authenticated-entity@^2.13.1":
+  version "2.13.1"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.13.1.tgz#d5b03a71206bd45754a92499a98a3fdae7a79d8c"
+  integrity sha512-c98gnku0uuUWcQCEikgyN2FGqM6EJhqAXMQqczzt239EGij5GQWutzlBK80uxKVMr0LIDRENFyy0KCUmgCVzoA==
   dependencies:
     lodash "^4.17.21"
     semver "^7.0.0"
@@ -335,12 +335,12 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@^1.8.8":
-  version "1.8.8"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.8.8.tgz#10619171521fd983cefa5a9f3b623bc1671bee75"
-  integrity sha512-ZQS6+sRjWcPVmCbqTIh+iQSkAvEAHfUseSEnLRtPzLAsWheBjZRqaMa6HXYXdRasKcpVjnMnEQMLJ+R4epRhMA==
+"@codefresh-io/http-infra@^1.8.9":
+  version "1.8.9"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.8.9.tgz#08cf741fe18370ebda0b4b4a247b426705bc70df"
+  integrity sha512-cXqC238xR5hNUNkawxcjJM/p4P6Ok5T1O6LZ3qVkCm4kIewSfraw5Jj451eFkXbZyl0EkqoR9a4wsAm2i4zuJQ==
   dependencies:
-    "@codefresh-io/authenticated-entity" "^2.13.0"
+    "@codefresh-io/authenticated-entity" "^2.13.1"
     bluebird "^3.7.2"
     crypto-random-string "^3.3.0"
     lodash "^4.17.21"
