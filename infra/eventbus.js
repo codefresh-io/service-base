@@ -35,6 +35,7 @@ class Eventbus {
                     },
                     store: {
                         host: this.config.postgres.host,
+                        port: this.config.postgres.port,
                         database: this.config.postgres.database,
                         user: this.config.postgres.user,
                         password: this.config.postgres.password,
