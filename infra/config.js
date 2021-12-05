@@ -62,9 +62,17 @@ base.postgres = {
 
 base.mongo = {
     uri: process.env.MONGO_URI || `mongodb://${APPLICATION_DOMAIN}/${name}`,
-    reconnectTries: process.env.MONGO_RECONNECT_TRIES || Number.MAX_VALUE,
-    reconnectInterval: process.env.MONGO_RECONNECT_INTERVAL || 30 * 1000,
+    options: {
+        reconnectTries: process.env.MONGO_RECONNECT_TRIES || Number.MAX_VALUE,
+        reconnectInterval: process.env.MONGO_RECONNECT_INTERVAL || 30 * 1000,
+    }
 };
+
+if (process.env.MTLS_CERT_PATH) {
+    const credentials = fs.readFileSync(process.env.MTLS_CERT_PATH)
+    base.mongo.options.sslKey = credentials
+    base.mongo.options.sslCert = credentials
+}
 
 base.logger = {
     filePath: process.env.LOGS_PATH || path.join(__dirname, '../../logs', 'kubernetes-logs.log'),

@@ -17,8 +17,7 @@ class Mongo {
     init(config) {
         const clientSettings = {
             promiseLibrary: Promise,
-            reconnectTries: config.mongo.reconnectTries,
-            reconnectInterval: config.mongo.reconnectInterval,
+            ...config.mongo.options,
         };
 
         const logger = require('cf-logs').Logger('codefresh:infra:mongo'); // eslint-disable-line
