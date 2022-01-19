@@ -321,16 +321,16 @@
     rxjs "^6.4.0"
     websocket "1.0.31"
 
-"@codefresh-io/eventbus@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-1.3.1.tgz#08b3216bcd05876c4e6b51f1376930572b6342cf"
-  integrity sha512-nPyiPlcg3MOgKyvsr5RWqrynSw8TGxOTiX11Ez5zKZYUYYigI5NPVSHeG1zXNEzAHsS32Grevk+Tw3gonQJoVw==
+"@codefresh-io/eventbus@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-1.4.1.tgz#e9803c7df7b421c49118684e0746172318ad382b"
+  integrity sha512-R1DD27pnx2HLuVx8IFENKGCAEb2hH2Gz8YjUqf1LpLIHgbfiwlMl+nKT/Q95iLxO8spYHkc4sfkcqMafKA9quA==
   dependencies:
     amqplib "^0.5.1"
     bluebird "^3.5.0"
-    cf-errors "^0.1.15"
-    debug "^2.6.8"
-    lodash "4.17.20"
+    cf-errors "^0.1.16"
+    debug "2.6.9"
+    lodash "^4.17.21"
     pg "^7.0.2"
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
@@ -1415,6 +1415,13 @@ cf-errors@^0.1.15:
   integrity sha512-gwhuKuBI7W/CuMpz+bxluWQRAuB3hvGbNcp46A/KcymgRnGKw2vLmIMHI2JaGpATMNdJh49ErocwVruM2UlJqw==
   dependencies:
     lodash "4.17.20"
+
+cf-errors@^0.1.16:
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/cf-errors/-/cf-errors-0.1.16.tgz#03d0b050ac94762552792907b08bd39d1a012116"
+  integrity sha512-ewA6cTS+bVC32NCxIdEu/5HQ8zb09PV1ubdu0t2yPXs51K31gI78+XGEomVjaXdTbZcGBPVIWhFnG6R/U7K4IQ==
+  dependencies:
+    lodash "^4.17.21"
 
 cf-logs@^1.1.24:
   version "1.1.24"
