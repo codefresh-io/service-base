@@ -27,6 +27,7 @@ class Redis {
         this.client =
             redis.createClient({
                 host: config.redis.url,
+                port: config.redis.port,
                 password: config.redis.password,
                 db: config.redis.db,
             });

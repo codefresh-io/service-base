@@ -137,6 +137,7 @@ base.safe = { secret: process.env.SAFE_SECRET || 'secret' };
 
 base.redis = {
     url: process.env.REDIS_URL || APPLICATION_DOMAIN,
+    port: process.env.REDIS_PORT || 6379,
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1,
 };
