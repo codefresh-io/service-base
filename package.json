@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "3.0.12",
+  "version": "3.0.13",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -24,12 +24,13 @@
     "url": "https://github.com/codefresh-io/service-base/issues"
   },
   "resolutions": {
-    "js-yaml": "^3.13.1"
+    "js-yaml": "^3.13.1",
+    "json-schema": "^0.4.0"
   },
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
     "@codefresh-io/authenticated-entity": "^2.13.1",
-    "@codefresh-io/cf-openapi": "~0.7.7",
+    "@codefresh-io/cf-openapi": "~0.7.11",
     "@codefresh-io/eventbus": "^1.4.1",
     "@codefresh-io/http-infra": "^1.8.11",
     "@codefresh-io/internal-service-config": "^1.0.2",
