@@ -42,7 +42,7 @@
     "cf-errors": "^0.1.15",
     "cf-logs": "^1.1.24",
     "cf-monitor": "git+https://github.com/codefresh-io/cf-monitor.git#072ce2b419bb615a9567d253139431ca3c3adf17",
-    "chai": "^4.3.1",
+    "chai": "^4.1.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
