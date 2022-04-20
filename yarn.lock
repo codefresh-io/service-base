@@ -329,10 +329,10 @@
     rxjs "^6.4.0"
     websocket "1.0.31"
 
-"@codefresh-io/eventbus@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-1.4.1.tgz#e9803c7df7b421c49118684e0746172318ad382b"
-  integrity sha512-R1DD27pnx2HLuVx8IFENKGCAEb2hH2Gz8YjUqf1LpLIHgbfiwlMl+nKT/Q95iLxO8spYHkc4sfkcqMafKA9quA==
+"@codefresh-io/eventbus@1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-1.4.2.tgz#864684e5de5fb423028a5d09987c3e14b57702da"
+  integrity sha512-D3JlZwFv8CaCX9oX4HWkTQXDejEPcrDzA8ier/oe+nx3SKWcWFdRu+t0maWYBlw/IQdAIYLRIVV0fGdQmegyiQ==
   dependencies:
     amqplib "^0.5.1"
     bluebird "^3.5.0"
