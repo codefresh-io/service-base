@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "3.0.15",
+  "version": "3.0.16",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -24,6 +24,7 @@
     "url": "https://github.com/codefresh-io/service-base/issues"
   },
   "resolutions": {
+    "eslint/**/ansi-regex": "^4.0.0",
     "js-yaml": "^3.13.1",
     "json-schema": "^0.4.0"
   },
@@ -41,7 +42,7 @@
     "body-parser": "^1.18.3",
     "cf-errors": "^0.1.15",
     "cf-logs": "^1.1.24",
-    "cf-monitor": "git+https://github.com/codefresh-io/cf-monitor.git#072ce2b419bb615a9567d253139431ca3c3adf17",
+    "cf-monitor": "git+https://github.com/codefresh-io/cf-monitor.git#00af78d3d7c7bffc41f27f75279a66a30f0ab987",
     "chai": "^4.1.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.4",
