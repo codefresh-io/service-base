@@ -32,7 +32,7 @@
   "dependencies": {
     "@codefresh-io/authenticated-entity": "^2.13.1",
     "@codefresh-io/cf-openapi": "~0.7.11",
-    "@codefresh-io/eventbus": "1.4.2",
+    "@codefresh-io/eventbus": "1.4.3",
     "@codefresh-io/http-infra": "^1.8.11",
     "@codefresh-io/internal-service-config": "^1.0.2",
     "@ronomon/crypto-async": "^5.0.1",
