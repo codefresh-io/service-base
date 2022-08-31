@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "3.0.16",
+  "version": "3.0.17",
   "main": "index.js",
   "description": "",
   "engines": {
@@ -42,7 +42,7 @@
     "body-parser": "^1.18.3",
     "cf-errors": "^0.1.15",
     "cf-logs": "^1.1.24",
-    "cf-monitor": "git+https://github.com/codefresh-io/cf-monitor.git#00af78d3d7c7bffc41f27f75279a66a30f0ab987",
+    "cf-monitor": "git+https://github.com/codefresh-io/cf-monitor.git#fc6b49d2a1a161beaf6d33b692d4ca86b38dfe43",
     "chai": "^4.1.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.4",
