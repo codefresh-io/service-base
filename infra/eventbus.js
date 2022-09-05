@@ -2,7 +2,7 @@
 
 const Promise = require('bluebird');
 const eventBus = require('@codefresh-io/eventbus');
-const monitor = require('cf-monitor');
+const monitor = require('@codefresh-io/cf-monitor');
 const CFError = require('cf-errors');
 
 class Eventbus {

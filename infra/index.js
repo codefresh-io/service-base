@@ -1,6 +1,6 @@
 
 
-const monitor = require('cf-monitor');
+const monitor = require('@codefresh-io/cf-monitor');
 
 monitor.init();
 const Promise = require('bluebird'); // jshint ignore:line

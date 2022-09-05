@@ -1,7 +1,7 @@
 
 
 const Promise = require('bluebird');
-const monitor = require('cf-monitor');
+const monitor = require('@codefresh-io/cf-monitor');
 const redis = require('redis');
 
 class Redis {

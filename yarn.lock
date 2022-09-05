@@ -286,6 +286,13 @@
     lodash "^4.17.21"
     semver "^7.0.0"
 
+"@codefresh-io/cf-monitor@^0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-monitor/-/cf-monitor-0.0.24.tgz#9c85f93c05bac6ba3a91385f8428270d9903ac23"
+  integrity sha512-hnp4DRjx/yAHi9Y7KlcZLAVTEO4emzd8JvXV26gMIONQ7QSWc17YxeXh5xL926Nx8EMh2Xol5soDAQ+sc/zuhg==
+  dependencies:
+    newrelic "^8.0.0"
+
 "@codefresh-io/cf-openapi@~0.7.13":
   version "0.7.13"
   resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.13.tgz#ad763ee99ef770c4ed88b2efe5e9c9dda7d9f993"
@@ -352,9 +359,9 @@
     kuler "^2.0.0"
 
 "@grpc/grpc-js@^1.5.5":
-  version "1.6.11"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.6.11.tgz#74c04cde0cde4e8a88ffc514bd9cd1bb307815b9"
-  integrity sha512-e/adiPjUxf5cKYiAlV4m+0jJS4k6g2w78X7WTZB3ISOBzcCwm+cwjB2dSRfBHbu46inGGzQMmWAmsgYLg8yT5g==
+  version "1.6.12"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.6.12.tgz#20f710d8a8c5c396b2ae9530ba6c06b984614fdf"
+  integrity sha512-JmvQ03OTSpVd9JTlj/K3IWHSz4Gk/JMLUTtW7Zb0KvO1LcOYGATh5cNuRYzCAeDR3O8wq+q8FZe97eO9MBrkUw==
   dependencies:
     "@grpc/proto-loader" "^0.7.0"
     "@types/node" ">=12.12.47"
@@ -1454,12 +1461,6 @@ cf-logs@^1.1.24, cf-logs@^1.1.25:
   dependencies:
     lodash "^4.17.21"
     winston "3.3.3"
-
-"cf-monitor@git+https://github.com/codefresh-io/cf-monitor.git#fc6b49d2a1a161beaf6d33b692d4ca86b38dfe43":
-  version "0.0.22"
-  resolved "git+https://github.com/codefresh-io/cf-monitor.git#fc6b49d2a1a161beaf6d33b692d4ca86b38dfe43"
-  dependencies:
-    newrelic "^8.0.0"
 
 chai@^4.1.2:
   version "4.2.0"
@@ -5047,19 +5048,19 @@ readable-stream@^2.3.5, readable-stream@^2.3.7:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-readable-stream@^3.0.2, readable-stream@^3.1.1:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.4.0.tgz#a51c26754658e0a3c21dbf59163bd45ba6f447fc"
-  integrity sha512-jItXPLmrSR8jmTRmRWJXCnGJsfy85mB3Wd/uINMXA65yrnFo0cPClFIUWzo2najVNSl+mx7/4W8ttlLWJe99pQ==
+readable-stream@^3.0.2, readable-stream@^3.4.0, readable-stream@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
+  integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
   dependencies:
     inherits "^2.0.3"
     string_decoder "^1.1.1"
     util-deprecate "^1.0.1"
 
-readable-stream@^3.4.0, readable-stream@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
-  integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
+readable-stream@^3.1.1:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.4.0.tgz#a51c26754658e0a3c21dbf59163bd45ba6f447fc"
+  integrity sha512-jItXPLmrSR8jmTRmRWJXCnGJsfy85mB3Wd/uINMXA65yrnFo0cPClFIUWzo2najVNSl+mx7/4W8ttlLWJe99pQ==
   dependencies:
     inherits "^2.0.3"
     string_decoder "^1.1.1"
