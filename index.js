@@ -10,14 +10,14 @@ const {
 } = require('@codefresh-io/http-infra');
 const Promise = require('bluebird');
 const express = require('express');
-const monitor = require('cf-monitor');
+const monitor = require('@codefresh-io/cf-monitor');
 const logging = require('./infra/logging');
 const { openapi } = require('@codefresh-io/cf-openapi');
 
 const OPTIONAL_COMPONENTS = {
     mongo: { name: 'mongoClient' },
-    redis: { },
-    eventbus: { },
+    redis: {},
+    eventbus: {},
     encryption: { dependencies: ['mongo'] },
 };
 
