@@ -51,11 +51,18 @@ Safe.prototype.read_crypto = function (ciphertext) { // eslint-disable-line
     const iv = Buffer.alloc(16, this.safeModel.key);
 
     const shouldParse = ciphertext.startsWith(STRINGIFY_CRYPTO_PREFIX);
-    const prefixLength = (shouldParse ? STRINGIFY_CRYPTO_PREFIX : CRYPTO_PREFIX).length;
+    const prefix = shouldParse ? STRINGIFY_CRYPTO_PREFIX : CRYPTO_PREFIX;
+
+    // don't try to encrypt empty strings
+    // this causes segfault with node.js >= 14.x.x
+    if (ciphertext === CRYPTO_PREFIX) {
+        deferred.resolve('');
+        return deferred.promise;
+    }
 
     const encrypt = 0; // 0 = Decrypt
     cryptoAsync.cipher(
-        ALGORITHM, encrypt, key, iv, Buffer.from(ciphertext.slice(prefixLength), 'hex'),
+        ALGORITHM, encrypt, key, iv, Buffer.from(ciphertext.slice(prefix.length), 'hex'),
         (error, plaintext) => {
             if (error) {
                 deferred.reject(error);
@@ -75,7 +82,15 @@ Safe.prototype.write_crypto = function (plaintext) { // eslint-disable-line
     const iv = Buffer.alloc(16, this.safeModel.key);
 
     const shouldStringify = !_.isString(plaintext);
+    const prefix = shouldStringify ? STRINGIFY_CRYPTO_PREFIX : CRYPTO_PREFIX;
     const textToEncrypt = shouldStringify ? JSON.stringify(plaintext) : plaintext;
+
+    // don't try to encrypt empty strings
+    // this causes segfault with node.js >= 14.x.x
+    if (textToEncrypt === '') {
+        deferred.resolve(prefix);
+        return deferred.promise;
+    }
 
     const encrypt = 1; // 1 = Encrypt
     cryptoAsync.cipher(
@@ -85,7 +100,7 @@ Safe.prototype.write_crypto = function (plaintext) { // eslint-disable-line
                 deferred.reject(error);
                 return;
             }
-            deferred.resolve(`${shouldStringify ? STRINGIFY_CRYPTO_PREFIX : CRYPTO_PREFIX}${ciphertext.toString('hex')}`);
+            deferred.resolve(`${prefix}${ciphertext.toString('hex')}`);
         },
     );
     return deferred.promise;

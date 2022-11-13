@@ -65,13 +65,15 @@ const STRINGIFY_CRYPTO_PREFIX = '$$$crypto-obj$$$';
     it('should encrypt all object', () => {
       const objToEncrypt = {
         keyToBeEncrypted: 'value-1',
-        keyToBeEncrypted2: 'value-2'
+        keyToBeEncrypted2: 'value-2',
+        keyToBeEncrypted3: '',
       };
       const keysToEncrypt = Object.keys(objToEncrypt);
       return encryptObjectValues(generateSafeId(), objToEncrypt, keysToEncrypt)
         .then((res) => {
           expect(res.keyToBeEncrypted).to.have.string(CRYPTO_PREFIX);
           expect(res.keyToBeEncrypted2).to.have.string(CRYPTO_PREFIX);
+          expect(res.keyToBeEncrypted3).to.equal(CRYPTO_PREFIX);
         });
     });
 
@@ -125,7 +127,8 @@ const STRINGIFY_CRYPTO_PREFIX = '$$$crypto-obj$$$';
     it('should decrypt encrypted object', () => {
       const objToEncrypt = {
         keyToBeEncrypted: 'value-1',
-        keyToBeEncrypted2: 'value-2'
+        keyToBeEncrypted2: 'value-2',
+        keyToBeEncrypted3: '', // should be decrypted as empty string
       };
       const keysToEncrypt = Object.keys(objToEncrypt);
       return encryptObjectValues(generateSafeId(), objToEncrypt, keysToEncrypt)
@@ -133,7 +136,9 @@ const STRINGIFY_CRYPTO_PREFIX = '$$$crypto-obj$$$';
           return decryptObjectValues(generateSafeId(), res, keysToEncrypt);
         })
         .then((decrypted) => {
-          expect(decrypted).to.be.deep.equal(objToEncrypt);
+            expect(decrypted.keyToBeEncrypted).to.be.deep.equal(objToEncrypt.keyToBeEncrypted);
+            expect(decrypted.keyToBeEncrypted2).to.be.deep.equal(objToEncrypt.keyToBeEncrypted2);
+            expect(decrypted.keyToBeEncrypted3).to.be.equal('');
         });
     });
 
