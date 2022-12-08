@@ -116,7 +116,11 @@ base.logger = {
             try {
                 const authEntity = getAuthenticatedEntity().toJson({ partial: true });
                 if (_.get(authEntity, 'activeAccount')) {
-                    authEntity.activeAccount = _.omit(authEntity.activeAccount, 'features');
+                    authEntity.activeAccount = _.pick(authEntity.activeAccount, ['type', 'id', 'name', 'activeAccount.name', 'activeAccount.id']);
+                }
+
+                if (_.get(authEntity, 'account')) {
+                    authEntity.account = _.pick(authEntity.account, ['type', 'id', 'name', 'account.name', 'account.id']);
                 }
                 return authEntity;
             } catch (err) {
