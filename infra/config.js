@@ -116,6 +116,7 @@ base.logger = {
             try {
                 const authEntity = getAuthenticatedEntity().toJson({ partial: true });
                 if (_.get(authEntity, 'activeAccount')) {
+                    // eslint-disable-next-line max-len
                     authEntity.activeAccount = _.pick(authEntity.activeAccount, ['type', 'id', 'name', 'activeAccount.name', 'activeAccount.id']);
                 }
 
