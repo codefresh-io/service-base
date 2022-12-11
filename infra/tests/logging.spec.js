@@ -1,13 +1,13 @@
 const _ = require('lodash');
 const { expect } = require('chai');
 const sinon = require('sinon');
-const rewiremock = require('rewiremock/node');
+const proxyquire = require('proxyquire');
 
 const toJsonStub = sinon.stub();
 
 // eslint-disable-next-line max-len
-const config = rewiremock.proxy('../config', { '@codefresh-io/http-infra': { getAuthenticatedEntity: () => ({ toJson: toJsonStub }) } });
-const logging = rewiremock.proxy('../logging', { '../config': config });
+const config = proxyquire('../config', { '@codefresh-io/http-infra': { getAuthenticatedEntity: () => ({ toJson: toJsonStub }) } });
+const logging = proxyquire('../logging', { './config': config });
 
 describe('logging test', () => {
     it('authenticated entity should not change due to formatting when printing the log', async () => {
