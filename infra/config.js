@@ -114,11 +114,17 @@ base.logger = {
         },
         authenticatedEntity: () => {
             try {
+                let res = {};
                 const authEntity = getAuthenticatedEntity().toJson({ partial: true });
                 if (_.get(authEntity, 'activeAccount')) {
-                    authEntity.activeAccount = _.omit(authEntity.activeAccount, 'features');
+                    // eslint-disable-next-line max-len
+                    res = _.pick(authEntity, ['type', 'id', 'name', 'activeAccount.name', 'activeAccount.id']);
                 }
-                return authEntity;
+
+                if (_.get(authEntity, 'account')) {
+                    res = _.pick(authEntity, ['type', 'id', 'name', 'account.name', 'account.id']);
+                }
+                return res;
             } catch (err) {
                 return {};
             }
