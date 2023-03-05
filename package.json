@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "3.0.22",
+  "version": "3.0.23",
   "main": "index.js",
   "description": "",
   "bin": {
@@ -23,7 +23,8 @@
   "resolutions": {
     "eslint/**/ansi-regex": "^4.0.0",
     "js-yaml": "^3.13.1",
-    "json-schema": "^0.4.0"
+    "json-schema": "^0.4.0",
+    "qs": "6.7.3"
   },
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
