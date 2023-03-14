@@ -140,6 +140,7 @@ base.redis = {
     port: process.env.REDIS_PORT || 6379,
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1,
+    tls: process.env.REDIS_TLS === 'true' ? {} : undefined,
 };
 
 
