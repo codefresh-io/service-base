@@ -40,7 +40,7 @@ class Redis {
         });
 
         this.client.on('connect', () => {
-            logger.info('Redis client connected');
+            logger.info('Redis client connecting');
         });
 
         this.client.on('reconnecting', () => {
