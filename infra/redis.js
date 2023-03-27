@@ -30,6 +30,7 @@ class Redis {
                 port: config.redis.port,
                 password: config.redis.password,
                 db: config.redis.db,
+                tls: config.redis.tls,
             });
 
         this.client.on('ready', () => {
@@ -39,7 +40,7 @@ class Redis {
         });
 
         this.client.on('connect', () => {
-            logger.info('Redis client connected');
+            logger.info('Redis client connecting');
         });
 
         this.client.on('reconnecting', () => {
