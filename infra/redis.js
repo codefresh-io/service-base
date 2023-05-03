@@ -31,6 +31,9 @@ class Redis {
                 password: config.redis.password,
                 db: config.redis.db,
                 tls: config.redis.tls,
+                ca: config.redis.ca,
+                cert: config.redis.cert,
+                rejectUnauthorized: config.redis.rejectUnauthorized,
             });
 
         this.client.on('ready', () => {

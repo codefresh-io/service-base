@@ -141,8 +141,14 @@ base.redis = {
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1,
     tls: process.env.REDIS_TLS === 'true' ? {} : undefined,
+    rejectUnauthorized: process.env.REDIS_REJECT_UNAUTHRIZED,
 };
 
+if (process.env.MTLS_REDIS_CERT_PATH) {
+    const credentials = fs.readFileSync(process.env.MTLS_REDIS_CERT_PATH);
+    base.redis.options.ca = credentials;
+    base.mongo.options.cert = credentials;
+}
 
 // This timers are associated with termination signals the service should handle
 // 1. The grace period should first of all know that no more requests will be forward to the process
