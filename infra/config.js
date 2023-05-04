@@ -140,20 +140,16 @@ base.redis = {
     port: process.env.REDIS_PORT || 6379,
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1,
-    tls: process.env.REDIS_TLS === 'true' ? {} : undefined,
-    rejectUnauthorized: process.env.REDIS_REJECT_UNAUTHRIZED,
 };
 
-if (process.env.MTLS_REDIS_CERT_PATH) {
-    console.log('trying to read MTLS_REDIS_CERT_PATH');
-    try {
+if (process.env.REDIS_TLS === 'true') {
+    if (process.env.MTLS_REDIS_CERT_PATH) {
         const redisCredentials = fs.readFileSync(process.env.MTLS_REDIS_CERT_PATH);
-        console.log(`MTLS_REDIS_CERT_PATH file: ${redisCredentials}`);
-        base.redis.ca = redisCredentials;
-        base.redis.cert = redisCredentials;
-    } catch (error) {
-        console.log(error);
-        throw error;
+        base.redis.tls.ca = redisCredentials;
+        base.redis.tls.cert = redisCredentials;
+        base.redis.tls.rejectUnauthorized = process.env.REDIS_REJECT_UNAUTHORIZED;
+    } else {
+        base.redis.tls = {};
     }
 }
 
