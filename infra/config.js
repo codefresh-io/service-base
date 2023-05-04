@@ -145,9 +145,16 @@ base.redis = {
 };
 
 if (process.env.MTLS_REDIS_CERT_PATH) {
-    const credentials = fs.readFileSync(process.env.MTLS_REDIS_CERT_PATH);
-    base.redis.options.ca = credentials;
-    base.redis.options.cert = credentials;
+    console.log('trying to read MTLS_REDIS_CERT_PATH');
+    try {
+        const redisCredentials = fs.readFileSync(process.env.MTLS_REDIS_CERT_PATH);
+        console.log(`MTLS_REDIS_CERT_PATH file: ${redisCredentials}`);
+        base.redis.ca = redisCredentials;
+        base.redis.cert = redisCredentials;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
 
 // This timers are associated with termination signals the service should handle
