@@ -145,9 +145,9 @@ base.redis = {
 if (process.env.REDIS_TLS === 'true') {
     if (process.env.MTLS_REDIS_CERT_PATH) {
         const redisCredentials = fs.readFileSync(process.env.MTLS_REDIS_CERT_PATH);
-        base.redis.tls.ca = redisCredentials;
-        base.redis.tls.cert = redisCredentials;
-        base.redis.tls.rejectUnauthorized = process.env.REDIS_REJECT_UNAUTHORIZED;
+        _.set(base, 'redis.tls.ca', redisCredentials);
+        _.set(base, 'redis.tls.cert', redisCredentials);
+        _.set(base, 'redis.tls.rejectUnauthorized', process.env.REDIS_REJECT_UNAUTHORIZED);
     } else {
         base.redis.tls = {};
     }
