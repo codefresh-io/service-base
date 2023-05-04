@@ -147,7 +147,7 @@ base.redis = {
 if (process.env.MTLS_REDIS_CERT_PATH) {
     const credentials = fs.readFileSync(process.env.MTLS_REDIS_CERT_PATH);
     base.redis.options.ca = credentials;
-    base.mongo.options.cert = credentials;
+    base.redis.options.cert = credentials;
 }
 
 // This timers are associated with termination signals the service should handle
