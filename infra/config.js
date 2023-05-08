@@ -143,10 +143,11 @@ base.redis = {
 };
 
 if (process.env.REDIS_TLS === 'true') {
-    if (process.env.MTLS_REDIS_CERT_PATH) {
-        const redisCredentials = fs.readFileSync(process.env.MTLS_REDIS_CERT_PATH);
-        _.set(base, 'redis.tls.ca', redisCredentials);
-        _.set(base, 'redis.tls.cert', redisCredentials);
+    if (process.env.MTLS_REDIS_CERT_PATH && process.env.MTLS_REDIS_CA_PATH) {
+        const redisCaCredentials = fs.readFileSync(process.env.MTLS_REDIS_CA_PATH);
+        const redisCertCredentials = fs.readFileSync(process.env.MTLS_REDIS_CERT_PATH);
+        _.set(base, 'redis.tls.ca', redisCaCredentials);
+        _.set(base, 'redis.tls.cert', redisCertCredentials);
         _.set(base, 'redis.tls.rejectUnauthorized', process.env.REDIS_REJECT_UNAUTHORIZED);
     } else {
         base.redis.tls = {};
