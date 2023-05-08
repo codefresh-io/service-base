@@ -150,7 +150,8 @@ if (process.env.REDIS_TLS === 'true') {
         _.set(base, 'redis.tls.ca', redisCaCredentials);
         _.set(base, 'redis.tls.cert', redisCertCredentials);
         _.set(base, 'redis.tls.key', redisKeyCredentials);
-        _.set(base, 'redis.tls.rejectUnauthorized', process.env.REDIS_REJECT_UNAUTHORIZED);
+        // default vale is true
+        _.set(base, 'redis.tls.rejectUnauthorized', process.env.REDIS_REJECT_UNAUTHORIZED !== 'false');
     } else {
         base.redis.tls = {};
     }
