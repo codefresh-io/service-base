@@ -293,16 +293,15 @@
   dependencies:
     newrelic "^8.0.0"
 
-"@codefresh-io/cf-openapi@^0.7.14":
-  version "0.7.14"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.14.tgz#fe043bd5e267693f9671987f89475b505ba884a3"
-  integrity sha512-b9bJSrDatoq3FFjao2kBUHo/wNV5hO0jJIV7mITNCFdBTChWFNjGAqvXpzwQ930ZeaSQy6ofribHBuFzGE0FeA==
+"@codefresh-io/cf-openapi@git+https://github.com/codefresh-io/cf-openapi.git#ad741f1e70de1154b1e53adbbd2c1e2f2152cebc":
+  version "0.7.16"
+  resolved "git+https://github.com/codefresh-io/cf-openapi.git#ad741f1e70de1154b1e53adbbd2c1e2f2152cebc"
   dependencies:
     bluebird "^3.5.4"
     body-parser "^1.19.2"
     cf-errors "^0.1.16"
     cf-logs "^1.1.25"
-    columnify "^1.5.4"
+    columnify "1.6.0"
     flat "^4.1.1"
     json-schema-deref-sync "~0.14.0"
     klaw-sync "^6.0.0"
@@ -337,7 +336,7 @@
     request "^2.88.2"
     requestretry "^7.0.0"
 
-"@codefresh-io/internal-service-config@^1.0.2":
+"@codefresh-io/internal-service-config@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@codefresh-io/internal-service-config/-/internal-service-config-1.0.3.tgz#5f94caa85788a445af0164416303d18a06fd9148"
   integrity sha512-2yXzix98aCQ2o24ka7qyaQCnrzXy8hMMIhCyAi65CrXnauyPyxllDCJppNVBdd9CoBXeD0t3DJiNlzQ4g89NVA==
@@ -1704,7 +1703,7 @@ colorspace@1.1.x:
     color "3.0.x"
     text-hex "1.0.x"
 
-columnify@^1.5.4:
+columnify@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/columnify/-/columnify-1.6.0.tgz#6989531713c9008bb29735e61e37acf5bd553cf3"
   integrity sha512-lomjuFZKfM6MSAnV9aCZC9sc0qGbmZdfygNv+nCpqVkSKdCxCklLtd16O0EILGkImHw9ZpHkAnHaB+8Zxq5W6Q==

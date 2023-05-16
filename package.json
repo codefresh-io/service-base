@@ -30,10 +30,10 @@
   "dependencies": {
     "@codefresh-io/authenticated-entity": "^2.13.1",
     "@codefresh-io/cf-monitor": "^0.0.24",
-    "@codefresh-io/cf-openapi": "^0.7.14",
+    "@codefresh-io/cf-openapi": "git+https://github.com/codefresh-io/cf-openapi.git#ad741f1e70de1154b1e53adbbd2c1e2f2152cebc",
     "@codefresh-io/eventbus": "1.4.3",
     "@codefresh-io/http-infra": "^1.8.12",
-    "@codefresh-io/internal-service-config": "^1.0.2",
+    "@codefresh-io/internal-service-config": "^1.0.3",
     "@ronomon/crypto-async": "^5.0.1",
     "@wegolook/joi-objectid": "^2.4.0",
     "ajv": "^6.10.0",
