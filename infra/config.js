@@ -140,9 +140,22 @@ base.redis = {
     port: process.env.REDIS_PORT || 6379,
     password: process.env.REDIS_PASSWORD || 'redisPassword',
     db: process.env.REDIS_DB || 1,
-    tls: process.env.REDIS_TLS === 'true' ? {} : undefined,
 };
 
+if (process.env.REDIS_TLS === 'true') {
+    if (process.env.REDIS_CLIENT_CERT_PATH && process.env.REDIS_CA_PATH && process.env.REDIS_CLIENT_KEY_PATH) {
+        const redisCaCredentials = fs.readFileSync(process.env.REDIS_CA_PATH);
+        const redisCertCredentials = fs.readFileSync(process.env.REDIS_CLIENT_CERT_PATH);
+        const redisKeyCredentials = fs.readFileSync(process.env.REDIS_CLIENT_KEY_PATH);
+        _.set(base, 'redis.tls.ca', redisCaCredentials);
+        _.set(base, 'redis.tls.cert', redisCertCredentials);
+        _.set(base, 'redis.tls.key', redisKeyCredentials);
+        // if not passing rejectUnauthorized -- default value set to true
+        _.set(base, 'redis.tls.rejectUnauthorized', process.env.REDIS_REJECT_UNAUTHORIZED !== 'false');
+    } else {
+        base.redis.tls = {};
+    }
+}
 
 // This timers are associated with termination signals the service should handle
 // 1. The grace period should first of all know that no more requests will be forward to the process
