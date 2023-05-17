@@ -293,9 +293,10 @@
   dependencies:
     newrelic "^8.0.0"
 
-"@codefresh-io/cf-openapi@git+https://github.com/codefresh-io/cf-openapi.git#ad741f1e70de1154b1e53adbbd2c1e2f2152cebc":
+"@codefresh-io/cf-openapi@^0.7.16":
   version "0.7.16"
-  resolved "git+https://github.com/codefresh-io/cf-openapi.git#ad741f1e70de1154b1e53adbbd2c1e2f2152cebc"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.16.tgz#f34a939246f37d5a43546f8317e6fc508f808571"
+  integrity sha512-dmp/oC99ojDQXOR0EdaehRrrxkXDa4iw8WX+WLQJl4vX60BCGBYCu73VcFXT0fzAhRbc/36mDEsdBn5BDgDRFQ==
   dependencies:
     bluebird "^3.5.4"
     body-parser "^1.19.2"
