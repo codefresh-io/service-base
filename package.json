@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "3.0.26",
+  "version": "3.0.27",
   "main": "index.js",
   "description": "",
   "bin": {
@@ -28,11 +28,11 @@
   },
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
-    "@codefresh-io/authenticated-entity": "^2.13.1",
+    "@codefresh-io/authenticated-entity": "^2.16.0",
     "@codefresh-io/cf-monitor": "^0.0.24",
     "@codefresh-io/cf-openapi": "^0.7.16",
     "@codefresh-io/eventbus": "1.4.3",
-    "@codefresh-io/http-infra": "^1.8.12",
+    "@codefresh-io/http-infra": "^1.8.13",
     "@codefresh-io/internal-service-config": "^1.0.3",
     "@ronomon/crypto-async": "^5.0.1",
     "@wegolook/joi-objectid": "^2.4.0",
