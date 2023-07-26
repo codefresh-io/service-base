@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "3.0.27",
+  "version": "4.0.0",
   "main": "index.js",
   "description": "",
   "bin": {
@@ -28,11 +28,11 @@
   },
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
-    "@codefresh-io/authenticated-entity": "^2.16.0",
-    "@codefresh-io/cf-monitor": "^0.0.24",
+    "@codefresh-io/authenticated-entity": "git+https://github.com/codefresh-io/authenticated-entity.git#19f2d941870ce769a70c98baa26865ae01f44622",
+    "@codefresh-io/cf-monitor": "git+https://github.com/codefresh-io/cf-monitor.git#1861d0f6e8761469c7553913662f002136781dc8",
     "@codefresh-io/cf-openapi": "^0.7.16",
-    "@codefresh-io/eventbus": "1.4.3",
-    "@codefresh-io/http-infra": "^1.8.13",
+    "@codefresh-io/eventbus": "git+https://github.com/codefresh-io/cf-eventbus.git#178a9507a6295de82d36a781ce41c664439b1acb",
+    "@codefresh-io/http-infra": "git+https://github.com/codefresh-io/http-infra.git#97958b5501ad772699a01261e269983b38016676",
     "@codefresh-io/internal-service-config": "^1.0.3",
     "@ronomon/crypto-async": "^5.0.1",
     "@wegolook/joi-objectid": "^2.4.0",
