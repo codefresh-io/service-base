@@ -278,9 +278,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@codefresh-io/authenticated-entity@git+https://github.com/codefresh-io/authenticated-entity.git#19f2d941870ce769a70c98baa26865ae01f44622":
+"@codefresh-io/authenticated-entity@2.17.0":
   version "2.17.0"
-  resolved "git+https://github.com/codefresh-io/authenticated-entity.git#19f2d941870ce769a70c98baa26865ae01f44622"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.17.0.tgz#c7efb59b64b18be47219414d137eff9d90a20b18"
+  integrity sha512-UbNcWD8cHVndpIHBHbSPE5zV5LmFheBtiwZnyQTRy60PUiDSD97OsRI1d/6vhJemXfN5xOpfQRdPAvwtAJli2A==
   dependencies:
     cf-logs "^1.1.26"
     lodash "^4.17.21"
@@ -323,11 +324,11 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@git+https://github.com/codefresh-io/http-infra.git#97958b5501ad772699a01261e269983b38016676":
+"@codefresh-io/http-infra@git+https://github.com/codefresh-io/http-infra.git#0c1c8619a82417d6cf2e65e653d632c051540669":
   version "1.8.14"
-  resolved "git+https://github.com/codefresh-io/http-infra.git#97958b5501ad772699a01261e269983b38016676"
+  resolved "git+https://github.com/codefresh-io/http-infra.git#0c1c8619a82417d6cf2e65e653d632c051540669"
   dependencies:
-    "@codefresh-io/authenticated-entity" "git+https://github.com/codefresh-io/authenticated-entity.git#19f2d941870ce769a70c98baa26865ae01f44622"
+    "@codefresh-io/authenticated-entity" "2.17.0"
     bluebird "^3.7.2"
     crypto-random-string "^3.3.0"
     lodash "^4.17.21"
