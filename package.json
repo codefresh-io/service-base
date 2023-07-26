@@ -29,7 +29,7 @@
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
     "@codefresh-io/authenticated-entity": "2.17.0",
-    "@codefresh-io/cf-monitor": "git+https://github.com/codefresh-io/cf-monitor.git#1861d0f6e8761469c7553913662f002136781dc8",
+    "@codefresh-io/cf-monitor": "0.0.27",
     "@codefresh-io/cf-openapi": "^0.7.16",
     "@codefresh-io/eventbus": "git+https://github.com/codefresh-io/cf-eventbus.git#178a9507a6295de82d36a781ce41c664439b1acb",
     "@codefresh-io/http-infra": "1.8.14",
