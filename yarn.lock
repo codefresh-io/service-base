@@ -312,9 +312,10 @@
     request-promise "~4.2.6"
     retry "^0.12.0"
 
-"@codefresh-io/eventbus@git+https://github.com/codefresh-io/cf-eventbus.git#178a9507a6295de82d36a781ce41c664439b1acb":
-  version "1.5.0"
-  resolved "git+https://github.com/codefresh-io/cf-eventbus.git#178a9507a6295de82d36a781ce41c664439b1acb"
+"@codefresh-io/eventbus@2.0.0-test.0":
+  version "2.0.0-test.0"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-2.0.0-test.0.tgz#0c049c46fe386fa9e1ab6be777ef30e537c3aea9"
+  integrity sha512-r77J6qmRRa8IYcGnsgxGPdzwL9Gy0hEUEmHE2Sg2ACdtwZjDay6NCh/r1PUH427siucVUC5+e9N5p13D8k9O+w==
   dependencies:
     amqplib "^0.8.0"
     bluebird "^3.5.0"
