@@ -31,7 +31,7 @@
   "homepage": "https://github.com/codefresh-io/service-base#readme",
   "dependencies": {
     "@codefresh-io/authenticated-entity": "^2.16.0",
-    "@codefresh-io/cf-monitor": "^0.0.24",
+    "@codefresh-io/cf-monitor": "^0.0.27",
     "@codefresh-io/cf-openapi": "^0.7.16",
     "@codefresh-io/eventbus": "1.4.3",
     "@codefresh-io/http-infra": "^1.8.13",
