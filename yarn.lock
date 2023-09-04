@@ -294,10 +294,10 @@
   dependencies:
     newrelic "^9.1.0"
 
-"@codefresh-io/cf-openapi@^0.7.18":
-  version "0.7.18"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.18.tgz#d32c6bb6b05f557840d5319ffaca03a2f200373f"
-  integrity sha512-OGyzZ8w7LR6g0hTDwwRmsAQ1cjfg+r7FACBIAnZfl2vyps4oFnkuK9Hxv/OKywRNEVVfuaJiJDXABjPfoO7fPQ==
+"@codefresh-io/cf-openapi@0.7.19-test.0":
+  version "0.7.19-test.0"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.19-test.0.tgz#a4ed74be854ec3d3559ed892c5eb1d6eb49f1ae0"
+  integrity sha512-TgpUxYs/Ida5Yea37xSn8QNuaDXJZnixnR3TzHOFy/D5Rdt48ZKnmO7yEEV6u7NzsgSKJ/11sYYW3BNFPhzN8A==
   dependencies:
     bluebird "^3.5.4"
     body-parser "^1.19.2"
