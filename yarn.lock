@@ -294,17 +294,16 @@
   dependencies:
     newrelic "^9.1.0"
 
-"@codefresh-io/cf-openapi@^0.7.16":
-  version "0.7.16"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.16.tgz#f34a939246f37d5a43546f8317e6fc508f808571"
-  integrity sha512-dmp/oC99ojDQXOR0EdaehRrrxkXDa4iw8WX+WLQJl4vX60BCGBYCu73VcFXT0fzAhRbc/36mDEsdBn5BDgDRFQ==
+"@codefresh-io/cf-openapi@^0.7.18":
+  version "0.7.18"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.18.tgz#d32c6bb6b05f557840d5319ffaca03a2f200373f"
+  integrity sha512-OGyzZ8w7LR6g0hTDwwRmsAQ1cjfg+r7FACBIAnZfl2vyps4oFnkuK9Hxv/OKywRNEVVfuaJiJDXABjPfoO7fPQ==
   dependencies:
     bluebird "^3.5.4"
     body-parser "^1.19.2"
     cf-errors "^0.1.16"
     cf-logs "^1.1.25"
     columnify "1.6.0"
-    flat "^4.1.1"
     json-schema-deref-sync "~0.14.0"
     klaw-sync "^6.0.0"
     lodash "~4.17.21"
@@ -2655,13 +2654,6 @@ flat-cache@^1.2.1:
     rimraf "~2.6.2"
     write "^0.2.1"
 
-flat@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/flat/-/flat-4.1.1.tgz#a392059cc382881ff98642f5da4dde0a959f309b"
-  integrity sha512-FmTtBsHskrU6FJ2VxCnsDb84wu9zhmO3cUX2kGFb5tuwhfXxGciiT0oRY+cck35QmG+NmGh5eLz6lLCpWTqwpA==
-  dependencies:
-    is-buffer "~2.0.3"
-
 flat@^5.0.2:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/flat/-/flat-5.0.2.tgz#8ca6fe332069ffa9d324c327198c598259ceb241"
@@ -3123,11 +3115,6 @@ is-buffer@^1.1.5, is-buffer@~1.1.1:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
-
-is-buffer@~2.0.3:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.5.tgz#ebc252e400d22ff8d77fa09888821a24a658c191"
-  integrity sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==
 
 is-ci@^2.0.0:
   version "2.0.0"
