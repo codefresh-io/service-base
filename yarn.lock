@@ -294,10 +294,10 @@
   dependencies:
     newrelic "^9.1.0"
 
-"@codefresh-io/cf-openapi@0.7.19-test.0":
-  version "0.7.19-test.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.19-test.0.tgz#a4ed74be854ec3d3559ed892c5eb1d6eb49f1ae0"
-  integrity sha512-TgpUxYs/Ida5Yea37xSn8QNuaDXJZnixnR3TzHOFy/D5Rdt48ZKnmO7yEEV6u7NzsgSKJ/11sYYW3BNFPhzN8A==
+"@codefresh-io/cf-openapi@^0.7.18":
+  version "0.7.19"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/cf-openapi/-/cf-openapi-0.7.19.tgz#1db1693db07b0688e525f6a9c926470470a7cc15"
+  integrity sha512-ZqE52yB1pgGFJSIVdLzSMrN79syR48Qv1Lw+Wz5/MI8bG10Ln47+32LSjHQJS9YSN4iNLG72KUMvxXaAqpXEiw==
   dependencies:
     bluebird "^3.5.4"
     body-parser "^1.19.2"
@@ -4997,7 +4997,7 @@ pseudomap@^1.0.2:
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
   integrity sha1-8FKijacOYYkX7wqKw0wa5aaChrM=
 
-psl@^1.1.33:
+psl@^1.1.28, psl@^1.1.33:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/psl/-/psl-1.9.0.tgz#d0df2a137f00794565fcaf3b2c00cd09f8d5a5a7"
   integrity sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==
@@ -6070,7 +6070,15 @@ topo@3.x.x:
   dependencies:
     hoek "6.x.x"
 
-tough-cookie@4.1.3, tough-cookie@^2.3.3, tough-cookie@^4.0.0, tough-cookie@~2.5.0:
+tough-cookie@^2.3.3, tough-cookie@~2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.5.0.tgz#cd9fb2a0aa1d5a12b473bd9fb96fa3dcff65ade2"
+  integrity sha512-nlLsUzgm1kfLXSXfRZMc1KLAugd4hqJHDTvc2hDIwS3mZAfMEuMbc03SujMF+GEcpaX/qboeycw6iO8JwVv2+g==
+  dependencies:
+    psl "^1.1.28"
+    punycode "^2.1.1"
+
+tough-cookie@^4.0.0:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-4.1.3.tgz#97b9adb0728b42280aa3d814b6b999b2ff0318bf"
   integrity sha512-aX/y5pVRkfRnfmuX+OdbSdXvPe6ieKX/G2s7e98f4poJHnqH3281gDPm/metm6E/WRamfx7WC4HUqkWHfQHprw==
