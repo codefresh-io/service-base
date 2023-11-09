@@ -278,14 +278,14 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@codefresh-io/authenticated-entity@2.17.0", "@codefresh-io/authenticated-entity@^2.17.0":
-  version "2.17.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.17.0.tgz#c7efb59b64b18be47219414d137eff9d90a20b18"
-  integrity sha512-UbNcWD8cHVndpIHBHbSPE5zV5LmFheBtiwZnyQTRy60PUiDSD97OsRI1d/6vhJemXfN5xOpfQRdPAvwtAJli2A==
+"@codefresh-io/authenticated-entity@2.17.1", "@codefresh-io/authenticated-entity@^2.17.1":
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/authenticated-entity/-/authenticated-entity-2.17.1.tgz#6382987a294c65ca73a2557b87b7e0dba80f3b7e"
+  integrity sha512-DLS4yeKSl8HNmaFsVJh4jr8h2FBstbgDeKNFyL3t1X3NoxFJli+nY1ru9bm0J9FP79EDfluc1eNIEeQst7MokQ==
   dependencies:
     cf-logs "^1.1.26"
     lodash "^4.17.21"
-    semver "^7.0.0"
+    semver "^7.5.2"
 
 "@codefresh-io/cf-monitor@^0.0.27":
   version "0.0.27"
@@ -325,12 +325,12 @@
     pg-cursor "^1.2.0"
     uuid "^3.0.1"
 
-"@codefresh-io/http-infra@^1.8.14":
-  version "1.8.14"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.8.14.tgz#5d2846e78bda6b032ff3113a57576b2ab06cdaa9"
-  integrity sha512-s/+WEaCRw3OmwFIGx+T2N7411i2ou6RggzHQeJP6Lm+zstbZz3YGQh/dNmuYQHtnwYzEXX4TDIf4Q/2xtUhB5A==
+"@codefresh-io/http-infra@^1.8.15":
+  version "1.8.15"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/http-infra/-/http-infra-1.8.15.tgz#80c123f5a9dee8b3764e09861358123f61f687d1"
+  integrity sha512-8geAuhY/3q5w97ZjqEjgPfQdXnrukdNls6pMY9Tu2MuDFpNTIkzyrgUSM82UmAevY7mS58jPX7i2+QIF8cCsPw==
   dependencies:
-    "@codefresh-io/authenticated-entity" "2.17.0"
+    "@codefresh-io/authenticated-entity" "2.17.1"
     bluebird "^3.7.2"
     crypto-random-string "^3.3.0"
     lodash "^4.17.21"
@@ -5517,17 +5517,17 @@ semver@^6.0.0, semver@^6.3.0:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-semver@^7.0.0, semver@^7.5.2:
+semver@^7.3.2:
+  version "7.3.2"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
+  integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
+
+semver@^7.5.2:
   version "7.5.4"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.4.tgz#483986ec4ed38e1c6c48c34894a9182dbff68a6e"
   integrity sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==
   dependencies:
     lru-cache "^6.0.0"
-
-semver@^7.3.2:
-  version "7.3.2"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
-  integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
 
 send@0.18.0:
   version "0.18.0"
