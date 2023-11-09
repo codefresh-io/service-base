@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "main": "index.js",
   "description": "",
   "bin": {
@@ -31,7 +31,7 @@
   "dependencies": {
     "@codefresh-io/authenticated-entity": "^2.17.1",
     "@codefresh-io/cf-monitor": "^0.0.27",
-    "@codefresh-io/cf-openapi": "^0.7.18",
+    "@codefresh-io/cf-openapi": "^0.7.20",
     "@codefresh-io/eventbus": "^2.0.0",
     "@codefresh-io/http-infra": "^1.8.15",
     "@codefresh-io/internal-service-config": "^1.0.3",
