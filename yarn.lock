@@ -1498,10 +1498,17 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-cf-errors@^0.1.15, cf-errors@^0.1.16:
+cf-errors@^0.1.16:
   version "0.1.16"
   resolved "https://registry.yarnpkg.com/cf-errors/-/cf-errors-0.1.16.tgz#03d0b050ac94762552792907b08bd39d1a012116"
   integrity sha512-ewA6cTS+bVC32NCxIdEu/5HQ8zb09PV1ubdu0t2yPXs51K31gI78+XGEomVjaXdTbZcGBPVIWhFnG6R/U7K4IQ==
+  dependencies:
+    lodash "^4.17.21"
+
+cf-errors@^0.1.17:
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/cf-errors/-/cf-errors-0.1.17.tgz#fbd0d793fa52dff2681b5d3e19a9352ce066d8cc"
+  integrity sha512-RdPIQpTdGuS4F38RzQf8P4SDUxNaZIH12zIZ7+3K4TTTbOUHQKpL+KVSRIS9xM94KpbyMDYW38+nuL3FkhnJEQ==
   dependencies:
     lodash "^4.17.21"
 
