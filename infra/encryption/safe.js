@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
 const uuid = require('node-uuid');
-const cryptoAsync = require('@ronomon/crypto-async');
+const crypto = require('crypto');
 
 const config = require('../config');
 const mongoClient = require('../mongo');
@@ -11,6 +11,19 @@ const mongoClient = require('../mongo');
 const ALGORITHM = 'AES-256-CTR';
 const CRYPTO_PREFIX = '$$$crypto$$$';
 const STRINGIFY_CRYPTO_PREFIX = '$$$crypto-obj$$$';
+
+async function cipher(algorithm, encrypt, key, iv, data) {
+    if (encrypt) {
+        const cipherObject = crypto.createCipheriv(algorithm, key, iv);
+        let ciphertext = cipherObject.update(data, 'utf8', 'hex');
+        ciphertext += cipherObject.final('hex');
+        return ciphertext;
+    }
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);
+    let plaintext = decipher.update(data, 'hex', 'utf8');
+    plaintext += decipher.final('utf8');
+    return plaintext;
+}
 
 const Safe = function (safeModel) { // eslint-disable-line
     this.safeModel = safeModel;
@@ -61,17 +74,14 @@ Safe.prototype.read_crypto = function (ciphertext) { // eslint-disable-line
     }
 
     const encrypt = 0; // 0 = Decrypt
-    cryptoAsync.cipher(
-        ALGORITHM, encrypt, key, iv, Buffer.from(ciphertext.slice(prefix.length), 'hex'),
-        (error, plaintext) => {
-            if (error) {
-                deferred.reject(error);
-                return;
-            }
-            const ret = plaintext.toString();
-            deferred.resolve(shouldParse ? JSON.parse(ret) : ret);
-        },
-    );
+    cipher(ALGORITHM, encrypt, key, iv, Buffer.from(ciphertext.slice(prefix.length), 'hex')).then((plaintext) => {
+        const ret = plaintext.toString();
+        deferred.resolve(shouldParse ? JSON.parse(ret) : ret);
+    }).catch((error) => {
+        if (error) {
+            deferred.reject(error);
+        }
+    });
     return deferred.promise;
 };
 
@@ -93,16 +103,13 @@ Safe.prototype.write_crypto = function (plaintext) { // eslint-disable-line
     }
 
     const encrypt = 1; // 1 = Encrypt
-    cryptoAsync.cipher(
-        ALGORITHM, encrypt, key, iv, Buffer.from(textToEncrypt),
-        (error, ciphertext) => {
-            if (error) {
-                deferred.reject(error);
-                return;
-            }
-            deferred.resolve(`${prefix}${ciphertext.toString('hex')}`);
-        },
-    );
+    cipher(ALGORITHM, encrypt, key, iv, Buffer.from(textToEncrypt)).then((ciphertext) => {
+        deferred.resolve(`${prefix}${ciphertext.toString('hex')}`);
+    }).catch((error) => {
+        if (error) {
+            deferred.reject(error);
+        }
+    });
     return deferred.promise;
 };
 
