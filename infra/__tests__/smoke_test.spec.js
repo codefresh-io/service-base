@@ -2,15 +2,15 @@ const { splitUriBySlash, getDbNameFromUri } = require('../helper');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoClient = require('../mongo');
 
-
+/**
+ * @type {MongoMemoryServer}
+ */
 let mongod;
 async function clientSetupByUriAndDbName() {
-    const uri = await mongod.getUri();
-    const port = await mongod.getPort();
+    const uri = mongod.getUri();
+    const { port, dbPath, dbName } = mongod.instanceInfo;
     console.log(`using port ${port}`);
-    const dbPath = await mongod.getDbPath();
     console.log(`dbPath ${dbPath}`);
-    const dbName = await mongod.getDbName();
     console.log(`dbName ${dbName}`);
 
     await mongoClient.init({ mongo: { uri, dbName } });
@@ -19,7 +19,7 @@ async function clientSetupByUriAndDbName() {
 
 describe('mongo init compatibility code', () => {
     beforeEach(async () => {
-        mongod = new MongoMemoryServer();
+        mongod = await MongoMemoryServer.create();
     });
     afterEach(async () => {
         await mongoClient.stop();
@@ -46,8 +46,8 @@ describe('mongo init compatibility code', () => {
     });
 
     it('smokeTest2.2.33  and 3.6 extracted dbname', async () => {
-        const uri = await mongod.getUri();
-        const dbName = await mongod.getDbName();
+        const uri = mongod.getUri();
+        const { dbName } = mongod.instanceInfo;
         expect(dbName)
             .toEqual(getDbNameFromUri(uri));
         await mongoClient.init({ mongo: { uri } });
@@ -61,7 +61,7 @@ describe('mongo init compatibility code', () => {
     });
 
     it('db.db old use driver 2.x style API of uri no dbname param', async () => {
-        const uri = await mongod.getUri();
+        const uri = mongod.getUri();
         await mongoClient.init({ mongo: { uri } });
         const pipelineManagerDB = mongoClient.client.db(process.env.PIPELINE_MANAGER_DB || 'pipeline-manager');
         const stepCollection = pipelineManagerDB.collection('steps');
@@ -71,8 +71,8 @@ describe('mongo init compatibility code', () => {
     });
 
     it('client.db 3.x the new style using client', async () => {
-        const uri = await mongod.getUri();
-        const dbName = await mongod.getDbName();
+        const uri = mongod.getUri();
+        const { dbName } = mongod.instanceInfo;
         expect(dbName).toEqual(getDbNameFromUri(uri));
         await mongoClient.init({ mongo: { uri } });
         const pipelineManagerDB = await mongoClient.client.db(process.env.PIPELINE_MANAGER_DB || 'pipeline-manager');
@@ -85,8 +85,8 @@ describe('mongo init compatibility code', () => {
     });
 
     it('additional uses', async () => {
-        const uri = await mongod.getUri();
-        const dbName = await mongod.getDbName();
+        const uri = mongod.getUri();
+        const { dbName } = mongod.instanceInfo;
         expect(dbName).toEqual(getDbNameFromUri(uri));
         await mongoClient.init({ mongo: { uri } });
         // eslint-disable-next-line prefer-destructuring
@@ -94,11 +94,11 @@ describe('mongo init compatibility code', () => {
         expect(ObjectId).toBeTruthy();
 
         const collection = mongoClient.collection('charts');
-        await collection.ensureIndex({ account: 1, repository: 1, name: 1, version: 1 }, {
+        await collection.createIndex({ account: 1, repository: 1, name: 1, version: 1 }, {
             unique: true,
             background: true,
         });
-        await collection.ensureIndex({ created: 1 }, { expireAfterSeconds: 60 });
+        await collection.createIndex({ created: 1 }, { expireAfterSeconds: 60 });
         const generateObjectId = () => new mongoClient.ObjectId().toString();
         const objectId = generateObjectId();
         expect(objectId).toBeTruthy();

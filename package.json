@@ -1,10 +1,13 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "4.0.7",
+  "version": "5.0.0",
   "main": "index.js",
   "description": "",
   "bin": {
     "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
+  },
+  "engines": {
+    "node": ">=16.20.1"
   },
   "scripts": {
     "test": "(find . -not -path './node_modules/*' -path '*/*.spec.js' | grep -v '__tests__' | NODE_ENV=test xargs mocha) && jest",
@@ -49,7 +52,7 @@
     "js-yaml": "^3.13.1",
     "lodash": "4.17.21",
     "method-override": "^3.0.0",
-    "mongodb": "~3.3.0",
+    "mongodb": "^6.3.0",
     "morgan": "^1.9.1",
     "node-uuid": "^1.4.8",
     "proxyquire": "^1.8.0",
@@ -59,14 +62,14 @@
     "request-promise": "4.2.6"
   },
   "devDependencies": {
-    "@shelf/jest-mongodb": "^1.2.2",
+    "@shelf/jest-mongodb": "^4.2.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jest": "^21.12.3",
+    "eslint-plugin-jest": "^27.6.3",
     "eslint-plugin-mocha": "^4.12.1",
-    "jest": "^26.4.0",
+    "jest": "^29.7.0",
     "mocha": "^8.2.1",
-    "mongodb-memory-server": "^6.6.3"
+    "mongodb-memory-server": "^9.1.6"
   }
 }
