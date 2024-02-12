@@ -47,7 +47,7 @@ function getOrCreateSafe(safeId) {
                 _id: safeId,
                 key: (new Buffer(uuid.v4())).toString('base64'), // eslint-disable-line
             };
-            return collection.save(newSafe)
+            return collection.insertOne(newSafe)
                 .then(() => new Safe(newSafe))
                 .catch((err) => {
                     throw new Error(`Error occurred while creating safe: ${safeId}. Caused by: ${err.toString()}`);
