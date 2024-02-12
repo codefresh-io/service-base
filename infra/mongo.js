@@ -1,6 +1,3 @@
-
-
-const Promise = require('bluebird');
 const { MongoClient, ObjectId } = require('mongodb');
 const { getDbNameFromUri } = require('./helper');
 
@@ -12,31 +9,26 @@ class Mongo {
 
     /**
      * starts the connection to mongo
-     * @returns {*}
+     * @returns {Promise<void>}
      */
-    init(config) {
-        const clientSettings = {
-            promiseLibrary: Promise,
-            ...config.mongo.options,
-        };
+    async init(config) {
+        const clientSettings = { ...config.mongo.options };
 
         const logger = require('cf-logs').Logger('codefresh:infra:mongo'); // eslint-disable-line
         this.logger = logger;
 
         const { uri } = config.mongo;
         const dbName = config.mongo.dbName || getDbNameFromUri(uri);
-        return MongoClient.connect(uri, clientSettings)
-            .then(async (client) => {
-                this.client = client;
-                this.db = await client.db(dbName);
-                logger.info('Mongo driver connected');
-            });
+        const client = await MongoClient.connect(uri, clientSettings);
+        this.client = client;
+        this.db = client.db(dbName);
+        logger.info('Mongo driver connected');
     }
 
 
     /**
      * stops the connection to mongo
-     * @returns {*}
+     * @returns {Promise<void>}
      */
     stop() {
         if (!this.db) {
