@@ -7,7 +7,7 @@
     "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
   },
   "engines": {
-    "node": ">=16.20.1"
+    "node": ">=12.22.12"
   },
   "scripts": {
     "test": "(find . -not -path './node_modules/*' -path '*/*.spec.js' | grep -v '__tests__' | NODE_ENV=test xargs mocha) && jest",
@@ -52,7 +52,7 @@
     "js-yaml": "^3.13.1",
     "lodash": "4.17.21",
     "method-override": "^3.0.0",
-    "mongodb": "^6.3.0",
+    "mongodb": "^4.17.2",
     "morgan": "^1.9.1",
     "node-uuid": "^1.4.8",
     "proxyquire": "^1.8.0",
