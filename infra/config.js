@@ -62,10 +62,7 @@ base.postgres = {
 
 base.mongo = {
     uri: process.env.MONGO_URI || `mongodb://${APPLICATION_DOMAIN}/${name}`,
-    options: {
-        reconnectTries: process.env.MONGO_RECONNECT_TRIES || Number.MAX_VALUE,
-        reconnectInterval: process.env.MONGO_RECONNECT_INTERVAL || 30 * 1000,
-    },
+    options: {},
 };
 
 if (process.env.MTLS_CERT_PATH) {
