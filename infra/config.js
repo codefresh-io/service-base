@@ -66,9 +66,8 @@ base.mongo = {
 };
 
 if (process.env.MTLS_CERT_PATH) {
-    const credentials = fs.readFileSync(process.env.MTLS_CERT_PATH);
-    base.mongo.options.sslKey = credentials;
-    base.mongo.options.sslCert = credentials;
+    base.mongo.options.tls = true;
+    base.mongo.options.tlsCertificateKeyFile = process.env.MTLS_CERT_PATH;
 }
 
 base.logger = {
