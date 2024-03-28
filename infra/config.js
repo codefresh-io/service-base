@@ -62,12 +62,14 @@ base.postgres = {
 
 base.mongo = {
     uri: process.env.MONGO_URI || `mongodb://${APPLICATION_DOMAIN}/${name}`,
+    /** @type {import('mongodb').MongoClientOptions} */
     options: {},
 };
 
 if (process.env.MTLS_CERT_PATH) {
     base.mongo.options.tls = true;
     base.mongo.options.tlsCertificateKeyFile = process.env.MTLS_CERT_PATH;
+    base.mongo.options.tlsInsecure = process.env.MONGO_MTLS_VALIDATE === 'false';
 }
 
 base.logger = {
