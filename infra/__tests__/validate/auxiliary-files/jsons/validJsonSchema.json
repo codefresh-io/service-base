@@ -1,0 +1,9 @@
+{
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "nullable": false},
+        "age": {"type": "integer"}
+    },
+    "required": ["foo"],
+    "additionalProperties": false
+}

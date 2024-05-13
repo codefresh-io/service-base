@@ -1,0 +1,24 @@
+services:
+    firstService:
+        image:  some-image:master
+        labels:
+            - "codefresh"
+        ports:
+            - 80:80
+        isBroken: true
+        environment:
+            NODE_ENV: development
+
+    secondService:
+        image: some-image2:master
+        labels:
+            - "codefresh"
+        ports:
+            - 90:90
+        environment:
+            NODE_ENV: production
+
+brokenPart:
+    part1:
+        - hereIsMistake:
+        mistake

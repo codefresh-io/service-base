@@ -1,15 +1,13 @@
-
 const Promise = require('bluebird');
 const express = require('express');
 const compression = require('compression');
-const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const monitor = require('@codefresh-io/cf-monitor');
 const { newDomainMiddleware } = require('@codefresh-io/http-infra');
 const { openapi } = require('@codefresh-io/cf-openapi');
 const CFError = require('cf-errors');
+const cookieParser = require('cookie-parser');
 
 class Express {
     constructor() {
@@ -59,9 +57,9 @@ class Express {
                 app.use(compression());
 
                 openapi.endpoints().registerUtilityMiddleware(app);
-                app.use(bodyParser.json());
+                app.use(express.json());
 
-                app.use(bodyParser.urlencoded({ extended: true }));
+                app.use(express.urlencoded({ extended: true }));
                 app.use(methodOverride());
 
                 if (this.config.httpLogger) {

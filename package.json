@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "5.0.4",
+  "version": "6.0.0",
   "main": "index.js",
   "description": "",
   "bin": {
@@ -38,17 +38,15 @@
     "@codefresh-io/eventbus": "^2.0.0",
     "@codefresh-io/http-infra": "^1.8.15",
     "@codefresh-io/internal-service-config": "^1.0.3",
-    "@wegolook/joi-objectid": "^2.4.0",
     "ajv": "^6.10.0",
     "bluebird": "^3.5.3",
-    "body-parser": "^1.19.2",
     "cf-errors": "^0.1.15",
     "cf-logs": "^1.1.26",
     "chai": "4.3.10",
     "compression": "^1.7.4",
-    "cookie-parser": "^1.4.4",
-    "express": "^4.17.3",
-    "joi": "^13.0.2",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "joi": "^17.13.0",
     "js-yaml": "^3.13.1",
     "lodash": "4.17.21",
     "method-override": "^3.0.0",
@@ -57,9 +55,7 @@
     "node-uuid": "^1.4.8",
     "proxyquire": "^1.8.0",
     "queue": "^4.2.1",
-    "redis": "^3.1.0",
-    "request": "2.88.2",
-    "request-promise": "4.2.6"
+    "redis": "^3.1.0"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^4.2.0",
@@ -70,6 +66,6 @@
     "eslint-plugin-mocha": "^4.12.1",
     "jest": "^29.7.0",
     "mocha": "^8.2.1",
-    "mongodb-memory-server": "^9.1.6"
+    "mongodb-memory-server": "^9.2.0"
   }
 }
