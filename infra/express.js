@@ -1,3 +1,4 @@
+const Promise = require('bluebird');
 const express = require('express');
 const compression = require('compression');
 const methodOverride = require('method-override');

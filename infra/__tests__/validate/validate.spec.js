@@ -3,6 +3,7 @@ const mongoClient = require('../../mongo');
 const { Joi, createSchema } = require('../../validation');
 const { ValidationError } = require('joi');
 const { readFileSync } = require('fs');
+const { ObjectId } = require('mongodb');
 
 describe('testing validation module', () => {
     it('ObjectId', async () => {
@@ -65,16 +66,16 @@ describe('testing validation module', () => {
         const invalidValue = { id: '123' };
         const validValue = { id: '663cdd877065d5748d788886', name: 'Somename', type: 'argo', spec: { testField: false } };
         const validateCheck = async (value) => {
-            const result = await schema.validate(value);
-            if (result.error) {
-                throw result.error.details[0].message;
+            try {
+                const res = await schema.validate(value);
+                return { value: res };
+            } catch (error) {
+                throw error.message;
             }
-            return { value };
         };
         await expect(validateCheck(invalidValue)).rejects.toEqual('must be a valid ObjectId');
-
-        await expect(validateCheck(validValue)).resolves.toEqual({ value: validValue, error: undefined });
-
-        await expect(schema.validateField('spec', validValue.spec));
+        await expect(validateCheck(validValue)).resolves.toEqual({ value: { ...validValue, id: new ObjectId(validValue.id) } });
+        await expect(schema.validateField('id', invalidValue.id)).rejects.toEqual(new Error('must be a valid ObjectId'));
+        await expect(schema.validateField('id', validValue.id).value).toEqual(new ObjectId(validValue.id));
     });
 });

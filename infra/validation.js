@@ -35,14 +35,22 @@ const customJsonSchemaStringJoi = Joi.extend((joi) => ({ // eslint-disable-line
 }));
 Joi.jsonSchemaString = customJsonSchemaStringJoi.jsonSchemaString;
 
+const throwValidationError = (error) => {
+    const validationErrorMessage = _.get(error, 'details[0].message');
+    return Promise.reject(validationErrorMessage ? new Error(validationErrorMessage) : error);
+};
+
 
 function validateField(field, val, options = { optional: false }) {
     if (val === undefined && _.get(options, 'optional')) {
         return Promise.resolve();
     }
     const extractedSchema = this.extract(field);
-    const res = extractedSchema.validate(val, { messages: { key: `"${field}" ` } });
-    return res;
+    const { error, value } = extractedSchema.validate(val, { messages: { key: `"${field}" ` } });
+    if (error) {
+        return throwValidationError(error, field);
+    }
+    return { error, value };
 }
 
 
@@ -74,9 +82,11 @@ function _wrapValidate(validate) {
     return function (schema) { // eslint-disable-line
         return Promise.resolve()
             .then(validate.bind(this, schema))
-            .catch((err) => {
-                const validationErrorMessage = _.get(err, 'details[0].message');
-                return Promise.reject(validationErrorMessage ? new Error(validationErrorMessage) : err);
+            .then(({ error, value }) => {
+                if (error) {
+                    return throwValidationError(error);
+                }
+                return Promise.resolve(value);
             });
     };
 }
