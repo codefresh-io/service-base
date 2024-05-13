@@ -1,38 +1,37 @@
 const _ = require('lodash');
-const Promise = require('bluebird');
-const Joi = require('joi').extend(require('@wegolook/joi-objectid'));
+const Joi = require('joi');
 const YAML = require('js-yaml');
 const Ajv = require('ajv');
 
+Joi.objectId = Joi.extend(require('./validation-extensions/joi-objectid-extension')).objectId;
+
 const customYamlJoi = Joi.extend((joi) => ({ // eslint-disable-line
-    name: 'yaml',
-    language: {},
-    pre(value, state, options) {
+    type: 'yaml',
+    base: Joi.string(),
+    prepare(value, helpers) {
         try {
             YAML.safeLoad(value);
-            return value;
+            return { value };
         } catch (err) {
-            return this.createError('yaml', { v: value }, state, options);
+            return { errors: helpers.error('yaml', { v: value }) };
         }
     },
-    rules: [],
 }));
 Joi.yaml = customYamlJoi.yaml;
 
 const customJsonSchemaStringJoi = Joi.extend((joi) => ({ // eslint-disable-line
     base: Joi.string(),
-    name: 'jsonSchemaString',
-    language: { pre: 'is not a valid JSON Schema: {{err}}' },
-    pre(value, state, options) {
+    type: 'jsonSchemaString',
+    messages: { pre: 'is not a valid JSON Schema: {{err}}' },
+    prepare(value, helpers) {
         try {
-            const ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}
+            const ajv = new Ajv({ validateSchema: true }); // options can be passed, e.g. {allErrors: true}
             ajv.compile(JSON.parse(value));
-            return value;
+            return { value };
         } catch (err) {
-            return this.createError('jsonSchemaString.pre', { v: value, err: err.toString().replace('Error: schema is invalid: ', '') }, state, options); // eslint-disable-line max-len
+            return { errors: helpers.error('jsonSchemaString.pre', { v: value, err: err.toString().replace('Error: schema is invalid: ', '') }) }; // eslint-disable-line max-len
         }
     },
-    rules: [],
 }));
 Joi.jsonSchemaString = customJsonSchemaStringJoi.jsonSchemaString;
 
@@ -41,9 +40,11 @@ function validateField(field, val, options = { optional: false }) {
     if (val === undefined && _.get(options, 'optional')) {
         return Promise.resolve();
     }
-
-    return Joi.reach(this, field).validate(val, { language: { key: `"${field}" ` } });
+    const extractedSchema = this.extract(field);
+    const res = extractedSchema.validate(val, { messages: { key: `"${field}" ` } });
+    return res;
 }
+
 
 function validateFields(partialObject, options) {
     return Promise.reduce(Object.keys(partialObject), (ret, field) => this.validateField(field, partialObject[field], options), 0);
@@ -92,8 +93,7 @@ function _createSchema(baseSchema, discriminator, childSchemas) {
                 .when(discriminator, { is: discriminatorVal, then: valueSchema });
         });
     });
-
     return Joi.object(baseSchema)
-        .keys({ [discriminator]: Joi.valid(Object.keys(childSchemas)).required() })
+        .keys({ [discriminator]: Joi.valid(...Object.keys(childSchemas)).required() })
         .keys(extendedSchema);
 }

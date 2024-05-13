@@ -1,0 +1,9 @@
+services:
+    firstService:
+        image:  first-image:master
+        labels:
+            - "codefresh"
+        ports:
+            - 80:80
+        environment:
+            NODE_ENV: development

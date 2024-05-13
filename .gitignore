@@ -62,3 +62,4 @@ typings/
 
 # webstorm files
 .idea/
+globalConfig.json
