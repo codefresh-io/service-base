@@ -9,7 +9,6 @@ class Mongo {
 
     /**
      * starts the connection to mongo
-     * @returns {Promise<void>}
      */
     async init(config) {
         const clientSettings = { ...config.mongo.options };
@@ -28,13 +27,12 @@ class Mongo {
 
     /**
      * stops the connection to mongo
-     * @returns {Promise<void>}
      */
-    stop() {
+    async stop() {
         if (!this.db) {
-            return Promise.resolve();
+            return;
         }
-        return this.client.close();
+        await this.client.close();
     }
 
     collection(collectionName) {
