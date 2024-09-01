@@ -18,8 +18,9 @@ class Mongo {
 
         const { uri } = config.mongo;
         const dbName = config.mongo.dbName || getDbNameFromUri(uri);
-        const client = await MongoClient.connect(uri, clientSettings);
-        this.client = client;
+        const client = new MongoClient(uri, clientSettings);
+        logger.info(`Mongo db name ${dbName}`);
+        this.client = await client.connect();
         this.db = client.db(dbName);
         logger.info('Mongo driver connected');
     }
