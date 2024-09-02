@@ -1,6 +1,6 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "6.1.0-beta",
+  "version": "6.0.2-beta",
   "main": "index.js",
   "description": "",
   "bin": {
