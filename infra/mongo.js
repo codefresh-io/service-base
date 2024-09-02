@@ -18,9 +18,11 @@ class Mongo {
         this.logger = logger;
 
         const { uri } = config.mongo;
+        logger.info(`Mongo uri ${uri}`);
         const dbName = config.mongo.dbName || getDbNameFromUri(uri);
         const client = await MongoClient.connect(uri, clientSettings);
         this.client = client;
+        logger.info(`Mongo db name${dbName}`);
         this.db = client.db(dbName);
         logger.info('Mongo driver connected');
     }
