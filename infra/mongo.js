@@ -12,7 +12,6 @@ class Mongo {
      */
     async init(config) {
         const clientSettings = { ...config.mongo.options };
-
         const logger = require('cf-logs').Logger('codefresh:infra:mongo'); // eslint-disable-line
         this.logger = logger;
 
@@ -21,8 +20,16 @@ class Mongo {
         const dbName = config.mongo.dbName || getDbNameFromUri(uri);
         const client = new MongoClient(uri, clientSettings);
         logger.info(`Mongo db name ${dbName}`);
-        this.client = await client.connect();
-        logger.info('Mongo driver connected');
+
+        try {
+            await client.connect();
+            logger.info('Mongo driver connected');
+        } catch (error) {
+            logger.error('Error connecting to MongoDB:', error);
+            throw error; // Re-throw the error to propagate it
+        }
+
+        this.client = client;
         this.db = this.client.db(dbName);
         logger.info('Mongo db initialized');
     }
