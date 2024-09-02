@@ -17,12 +17,14 @@ class Mongo {
         this.logger = logger;
 
         const { uri } = config.mongo;
+        logger.info(`Mongo db uri ${uri}`);
         const dbName = config.mongo.dbName || getDbNameFromUri(uri);
         const client = new MongoClient(uri, clientSettings);
         logger.info(`Mongo db name ${dbName}`);
         this.client = await client.connect();
-        this.db = client.db(dbName);
         logger.info('Mongo driver connected');
+        this.db = client.db(dbName);
+        logger.info('Mongo db initialized');
     }
 
 
