@@ -1,4 +1,6 @@
-const { MongoClient, ObjectId } = require('mongodb');
+const mongoose = require('mongoose');
+
+const { ObjectId } = mongoose.Types;
 const { getDbNameFromUri } = require('./helper');
 
 class Mongo {
@@ -19,11 +21,12 @@ class Mongo {
         const { uri } = config.mongo;
         logger.info(`Mongo db uri ${uri}`);
         const dbName = config.mongo.dbName || getDbNameFromUri(uri);
-        const client = new MongoClient(uri, clientSettings);
+        const connection = await mongoose.createConnection(uri, clientSettings).asPromise();
+
         logger.info(`Mongo db name ${dbName}`);
-        this.client = await client.connect();
+        this.client = connection.getClient();
         logger.info('Mongo driver connected');
-        this.db = client.db(dbName);
+        this.db = this.client.db(dbName);
         logger.info('Mongo db initialized');
     }
 
