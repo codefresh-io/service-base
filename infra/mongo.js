@@ -16,7 +16,6 @@ class Mongo {
         this.logger = logger;
 
         const { uri } = config.mongo;
-        logger.info(`Mongo db uri ${uri}`);
         const dbName = config.mongo.dbName || getDbNameFromUri(uri);
         const client = new MongoClient(uri, clientSettings);
         logger.info(`Mongo db name ${dbName}`);
@@ -26,7 +25,7 @@ class Mongo {
             logger.info('Mongo driver connected');
         } catch (error) {
             logger.error('Error connecting to MongoDB:', error);
-            throw error; // Re-throw the error to propagate it
+            throw error;
         }
 
         this.client = client;
