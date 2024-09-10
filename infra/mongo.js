@@ -9,32 +9,39 @@ class Mongo {
 
     /**
      * starts the connection to mongo
-     * @returns {Promise<void>}
      */
     async init(config) {
         const clientSettings = { ...config.mongo.options };
-
         const logger = require('cf-logs').Logger('codefresh:infra:mongo'); // eslint-disable-line
         this.logger = logger;
 
         const { uri } = config.mongo;
         const dbName = config.mongo.dbName || getDbNameFromUri(uri);
-        const client = await MongoClient.connect(uri, clientSettings);
+        const client = new MongoClient(uri, clientSettings);
+        logger.info(`Mongo db name ${dbName}`);
+
+        try {
+            await client.connect();
+            logger.info('Mongo driver connected');
+        } catch (error) {
+            logger.error('Error connecting to MongoDB:', error);
+            throw error;
+        }
+
         this.client = client;
-        this.db = client.db(dbName);
-        logger.info('Mongo driver connected');
+        this.db = this.client.db(dbName);
+        logger.info('Mongo db initialized');
     }
 
 
     /**
      * stops the connection to mongo
-     * @returns {Promise<void>}
      */
-    stop() {
+    async stop() {
         if (!this.db) {
-            return Promise.resolve();
+            return;
         }
-        return this.client.close();
+        await this.client.close();
     }
 
     collection(collectionName) {

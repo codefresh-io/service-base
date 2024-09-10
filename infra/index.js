@@ -119,8 +119,10 @@ class Microservice {
         logger.info(`Starting shutdown... Timeout: ${gracePeriod}`);
         const promises = [];
         if (enabledComponents.includes('mongo')) {
-            logger.info('About to stop mongo');
-            promises.push(mongo.stop.bind(mongo));
+            promises.push(async () => {
+                logger.info('About to stop mongo');
+                await mongo.stop();
+            });
         }
         if (enabledComponents.includes('eventbus')) {
             logger.info('About to stop eventbus');
