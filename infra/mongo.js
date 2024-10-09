@@ -38,7 +38,10 @@ class Mongo {
      * stops the connection to mongo
      */
     async stop() {
-        await this.client?.close();
+        if (!this.db) {
+            return;
+        }
+        await this.client.close();
     }
 
     collection(collectionName) {
