@@ -1,50 +1,54 @@
+// @ts-check
 const { MongoClient, ObjectId } = require('mongodb');
+const { mongodb, logs } = require('@codefresh-io/cf-telemetry');
 const { getDbNameFromUri } = require('./helper');
 
 class Mongo {
     constructor() {
         this.db = undefined;
         this.ObjectId = ObjectId;
+        this.logger = new logs.Logger('codefresh:infra:mongo');
     }
 
     /**
      * starts the connection to mongo
+     * @returns {Promise<void>}
      */
     async init(config) {
-        const clientSettings = { ...config.mongo.options };
-        const logger = require('cf-logs').Logger('codefresh:infra:mongo'); // eslint-disable-line
-        this.logger = logger;
-
-        const { uri } = config.mongo;
-        const dbName = config.mongo.dbName || getDbNameFromUri(uri);
-        const client = new MongoClient(uri, clientSettings);
-        logger.info(`Mongo db name ${dbName}`);
-
         try {
-            await client.connect();
-            logger.info('Mongo driver connected');
+            const clientSettings = { ...config.mongo.options };
+            const { uri } = config.mongo;
+            const dbName = config.mongo.dbName || getDbNameFromUri(uri);
+            this.logger.info(`Mongo db name ${dbName}`);
+            const client = new MongoClient(uri, clientSettings);
+            mongodb.monitorMongoDBClient(client);
+
+            this.client = await client.connect();
+            this.logger.info('Mongo driver connected');
+            this.db = this.client.db(dbName);
+            this.logger.info('Mongo db initialized');
         } catch (error) {
-            logger.error('Error connecting to MongoDB:', error);
+            this.logger.error(error, 'Error connecting to MongoDB');
             throw error;
         }
-
-        this.client = client;
-        this.db = this.client.db(dbName);
-        logger.info('Mongo db initialized');
     }
 
 
     /**
      * stops the connection to mongo
+     * @returns {Promise<void>}
      */
     async stop() {
-        if (!this.db) {
-            return;
-        }
+        if (!this.client) return;
         await this.client.close();
     }
 
+    /**
+     * @param {string} collectionName
+     * @returns {import('mongodb').Collection}
+     */
     collection(collectionName) {
+        // @ts-ignore
         return this.db.collection(collectionName);
     }
 }
