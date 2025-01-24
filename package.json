@@ -12,7 +12,8 @@
   "scripts": {
     "test": "(find . -not -path './node_modules/*' -path '*/*.spec.js' | grep -v '__tests__' | NODE_ENV=test xargs mocha) && jest",
     "start": "node index.js",
-    "eslint": "eslint infra/**"
+    "lint": "eslint infra/**",
+    "build": "echo 'No build step'"
   },
   "repository": {
     "type": "git",
