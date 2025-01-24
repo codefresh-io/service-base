@@ -1,5 +1,5 @@
-const { splitUriBySlash, getDbNameFromUri } = require('../helper');
 const { MongoMemoryServer } = require('mongodb-memory-server');
+const { splitUriBySlash, getDbNameFromUri } = require('../helper');
 const mongoClient = require('../mongo');
 
 /**

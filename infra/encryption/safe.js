@@ -1,5 +1,3 @@
-
-
 const _ = require('lodash');
 const Promise = require('bluebird');
 const uuid = require('node-uuid');
@@ -112,7 +110,6 @@ Safe.prototype.write_crypto = function (plaintext) { // eslint-disable-line
     });
     return deferred.promise;
 };
-
 
 Safe.prototype.read = Safe.prototype.read_crypto;
 Safe.prototype.write = Safe.prototype.write_crypto;

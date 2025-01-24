@@ -11,7 +11,7 @@ const customYamlJoi = Joi.extend((joi) => ({ // eslint-disable-line
         try {
             YAML.safeLoad(value);
             return value;
-        } catch (err) {
+        } catch {
             return this.createError('yaml', { v: value }, state, options);
         }
     },
@@ -36,7 +36,6 @@ const customJsonSchemaStringJoi = Joi.extend((joi) => ({ // eslint-disable-line
 }));
 Joi.jsonSchemaString = customJsonSchemaStringJoi.jsonSchemaString;
 
-
 function validateField(field, val, options = { optional: false }) {
     if (val === undefined && _.get(options, 'optional')) {
         return Promise.resolve();
@@ -50,8 +49,8 @@ function validateFields(partialObject, options) {
 }
 
 function validateWithContext(obj, context) {
-    return this.validate(Object.assign({}, obj, context))
-        .then(normalized => _.omit(normalized, Object.keys(context)));
+    return this.validate({ ...obj, ...context })
+        .then((normalized) => _.omit(normalized, Object.keys(context)));
 }
 
 module.exports = {

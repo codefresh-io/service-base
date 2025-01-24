@@ -8,5 +8,5 @@ const splitUriBySlash = (uri) => {
     };
 };
 
-const getDbNameFromUri = uri => splitUriBySlash(uri).dbName;
+const getDbNameFromUri = (uri) => splitUriBySlash(uri).dbName;
 module.exports = { splitUriBySlash, getDbNameFromUri };

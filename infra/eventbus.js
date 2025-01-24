@@ -1,5 +1,3 @@
-
-
 const Promise = require('bluebird');
 const eventBus = require('@codefresh-io/eventbus');
 const monitor = require('@codefresh-io/cf-monitor');
@@ -59,7 +57,6 @@ class Eventbus {
             });
     }
 
-
     /**
      * stops the connection to eventbus
      * @returns {*}
@@ -118,6 +115,5 @@ class Eventbus {
             });
     }
 }
-
 
 module.exports = new Eventbus();

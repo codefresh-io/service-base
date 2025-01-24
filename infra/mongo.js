@@ -33,23 +33,20 @@ class Mongo {
         }
     }
 
-
     /**
      * stops the connection to mongo
      * @returns {Promise<void>}
      */
     async stop() {
-        if (!this.client) return;
-        await this.client.close();
+        await this.client?.close();
     }
 
     /**
      * @param {string} collectionName
-     * @returns {import('mongodb').Collection}
+     * @returns {import('mongodb').Collection | undefined}
      */
     collection(collectionName) {
-        // @ts-ignore
-        return this.db.collection(collectionName);
+        return this.db?.collection(collectionName);
     }
 }
 

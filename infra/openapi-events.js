@@ -1,6 +1,6 @@
 const eventbus = require('./eventbus');
 
-const publishInterface = (serviceName) => eventbus.publish('openapi.push', { // eslint-disable-line
+const publishInterface = (serviceName) => eventbus.publish('openapi.push', {
     aggregateId: serviceName,
 }, true, true);
 
