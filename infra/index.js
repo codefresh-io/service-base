@@ -1,9 +1,9 @@
-
-
 const monitor = require('@codefresh-io/cf-monitor');
 
 monitor.init();
 const Promise = require('bluebird'); // jshint ignore:line
+const cflogs = require('cf-logs');
+const { openapi } = require('@codefresh-io/cf-openapi');
 const config = require('./config');
 const eventbus = require('./eventbus');
 const mongo = require('./mongo');
@@ -11,8 +11,6 @@ const processEvents = require('./process-events');
 const express = require('./express');
 const logging = require('./logging');
 const redis = require('./redis');
-const cflogs = require('cf-logs');
-const { openapi } = require('@codefresh-io/cf-openapi');
 const { publishInterface, subscribeInterface } = require('./openapi-events');
 
 let logger;
@@ -87,7 +85,7 @@ class Microservice {
                     openapi.events().setSubscribeInterface(subscribeInterface);
                 }
             })
-            .then(() => express.init(config, app => initFn(app, eventbus), opt))
+            .then(() => express.init(config, (app) => initFn(app, eventbus), opt))
             .then(() => {
                 logger.info('Initialization completed');
                 this.markAsReady();
@@ -103,7 +101,7 @@ class Microservice {
     // - first phase need to make sure to not accept any new requests/events
     // - then a decent amount of time will be given to clear all on-going contexts
     // - second phase will close all dependencies connections like mongo, postgres etc
-    stop() { // eslint-disable-line
+    stop() {
         const enabledComponents = config.getConfigArray('enabledComponents');
         const gracePeriod = config.gracePeriodTimers.totalPeriod;
 

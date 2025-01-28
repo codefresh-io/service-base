@@ -1,4 +1,3 @@
-
 const Promise = require('bluebird');
 const express = require('express');
 const compression = require('compression');
@@ -122,9 +121,9 @@ class Express {
                             const statusCode = err.statusCode || 500;
                             // check if err object has overridden toString method
                             // before sending toString() response to prevent [object Object] responses
-                            const message = err.toString === Object.prototype.toString ?
-                                (err.message || 'Internal server error') :
-                                err.toString();
+                            const message = err.toString === Object.prototype.toString
+                                ? (err.message || 'Internal server error')
+                                : err.toString();
                             res.status(statusCode).send({ message });
                         });
                     });
@@ -154,10 +153,9 @@ class Express {
                 .then((ret) => {
                     res.send(ret);
                 })
-                .catch(err => next(err));
+                .catch((err) => next(err));
         };
     }
 }
-
 
 module.exports = new Express();
