@@ -13,14 +13,12 @@ const compat = new FlatCompat({
 });
 
 export default [
-
-    // mimic ESLintRC-style extends
-    // ...compat.extends(''),
-
     // mimic environments
     ...compat.env({
         es2020: true,
         node: true,
+        mocha: true,
+        jest: true,
     }),
 
     // mimic plugins

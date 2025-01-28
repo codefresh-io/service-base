@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
-const uuid = require('node-uuid');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 
 const config = require('../config');
 const mongoClient = require('../mongo');
@@ -43,7 +42,7 @@ function getOrCreateSafe(safeId) {
 
             const newSafe = {
                 _id: safeId,
-                key: (new Buffer(uuid.v4())).toString('base64'), // eslint-disable-line
+                key: (Buffer.from(crypto.randomUUID())).toString('base64'),
             };
             return collection.insertOne(newSafe)
                 .then(() => new Safe(newSafe))

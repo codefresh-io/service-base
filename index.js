@@ -1,5 +1,5 @@
-
-
+/* eslint-disable global-require */
+/* eslint-disable import/order */
 const config = require('./infra/config');
 const service = require('./infra');
 const {
@@ -50,6 +50,7 @@ enabledComponents.forEach((key) => {
             throw new Error(`Component '${key}'' is dependent on component '${dependency}' which is missing.`);
         }
     });
+    // eslint-disable-next-line import/no-dynamic-require
     exportedComponents[component.name || key] = require(`./infra/${key}`);
 });
 
