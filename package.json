@@ -7,7 +7,7 @@
     "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "^20.0.0 || ^22.0.0"
   },
   "scripts": {
     "test": "(find . -not -path './node_modules/*' -path '*/*.spec.js' | grep -v '__tests__' | NODE_ENV=test xargs mocha) && jest",
