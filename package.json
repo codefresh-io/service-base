@@ -9,6 +9,10 @@
   "engines": {
     "node": "^20.0.0 || ^22.0.0"
   },
+  "files": [
+    "index.js",
+    "infra/**/*"
+  ],
   "scripts": {
     "test": "(find . -not -path './node_modules/*' -path '*/*.spec.js' | grep -v '__tests__' | NODE_ENV=test xargs mocha) && jest",
     "start": "node index.js",
