@@ -12,7 +12,7 @@ const publishInterface = (aggregateId) => {
 const subscribeInterface = (handler) => {
     eventbus.subscribe(
         'openapi.push',
-        async data => handler(data.aggregateId),
+        async (data) => handler(data.aggregateId),
     );
 };
 

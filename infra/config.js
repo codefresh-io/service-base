@@ -13,8 +13,8 @@ function findAppRoot(dir = path.dirname(require.main.filename)) {
 }
 
 function getApproot() {
-    if ((process.env.NODE_ENV === 'test') &&
-        (_.includes(__dirname, 'node_modules'))) {
+    if ((process.env.NODE_ENV === 'test')
+        && (_.includes(__dirname, 'node_modules'))) {
         return path.resolve(__dirname).split('/node_modules')[0];
     }
     return findAppRoot();
@@ -93,9 +93,9 @@ base.logger = {
                 });
             }
             // human readable format
-            return `${options.timestamp()} ${options.level.toUpperCase()} >> ` +
-                `${options.message || ''}` +
-                `${options.meta && Object.keys(options.meta).length ? ` << ${JSON.stringify(options.meta)}` : ''}`;
+            return `${options.timestamp()} ${options.level.toUpperCase()} >> `
+                + `${options.message || ''}`
+                + `${options.meta && Object.keys(options.meta).length ? ` << ${JSON.stringify(options.meta)}` : ''}`;
         },
     },
     basePath: null,

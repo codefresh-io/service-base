@@ -11,7 +11,7 @@ function _encryptDecryptObjectValues(safeId, obj, keysToEncrypt = [], encrypt = 
         return Promise.resolve(obj);
     }
     const pairs = _.chain(keysToEncrypt)
-        .map(k => _.has(obj, k) && _.assign({ key: k, value: _.get(obj, k) }))
+        .map((k) => _.has(obj, k) && _.assign({ key: k, value: _.get(obj, k) }))
         .compact()
         .value();
 
@@ -19,8 +19,8 @@ function _encryptDecryptObjectValues(safeId, obj, keysToEncrypt = [], encrypt = 
 
     return safe.getOrCreateSafe(safeId)
         .then((safeObj) => {
-            const Promises = pairs.map(kv => _encryptDecryptValue(safeObj, kv.value, encrypt)
-                .then(res => _.set(resObj, kv.key, res)));
+            const Promises = pairs.map((kv) => _encryptDecryptValue(safeObj, kv.value, encrypt)
+                .then((res) => _.set(resObj, kv.key, res)));
             return Promise.all(Promises);
         })
         .then(() => resObj);
@@ -35,13 +35,13 @@ function decryptObjectValues(safeId, obj, keysToEncrypt) {
 }
 
 function replaceEncryptedValues(encryptedObject = {}, keys = [], replaceWith = '*****') {
-    return Promise.map(keys, k => _.has(encryptedObject, k) && _.set(encryptedObject, k, replaceWith))
+    return Promise.map(keys, (k) => _.has(encryptedObject, k) && _.set(encryptedObject, k, replaceWith))
         .then(() => encryptedObject);
 }
 
 module.exports = {
     encryptObjectValues,
     decryptObjectValues,
-    getSafe: safeId => safe.getOrCreateSafe(safeId),
+    getSafe: (safeId) => safe.getOrCreateSafe(safeId),
     replaceEncryptedValues,
 };
