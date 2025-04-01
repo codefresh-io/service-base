@@ -39,6 +39,7 @@ class Eventbus {
                         database: this.config.postgres.database,
                         user: this.config.postgres.user,
                         password: this.config.postgres.password,
+                        ssl: this.config.postgres.ssl,
                     },
                     microServiceName: this.config.eventbus.serviceName,
                 });

@@ -385,10 +385,10 @@
     lodash "~4.17.21"
     retry "^0.12.0"
 
-"@codefresh-io/eventbus@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-2.0.0.tgz#555a9cbb8e1c301b95e829fa7e63d11515be43fe"
-  integrity sha512-N6r0vDcgcAW6NibxWH2LHDJeMLLQISitaAbie8mQtFIzTRjJ/uDucnOyW0JaQTfnMAG5NQv7BysNVkNymrGmkw==
+"@codefresh-io/eventbus@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@codefresh-io/eventbus/-/eventbus-2.2.0.tgz#c0c0fbbddde93f0484cb7a47c9e1c1f5f584e3d5"
+  integrity sha512-TcUYFg8KOwY/1hv+23NhBfZ87BIUZCXsJchKZkjxTd9xfsQ2navP1TsxSabRtLmwKkEqZdfkD2o9I2+yyStkNQ==
   dependencies:
     amqplib "^0.8.0"
     bluebird "^3.5.0"
