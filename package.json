@@ -1,19 +1,22 @@
 {
   "name": "@codefresh-io/service-base",
-  "version": "7.0.1",
+  "version": "7.1.0",
   "main": "index.js",
   "description": "",
   "bin": {
     "cf-openapi": "./node_modules/cf-openapi/bin/cf-openapi"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "^20.0.0 || ^22.0.0"
   },
+  "files": [
+    "index.js",
+    "infra/**/*"
+  ],
   "scripts": {
     "test": "(find . -not -path './node_modules/*' -path '*/*.spec.js' | grep -v '__tests__' | NODE_ENV=test xargs mocha) && jest",
     "start": "node index.js",
-    "eslint": "eslint infra/**",
-    "lint" : "yarn eslint",
+    "lint": "eslint infra/**",
     "build": "echo 'No build step'"
   },
   "repository": {
@@ -37,7 +40,7 @@
     "@codefresh-io/authenticated-entity": "^2.17.1",
     "@codefresh-io/cf-monitor": "^12.15.0",
     "@codefresh-io/cf-openapi": "^0.7.20",
-    "@codefresh-io/eventbus": "^2.0.0",
+    "@codefresh-io/eventbus": "^2.2.0",
     "@codefresh-io/http-infra": "^1.8.15",
     "@codefresh-io/internal-service-config": "^1.0.3",
     "@wegolook/joi-objectid": "^2.4.0",
@@ -54,9 +57,8 @@
     "js-yaml": "^3.13.1",
     "lodash": "4.17.21",
     "method-override": "^3.0.0",
-    "mongodb": "6.3.0",
+    "mongodb": "^6.15.0",
     "morgan": "^1.9.1",
-    "node-uuid": "^1.4.8",
     "proxyquire": "^1.8.0",
     "queue": "^4.2.1",
     "redis": "^3.1.0",
@@ -65,9 +67,9 @@
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^4.2.0",
-    "eslint": "^4.18.2",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint": "^8.52.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^27.6.3",
     "eslint-plugin-mocha": "^4.12.1",
     "jest": "^29.7.0",

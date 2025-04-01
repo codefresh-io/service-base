@@ -1,5 +1,3 @@
-
-
 const Promise = require('bluebird');
 const eventBus = require('@codefresh-io/eventbus');
 const monitor = require('@codefresh-io/cf-monitor');
@@ -39,6 +37,7 @@ class Eventbus {
                         database: this.config.postgres.database,
                         user: this.config.postgres.user,
                         password: this.config.postgres.password,
+                        ssl: this.config.postgres.ssl,
                     },
                     microServiceName: this.config.eventbus.serviceName,
                 });
@@ -58,7 +57,6 @@ class Eventbus {
                 return deferred.promise;
             });
     }
-
 
     /**
      * stops the connection to eventbus
@@ -118,6 +116,5 @@ class Eventbus {
             });
     }
 }
-
 
 module.exports = new Eventbus();

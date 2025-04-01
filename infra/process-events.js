@@ -1,5 +1,3 @@
-
-
 const EventEmitter = require('events');
 const Promise = require('bluebird');
 
@@ -35,6 +33,5 @@ class ProcessEvents extends EventEmitter {
             });
     }
 }
-
 
 module.exports = new ProcessEvents();

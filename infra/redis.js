@@ -1,5 +1,3 @@
-
-
 const Promise = require('bluebird');
 const monitor = require('@codefresh-io/cf-monitor');
 const redis = require('redis');
@@ -24,14 +22,13 @@ class Redis {
             deferred.resolve();
         }, 30000);
 
-        this.client =
-            redis.createClient({
-                host: config.redis.url,
-                port: config.redis.port,
-                password: config.redis.password,
-                db: config.redis.db,
-                tls: config.redis.tls,
-            });
+        this.client = redis.createClient({
+            host: config.redis.url,
+            port: config.redis.port,
+            password: config.redis.password,
+            db: config.redis.db,
+            tls: config.redis.tls,
+        });
 
         this.client.on('ready', () => {
             logger.info('Redis client ready');
@@ -54,7 +51,6 @@ class Redis {
 
         return deferred.promise;
     }
-
 
     /**
      * stops the connection to redis

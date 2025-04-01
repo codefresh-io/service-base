@@ -1,5 +1,3 @@
-
-
 const Promise = require('bluebird');
 const cflogs = require('cf-logs');
 const { name: serviceName } = require('./config');
@@ -30,6 +28,5 @@ class Logging {
         return Promise.resolve();
     }
 }
-
 
 module.exports = new Logging();

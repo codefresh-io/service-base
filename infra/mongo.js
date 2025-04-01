@@ -33,7 +33,6 @@ class Mongo {
         logger.info('Mongo db initialized');
     }
 
-
     /**
      * stops the connection to mongo
      */
